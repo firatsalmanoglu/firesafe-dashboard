@@ -28,13 +28,13 @@ const menuItems = [
       {
         icon: "/offer.png",
         label: "Teklifler",
-        href: "/list/parents",
+        href: "/list/offers",
         visible: ["admin", "provider", "parent"],
       },
       {
         icon: "/maintenance.png",
         label: "Bakımlar",
-        href: "/list/subjects",
+        href: "/list/maintenances",
         visible: ["admin", "provider", "customer", "parent"],
       },
       {
@@ -46,7 +46,7 @@ const menuItems = [
       {
         icon: "/notification.png",
         label: "Bildirimler",
-        href: "/list/lessons",
+        href: "/list/notifications",
         visible: ["admin", "provider", "customer", "parent"],
       },
       {

@@ -11,8 +11,10 @@ type Device = {
     id: number;
     extinguisherID: string;
     ownerID: string;
+    owner: string;
     serialNumber: string;
-    type: string;
+    deviceType: string;
+    feature: string;
     manufactureDate: string;
     expiryDate: string;
     lastInspectionDate: string;
@@ -36,14 +38,10 @@ const columns =[
         accessor:"ownerId",
         className: "hidden md:table-cell"
     },
+    
     {
-        header:"Seri No", 
-        accessor:"serialNumber",
-        className: "hidden md:table-cell",
-    },
-    {
-        header:"Türü", 
-        accessor:"type",
+        header:"Özelliği", 
+        accessor:"feature",
         className: "hidden md:table-cell",
     },
     {
@@ -71,11 +69,7 @@ const columns =[
         accessor:"statuss",
         className: "hidden md:table-cell",
     },
-    {
-        header:"Foto", 
-        accessor:"photo",
-        className: "hidden md:table-cell",
-    },
+    
 ];
 
 const DeviceListPage = () => {
@@ -95,22 +89,21 @@ const DeviceListPage = () => {
             />
             <div className="flex flex-col">
               <h3 className="font-semibold">{item.serialNumber}</h3>
-              <p className="text-xs text-gray-500">{item?.serialNumber}</p>
+              <p className="text-xs text-gray-500">{item.deviceType}</p>
+              <p className="text-xs text-gray-500">{item.owner}</p>
             </div>
           </td>
           <td className="hidden md:table-cell">{item.extinguisherID}</td>
           <td className="hidden md:table-cell">{item.ownerID}</td>
-          <td className="hidden md:table-cell">{item.serialNumber}</td>
-          <td className="hidden md:table-cell">{item.type}</td>
+          <td className="hidden md:table-cell">{item.feature}</td>
           <td className="hidden md:table-cell">{item.manufactureDate}</td>
           <td className="hidden md:table-cell">{item.expiryDate}</td>
           <td className="hidden md:table-cell">{item.lastInspectionDate}</td>
           <td className="hidden md:table-cell">{item.location}</td>
           <td className="hidden md:table-cell">{item.statuss}</td>
-          <td className="hidden md:table-cell">{item.photo}</td>
           <td>
             <div className="flex items-center gap-2">
-              <Link href={`/list/teachers/${item.id}`}>
+              <Link href={`/list/devices/${item.id}`}>
                 <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaSky">
                   <Image src="/view.png" alt="" width={16} height={16} />
                 </button>
