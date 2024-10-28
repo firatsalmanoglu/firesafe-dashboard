@@ -6,18 +6,18 @@ import { role } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 
-const SingleUserPage = () => {
+const SingleDevicePage = () => {
   return (
     <div className="flex-1 p-4 flex flex-col gap-4 xl:flex-row">
       {/* LEFT */}
       <div className="w-full xl:w-2/3">
         {/* TOP */}
         <div className="flex flex-col lg:flex-row gap-4">
-          {/* USER INFO CARD */}
+          {/* DEVICE INFO CARD */}
           <div className="bg-lamaSky py-6 px-4 rounded-md flex-1 flex gap-4">
             <div className="w-1/3">
               <Image
-                src="/firat.jpg"
+                src="/avatar.png"
                 alt=""
                 width={144}
                 height={144}
@@ -26,9 +26,9 @@ const SingleUserPage = () => {
             </div>
             <div className="w-2/3 flex flex-col justify-between gap-4">
               <div className="flex items-center gap-4">
-                <h1 className="text-xl font-semibold">Fırat Salmanoğlu</h1>
+                <h1 className="text-xl font-semibold">XXXX Nolu Yangın Tüpü</h1>
                 {role === "admin" && <FormModal
-                  table="user"
+                  table="device"
                   type="update"
                   data={{
                     id: 1,
@@ -44,15 +44,17 @@ const SingleUserPage = () => {
                     sex: "male",
                     img: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=1200",
                   }}
+
+                  
                 />}
               </div>
               <p className="text-sm text-gray-500">
-                Buraya bişeyler yazılabilir....
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
               </p>
               <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-1/3 flex items-center gap-2">
                   <Image src="/blood.png" alt="" width={14} height={14} />
-                  <span>ARh+</span>
+                  <span>A+</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-1/3 flex items-center gap-2">
                   <Image src="/date.png" alt="" width={14} height={14} />
@@ -81,8 +83,8 @@ const SingleUserPage = () => {
                 className="w-6 h-6"
               />
               <div className="">
-                <h1 className="text-xl font-semibold">Admin</h1>
-                <span className="text-sm text-gray-400">Rolü</span>
+                <h1 className="text-xl font-semibold">90%</h1>
+                <span className="text-sm text-gray-400">Attendance</span>
               </div>
             </div>
             {/* CARD */}
@@ -95,8 +97,8 @@ const SingleUserPage = () => {
                 className="w-6 h-6"
               />
               <div className="">
-                <h1 className="text-xl font-semibold">Erkek</h1>
-                <span className="text-sm text-gray-400">Cinsiyet</span>
+                <h1 className="text-xl font-semibold">2</h1>
+                <span className="text-sm text-gray-400">Branches</span>
               </div>
             </div>
             {/* CARD */}
@@ -109,8 +111,8 @@ const SingleUserPage = () => {
                 className="w-6 h-6"
               />
               <div className="">
-                <h1 className="text-xl font-semibold">Ege Üniversitesi</h1>
-                <span className="text-sm text-gray-400">Kurumu</span>
+                <h1 className="text-xl font-semibold">6</h1>
+                <span className="text-sm text-gray-400">Lessons</span>
               </div>
             </div>
             {/* CARD */}
@@ -123,8 +125,8 @@ const SingleUserPage = () => {
                 className="w-6 h-6"
               />
               <div className="">
-                <h1 className="text-xl font-semibold">ZZZ</h1>
-                <span className="text-sm text-gray-400">XXX</span>
+                <h1 className="text-xl font-semibold">6</h1>
+                <span className="text-sm text-gray-400">Classes</span>
               </div>
             </div>
           </div>
@@ -138,7 +140,7 @@ const SingleUserPage = () => {
       {/* RIGHT */}
       <div className="w-full xl:w-1/3 flex flex-col gap-4">
         <div className="bg-white p-4 rounded-md">
-          <h1 className="text-xl font-semibold">Kısayollar</h1>
+          <h1 className="text-xl font-semibold">Kısayolar</h1>
           <div className="mt-4 flex gap-4 flex-wrap text-xs text-gray-500">
             <Link className="p-3 rounded-md bg-lamaSkyLight" href="/">
               Teacher&apos;s Classes
@@ -164,4 +166,4 @@ const SingleUserPage = () => {
   );
 };
 
-export default SingleUserPage;
+export default SingleDevicePage;
