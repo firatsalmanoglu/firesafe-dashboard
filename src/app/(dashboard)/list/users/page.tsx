@@ -1,4 +1,4 @@
-//import FormModal from "@/components/FormModal";
+import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
@@ -54,6 +54,11 @@ const columns =[
         accessor:"address",
         className: "hidden md:table-cell",
     },
+    {
+      header:"Eylemler", 
+      accessor:"action",
+      className: "hidden md:table-cell",
+  },
 ];
 
 const UserListPage = () => {
@@ -89,12 +94,12 @@ const UserListPage = () => {
                   <Image src="/view.png" alt="" width={16} height={16} />
                 </button>
               </Link>
-              {/* {role === "admin" && (
-                // <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
-                //   <Image src="/delete.png" alt="" width={16} height={16} />
+               {role === "admin" && (
+                 //<button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+                   //<Image src="/delete.png" alt="" width={16} height={16} />
                 // </button>
-                <FormModal table="teacher" type="delete" id={item.id}/>
-              )} */}
+                <FormModal table="user" type="delete" id={item.id}/>
+              )} 
             </div>
           </td>
         </tr>
@@ -115,10 +120,12 @@ const UserListPage = () => {
                         <button className="w-8 h-8 flex items-center justify-center rounded-full bg-firelightorange">
                             <Image src="/sort.png" alt="" width={14} height={14}/>
                         </button>
-
-                        <button className="w-8 h-8 flex items-center justify-center rounded-full bg-firelightorange">
-                            <Image src="/plus.png" alt="" width={14} height={14}/>
-                        </button>
+                        {role === "admin" && (
+                        // <button className="w-8 h-8 flex items-center justify-center rounded-full bg-firelightorange">
+                        //     <Image src="/plus.png" alt="" width={14} height={14}/>
+                        // </button>
+                        <FormModal table="user" type="create" />
+                        )}
                     </div>
                 </div>
             </div>

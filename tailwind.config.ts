@@ -14,10 +14,15 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors:{
-        firered:"#C40808",
-        firelightorange:"#EA723E",
-        fireorange:"#E04D24",
-        whitetext:"#ffffff",
+        // firered:"#CF352E",
+        // firelightorange:"#FFE59E",
+        // fireorange:"#FFCB87",
+        // whitetext:"#ffffff",
+
+         firered:"#C40808",
+         firelightorange:"#EA723E",
+         fireorange:"#E04D24",
+         whitetext:"#ffffff",
 
 
       }
