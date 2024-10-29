@@ -570,6 +570,7 @@ export const offersData = [
     amount: "126.9000,00",
     servicesOffered: ["Değişim", "Bakım"],
     status: "OK",
+    offerDetails: "8 adet kuru kimyevi yangın tüpü değişimi anahtar teslim fiyat teklifidir.",
   },
   {
     id: 2,
@@ -585,6 +586,8 @@ export const offersData = [
     amount: "126.9000,00",
     servicesOffered: ["Değişim", "Bakım"],
     status: "OK",
+    offerDetails: "8 adet kuru kimyevi yangın tüpü değişimi anahtar teslim fiyat teklifidir.",
+
   },
   {
     id: 3,
@@ -600,6 +603,8 @@ export const offersData = [
     amount: "126.9000,00",
     servicesOffered: ["Değişim", "Bakım"],
     status: "OK",
+    offerDetails: "8 adet kuru kimyevi yangın tüpü değişimi anahtar teslim fiyat teklifidir.",
+
   },
   {
     id: 4,
@@ -615,6 +620,8 @@ export const offersData = [
     amount: "126.9000,00",
     servicesOffered: ["Değişim", "Bakım"],
     status: "OK",
+    offerDetails: "8 adet kuru kimyevi yangın tüpü değişimi anahtar teslim fiyat teklifidir.",
+
   },
   {
     id: 5,
@@ -630,6 +637,8 @@ export const offersData = [
     amount: "126.9000,00",
     servicesOffered: ["Değişim", "Bakım"],
     status: "OK",
+    offerDetails: "8 adet kuru kimyevi yangın tüpü değişimi anahtar teslim fiyat teklifidir.",
+
   },
   {
     id: 6,
@@ -645,6 +654,8 @@ export const offersData = [
     amount: "126.9000,00",
     servicesOffered: ["Değişim", "Bakım"],
     status: "OK",
+    offerDetails: "8 adet kuru kimyevi yangın tüpü değişimi anahtar teslim fiyat teklifidir.",
+
   },
   {
     id: 7,
@@ -660,6 +671,8 @@ export const offersData = [
     amount: "126.9000,00",
     servicesOffered: ["Değişim", "Bakım"],
     status: "OK",
+    offerDetails: "8 adet kuru kimyevi yangın tüpü değişimi anahtar teslim fiyat teklifidir.",
+
   },
   {
     id: 8,
@@ -675,6 +688,8 @@ export const offersData = [
     amount: "126.9000,00",
     servicesOffered: ["Değişim", "Bakım"],
     status: "OK",
+    offerDetails: "8 adet kuru kimyevi yangın tüpü değişimi anahtar teslim fiyat teklifidir.",
+
   },
   {
     id: 9,
@@ -690,6 +705,8 @@ export const offersData = [
     amount: "126.9000,00",
     servicesOffered: ["Değişim", "Bakım"],
     status: "OK",
+    offerDetails: "8 adet kuru kimyevi yangın tüpü değişimi anahtar teslim fiyat teklifidir.",
+
   },
   {
     id: 10,
@@ -705,6 +722,8 @@ export const offersData = [
     amount: "126.9000,00",
     servicesOffered: ["Değişim", "Bakım"],
     status: "OK",
+    offerDetails: "8 adet kuru kimyevi yangın tüpü değişimi anahtar teslim fiyat teklifidir.",
+
   },
 ];
 

@@ -6,7 +6,7 @@ import { role } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 
-const SingleDevicePage = () => {
+const SingleOfferPage = () => {
   return (
     <div className="flex-1 p-4 flex flex-col gap-4 xl:flex-row">
       {/* LEFT */}
@@ -17,16 +17,16 @@ const SingleDevicePage = () => {
           <div className="bg-lamaSky py-6 px-4 rounded-md flex-1 flex gap-4">
             <div className="w-1/3">
               <Image
-                src="/fireExt.png"
+                src="/offer.jpg"
                 alt=""
                 width={144}
                 height={144}
-                className="w-36 h-36 rounded-full object-cover"
+                className="w-24 h-24 rounded-full object-cover"
               />
             </div>
             <div className="w-2/3 flex flex-col justify-between gap-4">
               <div className="flex items-center gap-4">
-                <h1 className="text-xl font-semibold">Seri No: 78584878</h1>
+                <h1 className="text-xl font-semibold">Teklif No: 0078</h1>
                 {role === "admin" && <FormModal
                   table="user"
                   type="update"
@@ -47,20 +47,24 @@ const SingleDevicePage = () => {
                 />}
               </div>
               <p className="text-sm text-gray-500">
-                2mt hortum, üstten basmalı vs....
+                8 adet kuru kimyevi yangın tüpü değişimi anahtar teslim fiyat teklifidir...
               </p>
               <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/blood.png" alt="" width={14} height={14} />
-                  <span>Yangın Tüpü</span>
+                  <span>Ayşe Akçabat</span>
+                </div>
+                <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
+                  <Image src="/blood.png" alt="" width={14} height={14} />
+                  <span>Master Yangın Hizmetleri A.Ş.</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/date.png" alt="" width={14} height={14} />
-                  <span> CO<sub>2</sub></span>
+                  <span> +90 222 3655 89 47</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/mail.png" alt="" width={14} height={14} />
-                  <span>XXXX Hospital</span>
+                  <span>xxxx@gmail.com</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/phone.png" alt="" width={14} height={14} />
@@ -83,8 +87,8 @@ const SingleDevicePage = () => {
                 className="w-6 h-6"
               />
               <div className="">
-                <h1 className="text-md font-semibold">Sorumlu Personel</h1>
-                <span className="text-sm text-gray-400">Ahmet Aydemir</span>
+                <h1 className="text-md font-semibold">Teklif İletilen Müşteri</h1>
+                <span className="text-sm text-gray-400">Ahmet Gökdemir</span>
               </div>
             </div>
             {/* CARD */}
@@ -99,8 +103,8 @@ const SingleDevicePage = () => {
                 className="w-6 h-6"
               />
               <div className="">
-                <h1 className="text-md font-semibold">Üretim Tarihi</h1>
-                <span className="text-sm text-gray-400">10/12/2023</span>
+                <h1 className="text-md font-semibold">Teklif İletilen Firma</h1>
+                <span className="text-sm text-gray-400">Uzay Mühendislik A.Ş.</span>
               </div>
             </div>
             {/* CARD */}
@@ -115,7 +119,7 @@ const SingleDevicePage = () => {
                 className="w-6 h-6"
               />
               <div className="">
-                <h1 className="text-md font-semibold">Son Kullanma Tarihi</h1>
+                <h1 className="text-md font-semibold">Teklif Tarihi</h1>
                 <span className="text-sm text-gray-400">10/12/2024</span>
               </div>
             </div>
@@ -131,7 +135,7 @@ const SingleDevicePage = () => {
                 className="w-6 h-6"
               />
               <div className="">
-                <h1 className="text-md font-semibold">Son Bakım Tarihi</h1>
+                <h1 className="text-md font-semibold">Geçerlilik Tarihi</h1>
                 <span className="text-sm text-gray-400">10/06/2024</span>
               </div>
             </div>
@@ -148,8 +152,8 @@ const SingleDevicePage = () => {
                 className="w-6 h-6"
               />
               <div className="">
-                <h1 className="text-md font-semibold">Konumu</h1>
-                <span className="text-sm text-gray-400">1. Kat 8. Nolu Nokta</span>
+                <h1 className="text-md font-semibold">Tutar</h1>
+                <span className="text-sm text-gray-400">98.253,00.-TL</span>
               </div>
             </div>
 
@@ -172,22 +176,22 @@ const SingleDevicePage = () => {
           </div>
         </div>
         {/* BOTTOM */}
-        <div className="mt-4 bg-white rounded-md p-4 h-[800px]">
+        {/* <div className="mt-4 bg-white rounded-md p-4 h-[800px]">
           <h1 className="text-xl font-semibold">Cihaz Bakım Takvimi</h1>
           <BigCalendar />
-        </div>
+        </div> */}
       </div>
       {/* RIGHT */}
       <div className="w-full xl:w-1/3 flex flex-col gap-4">
-        <div className="bg-white p-4 rounded-md">
-          <h1 className="text-xl font-semibold">Kısayollar</h1>
-          <div className="mt-4 flex gap-4 flex-wrap text-xs text-gray-500">
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href="/">
+        {/* <div className="bg-white p-4 rounded-md"> */}
+          {/* <h1 className="text-xl font-semibold">Kısayollar</h1> */}
+          {/* <div className="mt-4 flex gap-4 flex-wrap text-xs text-gray-500"> */}
+            {/* <Link className="p-3 rounded-md bg-lamaSkyLight" href="/">
             Cihaz&apos;ın Bakım Geçmişi
             </Link>
             <Link className="p-3 rounded-md bg-lamaPurpleLight" href="/">
               Cihazla İlgili Bildirimler
-            </Link>
+            </Link> */}
             {/* <Link className="p-3 rounded-md bg-lamaYellowLight" href="/">
             Kullanıcı&apos;nın Cihazları
             </Link>
@@ -197,13 +201,13 @@ const SingleDevicePage = () => {
             <Link className="p-3 rounded-md bg-lamaSkyLight" href="/">
               Hizmet Sağlayıcılarım / Müşterilerim
             </Link> */}
-          </div>
-        </div>
+          {/* </div> */}
+        {/* </div> */}
         {/* <Performance /> */}
-        <Announcements />
+        {/* <Announcements /> */}
       </div>
     </div>
   );
 };
 
-export default SingleDevicePage;
+export default SingleOfferPage;
