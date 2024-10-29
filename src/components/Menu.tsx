@@ -11,56 +11,65 @@ const menuItems = [
         icon: "/home.png",
         label: "Anasayfa",
         href: "/",
-        visible: ["admin", "provider", "customer", "parent"],
+        visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
       },
       {
         icon: "/user.png",
         label: "Kullanıcılar",
         href: "/list/users",
-        visible: ["admin"],
+        visible: ["admin","provider", "customer", "parent", "lowcustomer", "lowprovider"],
       },
+      {
+        icon: "/user.png",
+        label: "Müşteriler",
+        href: "/list/users",
+        visible: ["admin","provider", "lowprovider"],
+      },
+      {
+        icon: "/user.png",
+        label: "Servis Sağlayıcılar",
+        href: "/list/users",
+        visible: ["admin","customer", "lowcustomer", "parent"],
+      },
+      
       {
         icon: "/fire-extinguisher.png",
         label: "Cihazlar",
         href: "/list/devices",
-        visible: ["admin", "customer", "parent"],
+        visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
       },
       {
         icon: "/offer.png",
         label: "Teklifler",
         href: "/list/offers",
-        visible: ["admin", "provider", "parent"],
+        visible: ["admin", "provider", "parent","customer"],
       },
       {
         icon: "/maintenance.png",
         label: "Bakımlar",
         href: "/list/maintenances",
-        visible: ["admin", "provider", "customer", "parent"],
+        visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
       },
       {
         icon: "/report.png",
         label: "Raporlama",
         href: "/list/classes",
-        visible: ["admin", "provider", "customer","parent"],
+        visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
       },
       {
         icon: "/notification.png",
         label: "Bildirimler",
         href: "/list/notifications",
-        visible: ["admin", "provider", "customer", "parent"],
+        visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
       },
-      {
-        icon: "/exam.png",
-        label: "Müşteriler",
-        href: "/list/exams",
-        visible: ["provider"],
-      },
+      
       {
         icon: "/assignment.png",
         label: "Randevu ve Planlama",
         href: "/list/assignments",
         visible: ["provider"],
       },
+      
       // {
       //   icon: "/result.png",
       //   label: "Results",

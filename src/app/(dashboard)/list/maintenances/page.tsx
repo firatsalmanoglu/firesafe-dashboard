@@ -11,18 +11,26 @@ type Offer = {
     id: number;
     recordID: string;
     deviceSerialNumber: string;
-    performedByID: string;
+    performedById: string;
     performedByName: string;
     instPerformed: string;
+    customerId: string;
+    customerName: string;
     instServed: string;
     maintenanceDate: string;
     maintenanceType: string;
     details: string;
     nexyMaintenanceDate: string;
     status: string;
+
 }
 
 const columns =[
+
+    {
+      header:"Servis Sağlayıcı", 
+      accessor:"info",
+    },
     {
         header:"Kayıt No", 
         accessor:"recordID",
@@ -33,15 +41,15 @@ const columns =[
         className: "hidden md:table-cell"
     },
     {
-        header:"Hizmet Sağlayıcı", 
-        accessor:"info",
-        className: "hidden md:table-cell",
+      header:"Müşteri", 
+      accessor:"info",
     },
-    {
-        header:"Müşteri", 
-        accessor:"instServed",
-        className: "hidden md:table-cell",
-    },
+    
+    // {
+    //     header:"Müşteri", 
+    //     accessor:"instServed",
+    //     className: "hidden md:table-cell",
+    // },
     {
         header:"Bakım Tarihi", 
         accessor:"maintenanceDate",
@@ -68,6 +76,11 @@ const columns =[
         accessor:"status",
         className: "hidden md:table-cell",
     },
+    {
+      header:"Eylemler", 
+      accessor:"action",
+      className: "hidden md:table-cell",
+    },
     
 ];
 
@@ -78,8 +91,6 @@ const MaintenanceListPage = () => {
           key={item.id}
           className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
         >
-          <td className="hidden md:table-cell">{item.recordID}</td>
-          <td className="hidden md:table-cell">{item.deviceSerialNumber}</td>
           <td className="flex items-center gap-4 p-4">
             {/* <Image
               src={item.photo}
@@ -91,10 +102,27 @@ const MaintenanceListPage = () => {
             <div className="flex flex-col">
               <h3 className="font-semibold">{item.instPerformed}</h3>
               <p className="text-xs text-gray-500">{item.performedByName}</p>
-              <p className="text-xs text-gray-500">{item.performedByID}</p>
+              <p className="text-xs text-gray-500">{item.performedById}</p>
             </div>
           </td>
-          <td className="hidden md:table-cell">{item.instServed}</td>
+          <td className="hidden md:table-cell">{item.recordID}</td>
+          <td className="hidden md:table-cell">{item.deviceSerialNumber}</td>
+          
+          <td className="flex items-center gap-4 p-4">
+            {/* <Image
+              src={item.photo}
+              alt=""
+              width={40}
+              height={40}
+              className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+            /> */}
+            <div className="flex flex-col">
+              <h3 className="font-semibold">{item.instServed}</h3>
+              <p className="text-xs text-gray-500">{item.customerName}</p>
+              <p className="text-xs text-gray-500">{item.customerId}</p>
+            </div>
+          </td>
+
           <td className="hidden md:table-cell">{item.maintenanceDate}</td>
           <td className="hidden md:table-cell">{item.maintenanceType}</td>
           <td className="hidden md:table-cell">{item.details}</td>

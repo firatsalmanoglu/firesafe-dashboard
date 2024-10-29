@@ -1,5 +1,5 @@
 import Announcements from "@/components/Announcements";
-//import BigCalendar from "@/components/BigCalender";
+import BigCalendar from "@/components/BigCalendar";
 import FormModal from "@/components/FormModal";
 //import Performance from "@/components/Performance";
 import { role } from "@/lib/data";
@@ -50,21 +50,21 @@ const SingleUserPage = () => {
                 Buraya bişeyler yazılabilir....
               </p>
               <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
-                <div className="w-full md:w-1/3 lg:w-full 2xl:w-1/3 flex items-center gap-2">
+                <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/blood.png" alt="" width={14} height={14} />
                   <span>ARh+</span>
                 </div>
-                <div className="w-full md:w-1/3 lg:w-full 2xl:w-1/3 flex items-center gap-2">
+                <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/date.png" alt="" width={14} height={14} />
-                  <span>January 2025</span>
+                  <span>Ekim 2024</span>
                 </div>
-                <div className="w-full md:w-1/3 lg:w-full 2xl:w-1/3 flex items-center gap-2">
+                <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/mail.png" alt="" width={14} height={14} />
-                  <span>user@gmail.com</span>
+                  <span>firatsalmanoglu@gmail.com</span>
                 </div>
-                <div className="w-full md:w-1/3 lg:w-full 2xl:w-1/3 flex items-center gap-2">
+                <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/phone.png" alt="" width={14} height={14} />
-                  <span>+1 234 567</span>
+                  <span>+90 532 738 86 36</span>
                 </div>
               </div>
             </div>
@@ -72,7 +72,7 @@ const SingleUserPage = () => {
           {/* SMALL CARDS */}
           <div className="flex-1 flex gap-4 justify-between flex-wrap">
             {/* CARD */}
-            <div className="bg-white p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+            <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
               <Image
                 src="/singleAttendance.png"
                 alt=""
@@ -81,12 +81,12 @@ const SingleUserPage = () => {
                 className="w-6 h-6"
               />
               <div className="">
-                <h1 className="text-xl font-semibold">Admin</h1>
-                <span className="text-sm text-gray-400">Rolü</span>
+                <h1 className="text-md font-semibold">Rolü</h1>
+                <span className="text-sm text-gray-400">Admin</span>
               </div>
             </div>
             {/* CARD */}
-            <div className="bg-white p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+            <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
               <Image
                 src="/singleBranch.png"
                 alt=""
@@ -95,12 +95,12 @@ const SingleUserPage = () => {
                 className="w-6 h-6"
               />
               <div className="">
-                <h1 className="text-xl font-semibold">Erkek</h1>
-                <span className="text-sm text-gray-400">Cinsiyet</span>
+                <h1 className="text-md font-semibold">Cinsiyet</h1>
+                <span className="text-sm text-gray-400">Erkek</span>
               </div>
             </div>
             {/* CARD */}
-            <div className="bg-white p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+            <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
               <Image
                 src="/singleLesson.png"
                 alt=""
@@ -109,12 +109,12 @@ const SingleUserPage = () => {
                 className="w-6 h-6"
               />
               <div className="">
-                <h1 className="text-xl font-semibold">Ege Üniversitesi</h1>
-                <span className="text-sm text-gray-400">Kurumu</span>
+                <h1 className="text-md font-semibold">Kurumu</h1>
+                <span className="text-sm text-gray-400">Ege Üniversitesi</span>
               </div>
             </div>
             {/* CARD */}
-            <div className="bg-white p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+            <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
               <Image
                 src="/singleClass.png"
                 alt=""
@@ -123,7 +123,7 @@ const SingleUserPage = () => {
                 className="w-6 h-6"
               />
               <div className="">
-                <h1 className="text-xl font-semibold">ZZZ</h1>
+                <h1 className="text-md font-semibold">ZZZ</h1>
                 <span className="text-sm text-gray-400">XXX</span>
               </div>
             </div>
@@ -131,8 +131,8 @@ const SingleUserPage = () => {
         </div>
         {/* BOTTOM */}
         <div className="mt-4 bg-white rounded-md p-4 h-[800px]">
-          <h1>Teacher&apos;s Schedule</h1>
-          {/* <BigCalendar /> */}
+          <h1 className="text-xl font-semibold">Kullanıcı Takvimi</h1>
+          <BigCalendar />
         </div>
       </div>
       {/* RIGHT */}
@@ -141,19 +141,19 @@ const SingleUserPage = () => {
           <h1 className="text-xl font-semibold">Kısayollar</h1>
           <div className="mt-4 flex gap-4 flex-wrap text-xs text-gray-500">
             <Link className="p-3 rounded-md bg-lamaSkyLight" href="/">
-              Teacher&apos;s Classes
+            Kullanıcı&apos;nın Teklifleri
             </Link>
             <Link className="p-3 rounded-md bg-lamaPurpleLight" href="/">
-              Teacher&apos;s Students
+              Kullanıcı&apos;nın Bakımları
             </Link>
             <Link className="p-3 rounded-md bg-lamaYellowLight" href="/">
-              Teacher&apos;s Lessons
+            Kullanıcı&apos;nın Cihazları
             </Link>
             <Link className="p-3 rounded-md bg-pink-50" href="/">
-              Teacher&apos;s Exams
+            Kullanıcı&apos;nın Bildirimleri
             </Link>
             <Link className="p-3 rounded-md bg-lamaSkyLight" href="/">
-              Teacher&apos;s Assignments
+              Hizmet Sağlayıcılarım / Müşterilerim
             </Link>
           </div>
         </div>

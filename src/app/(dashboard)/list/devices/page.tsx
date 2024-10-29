@@ -9,18 +9,22 @@ import Link from "next/link";
 
 type Device = {
     id: number;
-    extinguisherID: string;
-    ownerID: string;
-    owner: string;
+    deviceId: string;
     serialNumber: string;
+    ownerId: string;
+    ownerName: string;
+    address: string;
     deviceType: string;
     feature: string;
+    respPersonId: string;
+    respPerson: string;
     manufactureDate: string;
     expiryDate: string;
     lastInspectionDate: string;
     location: string;
     statuss: string;
     photo: string;
+    details: string;
   };
 
 const columns =[
@@ -28,16 +32,16 @@ const columns =[
         header:"Bilgi", 
         accessor:"info",
     },
-    {
-        header:"Cihaz ID", 
-        accessor:"extinguisherID",
-        className: "hidden md:table-cell"
-    },
-    {
-        header:"Cihaz Sahibi", 
-        accessor:"ownerId",
-        className: "hidden md:table-cell"
-    },
+    // {
+    //     header:"Cihaz ID", 
+    //     accessor:"deviceId",
+    //     className: "hidden md:table-cell"
+    // },
+    // {
+    //     header:"Adres", 
+    //     accessor:"address",
+    //     className: "hidden md:table-cell"
+    // },
     
     {
         header:"Özelliği", 
@@ -45,17 +49,22 @@ const columns =[
         className: "hidden md:table-cell",
     },
     {
-        header:"Üretim Tarihi", 
-        accessor:"manufactureDate",
+        header:"Sorumlu Personel", 
+        accessor:"respPerson",
         className: "hidden md:table-cell",
     },
     {
-        header:"Son Kul. Trihi", 
+      header:"Üret.Tar.", 
+      accessor:"manufactureDate",
+      className: "hidden md:table-cell",
+    },
+    {
+        header:"Son Kul.Tar.", 
         accessor:"expiryDate",
         className: "hidden md:table-cell",
     },
     {
-        header:"Son Kontrol Tarihi", 
+        header:"Son Kont.Tar.", 
         accessor:"lastInspectionDate",
         className: "hidden md:table-cell",
     },
@@ -68,6 +77,16 @@ const columns =[
         header:"Durumu", 
         accessor:"statuss",
         className: "hidden md:table-cell",
+    },
+    {
+      header:"Detaylar", 
+      accessor:"details",
+      className: "hidden md:table-cell",
+    },
+    {
+      header:"Eylemler", 
+      accessor:"action",
+      className: "hidden md:table-cell",
     },
     
 ];
@@ -88,19 +107,22 @@ const DeviceListPage = () => {
               className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
             />
             <div className="flex flex-col">
-              <h3 className="font-semibold">{item.serialNumber}</h3>
-              <p className="text-xs text-gray-500">{item.deviceType}</p>
-              <p className="text-xs text-gray-500">{item.owner}</p>
+              <h3 className="font-semibold">{item.deviceType}</h3>
+              <p className="text-xs text-gray-500">{item.serialNumber}</p>
+              <p className="text-xs text-gray-500">{item.ownerName}</p>
+              <td className="hidden md:table-cell">{item.address}</td>
+
             </div>
           </td>
-          <td className="hidden md:table-cell">{item.extinguisherID}</td>
-          <td className="hidden md:table-cell">{item.ownerID}</td>
+          {/* <td className="hidden md:table-cell">{item.deviceId}</td> */}
           <td className="hidden md:table-cell">{item.feature}</td>
+          <td className="hidden md:table-cell">{item.respPerson}</td>
           <td className="hidden md:table-cell">{item.manufactureDate}</td>
           <td className="hidden md:table-cell">{item.expiryDate}</td>
           <td className="hidden md:table-cell">{item.lastInspectionDate}</td>
           <td className="hidden md:table-cell">{item.location}</td>
           <td className="hidden md:table-cell">{item.statuss}</td>
+          <td className="hidden md:table-cell">{item.details}</td>
           <td>
             <div className="flex items-center gap-2">
               <Link href={`/list/devices/${item.id}`}>

@@ -15,7 +15,6 @@ const UserForm = dynamic(() => import("./forms/UserForm"), {
 const DeviceForm = dynamic(() => import("./forms/DeviceForm"), {
   loading: () => <h1>Loading...</h1>,
 });
-
 const MaintenanceForm = dynamic(() => import("./forms/MaintenanceForm"), {
   loading: () => <h1>Loading...</h1>,
 });

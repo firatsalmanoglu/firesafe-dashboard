@@ -8,39 +8,48 @@ import Link from "next/link";
 
 
 type Offer = {
+  
     id: number;
-    offerID: string;
-    providerID: string;
+    offerId: string;
+    providerId: string;
     providerName: string;
-    ownerID: string;
+    providerOrganization: string;
+    ownerId: string;
     ownerName: string;
+    ownerOrganization: string;
     offerDate: string;
     expiryDate: string;
     amount: string;
     servicesOffered: string;
-    statuss: string;
+    status: string; 
 }
 
 
 const columns =[
     {
-        header:"Bilgi", 
+        header:"Teklif Veren", 
         accessor:"info",
     },
-    {
-        header:"Müşteri", 
-        accessor:"ownerName",
-        className: "hidden md:table-cell"
-    },
+   
     {
         header:"Teklif Tarihi", 
         accessor:"offerDate",
         className: "hidden md:table-cell",
     },
     {
+      header:"Müşteri", 
+      accessor:"info",
+      className: "hidden md:table-cell"
+  },
+    {
         header:"Geçerlilik Tarihi", 
         accessor:"expiryDate",
         className: "hidden md:table-cell",
+    },
+    {
+      header:"Teklif İçeriği", 
+      accessor:"servicesOffered",
+      className: "hidden md:table-cell",
     },
     {
         header:"Teklif Tutarı", 
@@ -52,6 +61,12 @@ const columns =[
         header:"Durumu", 
         accessor:"statuss",
         className: "hidden md:table-cell",
+    },
+
+    {
+      header:"Eylemler", 
+      accessor:"action",
+      className: "hidden md:table-cell",
     },
     
 ];
@@ -72,16 +87,32 @@ const OfferListPage = () => {
               className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
             /> */}
             <div className="flex flex-col">
-              <h3 className="font-semibold">{item.offerID}</h3>
+              <h3 className="font-semibold">{item.offerId}</h3>
               <p className="text-xs text-gray-500">{item.providerName}</p>
-              <p className="text-xs text-gray-500">{item.servicesOffered}</p>
+              <p className="text-xs text-gray-500">{item.providerOrganization}</p>
             </div>
           </td>
-          <td className="hidden md:table-cell">{item.ownerName}</td>
+
+          
+          
           <td className="hidden md:table-cell">{item.offerDate}</td>
+          <td className="flex items-center gap-4 p-4">
+            {/* <Image
+              src={item.photo}
+              alt=""
+              width={40}
+              height={40}
+              className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+            /> */}
+            <div className="flex flex-col">
+              <h3 className="font-semibold">{item.ownerName}</h3>
+              <p className="text-xs text-gray-500">{item.ownerOrganization}</p>
+            </div>
+          </td>
           <td className="hidden md:table-cell">{item.expiryDate}</td>
+          <td className="hidden md:table-cell">{item.servicesOffered}</td>
           <td className="hidden md:table-cell">{item.amount}</td>
-          <td className="hidden md:table-cell">{item.statuss}</td>
+          <td className="hidden md:table-cell">{item.status}</td>
           <td>
             <div className="flex items-center gap-2">
               <Link href={`/list/offers/${item.id}`}>

@@ -8,18 +8,36 @@ import Link from "next/link";
 
 
 type User = {
-    id: number;
-    userId: string;
-    userName: string;
-    organizationName: string;
-    role: string;
-    email?: string;
-    photo: string;
-    phoneNumber: string;
-    registrationDate: string;
-    //subjects: string[];
-    //classes: string[];
-    address: string;
+
+    id: number,
+    userId: string,
+    userName: string,
+    firstName: string,
+    lastName: string,
+    bloodType: string,
+    birthday: string,
+    sex: string,
+    organizationId: string,
+    organizationName: string,
+    address: string,
+    role: string,
+    photo: string,
+    email: string,
+    phoneNumber: string,
+    registrationDate: string,
+
+    // id: number;
+    // userId: string;
+    // userName: string;
+    // organizationName: string;
+    // role: string;
+    // email?: string;
+    // photo: string;
+    // phoneNumber: string;
+    // registrationDate: string;
+    // //subjects: string[];
+    // //classes: string[];
+    // address: string;
   };
 
 const columns =[
@@ -34,20 +52,44 @@ const columns =[
         className: "hidden md:table-cell"
     },
     {
+      header:"Kullanıcı Adı", 
+      accessor:"userName",
+      className: "hidden md:table-cell"
+    },
+    {
         header:"Rolü", 
         accessor:"role",
         className: "hidden md:table-cell",
     },
-    
+    {
+      header:"Cinsiyet", 
+      accessor:"sex",
+      className: "hidden md:table-cell",
+    },
+    {
+      header:"Doğum Tarihi", 
+      accessor:"birthday",
+      className: "hidden md:table-cell",
+    },
+    {
+      header:"Kan Grubu", 
+      accessor:"bloodType",
+      className: "hidden md:table-cell",
+    },
+    {
+      header:"Üyelik Tarihi", 
+      accessor:"registrationDate",
+      className: "hidden md:table-cell",
+    },
     {
         header:"Tel No", 
         accessor:"phoneNumber",
         className: "hidden md:table-cell",
     },
     {
-        header:"Üyelik Tarihi", 
-        accessor:"registrationDate",
-        className: "hidden md:table-cell",
+      header:"E-mail", 
+      accessor:"email",
+      className: "hidden md:table-cell",
     },
     {
         header:"Adres", 
@@ -77,15 +119,20 @@ const UserListPage = () => {
               className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
             />
             <div className="flex flex-col">
-              <h3 className="font-semibold">{item.userName}</h3>
+              <h3 className="font-semibold">{item.firstName}</h3>
+              <h3 className="font-semibold">{item.lastName}</h3>
               <p className="text-xs text-gray-500">{item.organizationName}</p>
-              <p className="text-xs text-gray-500">{item?.email}</p>
             </div>
           </td>
           <td className="hidden md:table-cell">{item.userId}</td>
+          <td className="hidden md:table-cell">{item.userName}</td>
           <td className="hidden md:table-cell">{item.role}</td>
-          <td className="hidden md:table-cell">{item.phoneNumber}</td>
+          <td className="hidden md:table-cell">{item.sex}</td>
+          <td className="hidden md:table-cell">{item.birthday}</td>
+          <td className="hidden md:table-cell">{item.bloodType}</td>
           <td className="hidden md:table-cell">{item.registrationDate}</td>
+          <td className="hidden md:table-cell">{item.phoneNumber}</td>
+          <td className="hidden md:table-cell">{item.email}</td>
           <td className="hidden md:table-cell">{item.address}</td>
           <td>
             <div className="flex items-center gap-2">

@@ -9,23 +9,25 @@ import Link from "next/link";
 
 type Notification = {
     id: number;
-    notificationID: string;
-    userID: string;
+    notificationId: string;
+    userId: string;
     userName: string;
     organizationName: string;
     deviceSerialNumber: string;
+    deviceOwnerId: string;
     deviceOwner: string;
     message: string;
     notificationDate: string;
     isRead: string;
     notificationType: string;
+
   };
 
 
 const columns =[
     {
         header:"Bildirim ID", 
-        accessor:"notificationID",
+        accessor:"notificationId",
         className: "hidden md:table-cell"
     },
     {
@@ -63,6 +65,11 @@ const columns =[
         accessor:"notificationType",
         className: "hidden md:table-cell",
     },
+    {
+      header:"Eylemler", 
+      accessor:"action",
+      className: "hidden md:table-cell",
+    },
     
 ];
 
@@ -73,7 +80,7 @@ const NotificationListPage = () => {
           key={item.id}
           className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
         >
-          <td className="hidden md:table-cell">{item.notificationID}</td>
+          <td className="hidden md:table-cell">{item.notificationId}</td>
           <td className="flex items-center gap-4 p-4">
             {/* <Image
               src={item.photo}
@@ -84,7 +91,7 @@ const NotificationListPage = () => {
             /> */}
             <div className="flex flex-col">
               <h3 className="font-semibold">{item.userName}</h3>
-              <p className="text-xs text-gray-500">{item.userID}</p>
+              <p className="text-xs text-gray-500">{item.userId}</p>
               <p className="text-xs text-gray-500">{item.organizationName}</p>
             </div>
           </td>

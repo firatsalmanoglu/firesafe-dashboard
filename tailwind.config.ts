@@ -24,6 +24,13 @@ const config: Config = {
          fireorange:"#E04D24",
          whitetext:"#ffffff",
 
+        lamaSky: "#C3EBFA",
+        lamaSkyLight: "#EDF9FD",
+        lamaPurple: "#CFCEFF",
+        lamaPurpleLight: "#F1F0FF",
+        lamaYellow: "#FAE27C",
+        lamaYellowLight: "#FEFCE8",
+
 
       }
     },
