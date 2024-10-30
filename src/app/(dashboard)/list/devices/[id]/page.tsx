@@ -26,7 +26,7 @@ const SingleDevicePage = () => {
             </div>
             <div className="w-2/3 flex flex-col justify-between gap-4">
               <div className="flex items-center gap-4">
-                <h1 className="text-xl font-semibold">Seri No: 78584878</h1>
+                <h1 className="text-xl font-semibold">Cihaz Kartı</h1>
                 {role === "admin" && <FormModal
                   table="device"
                   type="update"
@@ -55,6 +55,11 @@ const SingleDevicePage = () => {
                 2mt hortum, üstten basmalı vs....
               </p>
               <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
+              <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
+                  {/* <Image src="/blood.png" alt="" width={14} height={14} /> */}
+                  <span>Seri No: 78584878</span>
+                </div>
+                
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/blood.png" alt="" width={14} height={14} />
                   <span>Yangın Tüpü</span>
@@ -71,6 +76,14 @@ const SingleDevicePage = () => {
                   <Image src="/phone.png" alt="" width={14} height={14} />
                   <span> Bornova İzmir</span>
                 </div>
+                <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
+                  <Image src="/phone.png" alt="" width={14} height={14} />
+                  <span>Ahmet Aydemir</span>
+                </div>
+                <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
+                  <Image src="/phone.png" alt="" width={14} height={14} />
+                  <span>1. Kat 8. Nolu Nokta</span>
+                </div>
               </div>
             </div>
           </div>
@@ -78,7 +91,7 @@ const SingleDevicePage = () => {
           <div className="flex-1 flex gap-4 justify-between flex-wrap">
             {/* CARD */}
             {/* <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]"> */}
-            <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4">
+            {/* <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4">
 
               <Image
                 src="/singleAttendance.png"
@@ -91,10 +104,10 @@ const SingleDevicePage = () => {
                 <h1 className="text-md font-semibold">Sorumlu Personel</h1>
                 <span className="text-sm text-gray-400">Ahmet Aydemir</span>
               </div>
-            </div>
+            </div> */}
             {/* CARD */}
-            {/* <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]"> */}
-            <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4">
+            <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+            {/* <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4"> */}
 
               <Image
                 src="/singleBranch.png"
@@ -109,8 +122,8 @@ const SingleDevicePage = () => {
               </div>
             </div>
             {/* CARD */}
-            {/* <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]"> */}
-            <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4">
+            <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+            {/* <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4"> */}
 
               <Image
                 src="/singleLesson.png"
@@ -125,8 +138,8 @@ const SingleDevicePage = () => {
               </div>
             </div>
             {/* CARD */}
-            {/* <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]"> */}
-            <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4">
+            <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+            {/* <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4"> */}
 
               <Image
                 src="/singleClass.png"
@@ -143,7 +156,7 @@ const SingleDevicePage = () => {
 
              {/* CARD */}
              {/* <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]"> */}
-             <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4">
+             {/* <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4">
 
               <Image
                 src="/singleAttendance.png"
@@ -156,11 +169,11 @@ const SingleDevicePage = () => {
                 <h1 className="text-md font-semibold">Konumu</h1>
                 <span className="text-sm text-gray-400">1. Kat 8. Nolu Nokta</span>
               </div>
-            </div>
+            </div> */}
 
              {/* CARD */}
-             {/* <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]"> */}
-             <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4">
+             <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+             {/* <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4"> */}
 
               <Image
                 src="/singleAttendance.png"
