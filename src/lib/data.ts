@@ -17,7 +17,7 @@ export const usersData = [
     organizationName: "Ege University",
     address: "Bornova. İzmir",
     role: ["Admin"],
-    photo: "/avatar.png",
+    photo: "/firat.jpg",
     email: "john@doe.com",
     phoneNumber: "1234567890",
     registrationDate: "10/06/2024",

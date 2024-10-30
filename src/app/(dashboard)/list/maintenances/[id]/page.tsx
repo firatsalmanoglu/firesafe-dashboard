@@ -64,23 +64,23 @@ const SingleMaintenancePage = () => {
                   <span>Cihaz Seri No: 965684878</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
-                  <Image src="/blood.png" alt="" width={14} height={14} />
+                  <Image src="/person.png" alt="" width={14} height={14} />
                   <span>Mehmet Söylemez</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
-                  <Image src="/blood.png" alt="" width={14} height={14} />
+                  <Image src="/fire-extinguisher.png" alt="" width={14} height={14} />
                   <span>Yangın Tüpü</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
-                  <Image src="/date.png" alt="" width={14} height={14} />
+                  <Image src="/feature.png" alt="" width={14} height={14} />
                   <span> CO<sub>2</sub></span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
-                  <Image src="/mail.png" alt="" width={14} height={14} />
+                  <Image src="/insititution.png" alt="" width={14} height={14} />
                   <span>XXXX Hospital</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
-                  <Image src="/phone.png" alt="" width={14} height={14} />
+                  <Image src="/address.png" alt="" width={14} height={14} />
                   <span> Bornova İzmir</span>
                 </div>
               </div>
