@@ -19,18 +19,18 @@ const menuItems = [
         href: "/list/users",
         visible: ["admin","provider", "customer", "parent", "lowcustomer", "lowprovider"],
       },
-      {
-        icon: "/user.png",
-        label: "Müşteriler",
-        href: "/list/users",
-        visible: ["admin","provider", "lowprovider"],
-      },
-      {
-        icon: "/user.png",
-        label: "Servis Sağlayıcılar",
-        href: "/list/users",
-        visible: ["admin","customer", "lowcustomer", "parent"],
-      },
+      // {
+      //   icon: "/user.png",
+      //   label: "Müşteriler",
+      //   href: "/list/users",
+      //   visible: ["admin","provider", "lowprovider"],
+      // },
+      // {
+      //   icon: "/user.png",
+      //   label: "Servis Sağlayıcılar",
+      //   href: "/list/users",
+      //   visible: ["admin","customer", "lowcustomer", "parent"],
+      // },
       
       {
         icon: "/fire-extinguisher.png",
@@ -51,17 +51,26 @@ const menuItems = [
         visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
       },
       {
+        icon: "/calendar.png",
+        label: "Randevular",
+        href: "/list/events",
+        visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
+      },
+      {
+        icon: "/announcement.png",
+        label: "Bildirimler",
+        href: "/list/notifications",
+        visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
+      },
+      {
         icon: "/report.png",
         label: "Raporlama",
         href: "/list/classes",
         visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
       },
-      {
-        icon: "/notification.png",
-        label: "Bildirimler",
-        href: "/list/notifications",
-        visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
-      },
+      
+
+      
       
       {
         icon: "/assignment.png",

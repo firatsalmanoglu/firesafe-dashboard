@@ -7,24 +7,40 @@ import InputField from "../InputField";
 import Image from "next/image";
 
 const schema = z.object({
-  username: z
+  userId: z
     .string()
-    .min(3, { message: "Username must be at least 3 characters long!" })
-    .max(20, { message: "Username must be at most 20 characters long!" }),
-  email: z.string().email({ message: "Invalid email address!" }),
+    .min(3, { message: "KUllanıcı ID min 3 karakter uzunluğunda olmalı!" })
+    .max(20, { message: "KUllanıcı ID maks 20 karakter uzunluğunda olmalı!" }),
+  userName: z
+    .string()
+    .min(3, { message: "Kullanıcı Adı min 3 karakter uzunluğunda olmalı!" })
+    .max(20, { message: "KUllanıcı Adı maks 20 karakter uzunluğunda olmalı!" }),
   password: z
     .string()
-    .min(8, { message: "Password must be at least 8 characters long!" }),
-  firstName: z.string().min(1, { message: "First name is required!" }),
-  lastName: z.string().min(1, { message: "Last name is required!" }),
-  phone: z.string().min(1, { message: "Phone is required!" }),
-  address: z.string().min(1, { message: "Address is required!" }),
-  bloodType: z.string().min(1, { message: "Blood Type is required!" }),
-  birthday: z.date({ message: "Birthday is required!" }),
-  sex: z.enum(["male", "female"], { message: "Sex is required!" }),
-  img: z.instanceof(File, { message: "Image is required" }),
-  organizationName: z.string().min(1, { message: "Kurum adı boş geçilemez!" }),
-  role: z.string().min(1, { message: "Kullanıcı rolü boş geçilemez!" }),
+    .min(8, { message: "Password en az 8 karakter uzunluğunda olmalı!" }),
+  firstName: z
+    .string()
+    .min(1, { message: "Bu alan boş geçilemez!" }),
+  lastName: z
+    .string()
+    .min(1, { message: "Bu alan boş geçilemez!" }),
+  bloodType: z
+    .string()
+    .min(1, { message: "Bu alan boş geçilemez!" }),
+  birthday: z.
+    date({ message: "Bu alan boş geçilemez!" }),
+  sex: z
+    .enum(["male", "female", "other"], { message: "Bu alan boş geçilemez!" }),
+  organizationId: z
+    .string().min(1, { message: "Bu alan boş geçilemez!" }),
+  organizationName: z
+    .string().min(1, { message: "Bu alan boş geçilemez!" }),
+  address: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
+  role: z
+  .enum(["admin", "customerI", "customerII", "providerI", "providerII"], { message: "Bu alan boş geçilemez!" }),  photo: z.instanceof(File, { message: "Bu alan boş geçilemez!" }),
+  email: z.string().email({ message: "Geçersiz e-posta!" }),
+  phoneNumber: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
+  registrationDate: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
 });
 
 type Inputs = z.infer<typeof schema>;
@@ -49,25 +65,25 @@ const UserForm = ({
   });
 
   return (
-    <form className="flex flex-col gap-8" onSubmit={onSubmit}>
+    <form className="flex flex-col gap-4" onSubmit={onSubmit}>
       <h1 className="text-xl font-semibold">Yeni Kullanıcı Oluştur</h1>
       <span className="text-xs text-gray-400 font-medium">
         Kimlik Doğrulama Bilgileri
       </span>
       <div className="flex justify-between flex-wrap gap-4">
         <InputField
-          label="Kullaıcı Adı"
-          name="username"
-          defaultValue={data?.username}
+          label="Kullaıcı ID"
+          name="userId"
+          defaultValue={data?.userId}
           register={register}
-          error={errors?.username}
+          error={errors?.userId}
         />
         <InputField
-          label="Email"
-          name="email"
-          defaultValue={data?.email}
+          label="Kullaıcı Adı"
+          name="userName"
+          defaultValue={data?.userName}
           register={register}
-          error={errors?.email}
+          error={errors?.userName}
         />
         <InputField
           label="Şifre"
@@ -77,6 +93,8 @@ const UserForm = ({
           register={register}
           error={errors?.password}
         />
+        
+        
       </div>
       <span className="text-xs text-gray-400 font-medium">
         Kişisel Bilgiler
@@ -95,27 +113,6 @@ const UserForm = ({
           defaultValue={data?.lastName}
           register={register}
           error={errors.lastName}
-        />
-        <InputField
-          label="Tel"
-          name="phone"
-          defaultValue={data?.phone}
-          register={register}
-          error={errors.phone}
-        />
-        <InputField
-          label="Adres"
-          name="address"
-          defaultValue={data?.address}
-          register={register}
-          error={errors.address}
-        />
-        <InputField
-          label="Kurum Adı"
-          name="organizationName"
-          defaultValue={data?.organizationName}
-          register={register}
-          error={errors.organizationName}
         />
         <InputField
           label="Kan Grubu"
@@ -141,7 +138,7 @@ const UserForm = ({
           >
             <option value="male">Erkek</option>
             <option value="female">Kadın</option>
-            <option value="female">Diğer</option>
+            <option value="other">Diğer</option>
 
           </select>
           {errors.sex?.message && (
@@ -151,7 +148,27 @@ const UserForm = ({
           )}
 
         </div>
-
+        <InputField
+          label="Kurum ID"
+          name="organizationId"
+          defaultValue={data?.organizationId}
+          register={register}
+          error={errors.organizationId}
+        />
+        <InputField
+          label="Kurum Adı"
+          name="organizationName"
+          defaultValue={data?.organizationName}
+          register={register}
+          error={errors.organizationName}
+        />
+        <InputField
+          label="Adres"
+          name="address"
+          defaultValue={data?.address}
+          register={register}
+          error={errors.address}
+        />
         <div className="flex flex-col gap-2 w-full md:w-1/4">
           <label className="text-xs text-gray-500">Rol</label>
           <select
@@ -162,7 +179,9 @@ const UserForm = ({
             <option value="admin">Admin</option>
             <option value="customerI">I. Seviye Müşteri</option>
             <option value="customerII">II. Seviye Müşteri</option>
-            <option value="provider">Servis Sağlayıcı</option>
+            <option value="providerI">I. Servis Sağlayıcı</option>
+            <option value="providerII">II. Servis Sağlayıcı</option>
+
 
           </select>
           {errors.sex?.message && (
@@ -172,6 +191,30 @@ const UserForm = ({
           )}
 
         </div>
+        <InputField
+          label="Email"
+          name="email"
+          defaultValue={data?.email}
+          register={register}
+          error={errors?.email}
+        />
+        <InputField
+          label="Tel"
+          name="phoneNumber"
+          defaultValue={data?.phoneNumber}
+          register={register}
+          error={errors.phoneNumber}
+        />
+        
+        <InputField
+          label="Üyelik Tarihi"
+          name="registrationDate"
+          defaultValue={data?.registrationDate}
+          register={register}
+          error={errors.registrationDate}
+          type="date"
+        />
+        
         <div className="flex flex-col gap-2 w-full md:w-1/4 justify-center">
           <label
             className="text-xs text-gray-500 flex items-center gap-2 cursor-pointer"
@@ -180,10 +223,10 @@ const UserForm = ({
             <Image src="/upload.png" alt="" width={28} height={28} />
             <span>Foto Yükleyin</span>
           </label>
-          <input type="file" id="img" {...register("img")} className="hidden" />
-          {errors.img?.message && (
+          <input type="file" id="img" {...register("photo")} className="hidden" />
+          {errors.photo?.message && (
             <p className="text-xs text-red-400">
-              {errors.img.message.toString()}
+              {errors.photo.message.toString()}
             </p>
           )}
         </div>

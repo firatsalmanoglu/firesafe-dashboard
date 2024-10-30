@@ -28,21 +28,23 @@ const SingleMaintenancePage = () => {
               <div className="flex items-center gap-4">
                 <h1 className="text-xl font-semibold">Bakım No: 0078</h1>
                 {role === "admin" && <FormModal
-                  table="user"
+                  table="maintenance"
                   type="update"
                   data={{
                     id: 1,
-                    username: "deanguerrero",
-                    email: "deanguerrero@gmail.com",
-                    password: "password",
-                    firstName: "Dean",
-                    lastName: "Guerrero",
-                    phone: "+1 234 567 89",
-                    address: "1234 Main St, Anytown, USA",
-                    bloodType: "A+",
-                    dateOfBirth: "2000-01-01",
-                    sex: "male",
-                    img: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=1200",
+                    recordID: "005",
+                    deviceSerialNumber: "125487",
+                    performedById: "196587",
+                    performedByName: "Ayhan Uğur",
+                    instPerformed:"KSKS Yangın Güvenlik Ltd.",
+                    customerId: "5858475",
+                    customerName:"Ali Abalı",
+                    instServed: "AAA Tarım Sanayi A.Ş.",
+                    maintenanceDate: "13/07/2023",
+                    maintenanceType: "Bakım",
+                    details: "Basınçlar kontrol edildi",
+                    nexyMaintenanceDate: "13/07/2024",
+                    status: "OK",
                   }}
                 />}
               </div>
@@ -187,6 +189,39 @@ const SingleMaintenancePage = () => {
       </div>
       {/* RIGHT */}
       <div className="w-full xl:w-1/3 flex flex-col gap-4">
+        <h1 className="text-xl font-semibold">Bakım Listesi</h1>
+          <div className="flex flex-col gap-4 mt-4">
+            <div className="bg-lamaSkyLight rounded-md p-4">
+              <div className="flex items-center justify-between">
+                <h2 className="font-medium">Lorem ipsum dolor sit</h2>
+              </div>
+              <p className="text-sm text-gray-400 mt-1">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum,
+                expedita. Rerum, quidem facilis?
+              </p>
+            </div>
+
+            <div className="bg-lamaPurpleLight rounded-md p-4">
+              <div className="flex items-center justify-between">
+                <h2 className="font-medium">Lorem ipsum dolor sit</h2>
+              </div>
+              <p className="text-sm text-gray-400 mt-1">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum,
+                expedita. Rerum, quidem facilis?
+              </p>
+            </div>
+
+            <div className="bg-lamaSkyLight rounded-md p-4">
+              <div className="flex items-center justify-between">
+                <h2 className="font-medium">Lorem ipsum dolor sit</h2>
+              </div>
+              <p className="text-sm text-gray-400 mt-1">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum,
+                expedita. Rerum, quidem facilis?
+              </p>
+            </div>
+
+          </div>
         {/* <div className="bg-white p-4 rounded-md"> */}
           {/* <h1 className="text-xl font-semibold">Kısayollar</h1> */}
           {/* <div className="mt-4 flex gap-4 flex-wrap text-xs text-gray-500"> */}

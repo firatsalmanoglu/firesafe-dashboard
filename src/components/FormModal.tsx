@@ -18,13 +18,23 @@ const DeviceForm = dynamic(() => import("./forms/DeviceForm"), {
 const MaintenanceForm = dynamic(() => import("./forms/MaintenanceForm"), {
   loading: () => <h1>Loading...</h1>,
 });
+const NotificationForm = dynamic(() => import("./forms/NotificationForm"), {
+  loading: () => <h1>Loading...</h1>,
+});
+const EventForm = dynamic(() => import("./forms/EventForm"), {
+  loading: () => <h1>Loading...</h1>,
+});
 
 const forms: {
   [key: string]: (type: "create" | "update", data?: any) => JSX.Element;
 } = {
   user: (type, data) => <UserForm type={type} data={data} />,
   device: (type, data) => <DeviceForm type={type} data={data} />,
-  maintenance: (type, data) => <MaintenanceForm type={type} data={data} />
+  maintenance: (type, data) => <MaintenanceForm type={type} data={data} />,
+  notification: (type, data) => <NotificationForm type={type} data={data} />,
+  event: (type, data) => <EventForm type={type} data={data} />
+
+
 };
 
 const FormModal = ({
@@ -39,7 +49,7 @@ const FormModal = ({
     | "maintenance"
     | "offer"
     | "notification"
-    | "lesson"
+    | "event"
     | "exam"
     | "assignment"
     | "result"
@@ -64,7 +74,7 @@ const FormModal = ({
     return type === "delete" && id ? (
       <form action="" className="p-4 flex flex-col gap-4">
         <span className="text-center font-medium">
-          All data will be lost. Are you sure you want to delete this {table}?
+          Tüm veriler kaybolacak. Bunu silmek istediğinizden emin misiniz? {table}?
         </span>
         <button className="bg-red-700 text-white py-2 px-4 rounded-md border-none w-max self-center">
           Delete

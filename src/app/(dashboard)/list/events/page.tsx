@@ -2,130 +2,126 @@ import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
-import { role, devicesData } from "@/lib/data";
+import { role, calendarEvents } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 
 
-type Device = {
+type Event = {
     id: number;
-    deviceId: string;
-    serialNumber: string;
-    ownerId: string;
-    ownerName: string;
-    address: string;
-    deviceType: string;
-    feature: string;
+    eventId: string;
+    creatorId: string;
+    creatorName: string;
+    creatorOrganization: string;
     respPersonId: string;
-    respPerson: string;
-    manufactureDate: string;
-    expiryDate: string;
-    lastInspectionDate: string;
-    location: string;
-    statuss: string;
-    photo: string;
-    details: string;
+    respPersonName: string;
+    respPersonOrg: string;
+    title: string;
+    message: string;
+    start: string;
+    end: string;
+    create: string;
+    allDay: string;
+
   };
+
 
 const columns =[
     {
-        header:"Bilgi", 
+        header:"Etkinlik ID", 
+        accessor:"eventId",
+        className: "hidden md:table-cell"
+    },
+    {
+        header:"Oluşturan Kullanıcı", 
         accessor:"info",
     },
-    // {
-    //     header:"Cihaz ID", 
-    //     accessor:"deviceId",
-    //     className: "hidden md:table-cell"
-    // },
-    // {
-    //     header:"Adres", 
-    //     accessor:"address",
-    //     className: "hidden md:table-cell"
-    // },
+    {
+        header:"Etkinlik Başlığı", 
+        accessor:"title",
+        className: "hidden md:table-cell"
+    },
+    {
+        header:"İlgili Kullanıcı", 
+        accessor:"info",
+    },
     
     {
-        header:"Özelliği", 
-        accessor:"feature",
+        header:"Açıklama", 
+        accessor:"message",
         className: "hidden md:table-cell",
     },
     {
-        header:"Sorumlu Personel", 
-        accessor:"respPerson",
+        header:"Başlangıç Tarihi", 
+        accessor:"start",
         className: "hidden md:table-cell",
     },
     {
-      header:"Üret.Tar.", 
-      accessor:"manufactureDate",
-      className: "hidden md:table-cell",
-    },
-    {
-        header:"Son Kul.Tar.", 
-        accessor:"expiryDate",
+        header:"Bitiş Tarihi", 
+        accessor:"end",
         className: "hidden md:table-cell",
     },
     {
-        header:"Son Kont.Tar.", 
-        accessor:"lastInspectionDate",
+        header:"Oluşturma Tarihi", 
+        accessor:"create",
         className: "hidden md:table-cell",
     },
     {
-        header:"Konum", 
-        accessor:"location",
+        header:"Tüm GÜn mü?", 
+        accessor:"allDay",
         className: "hidden md:table-cell",
-    },
-    {
-        header:"Durumu", 
-        accessor:"statuss",
-        className: "hidden md:table-cell",
-    },
-    {
-      header:"Detaylar", 
-      accessor:"details",
-      className: "hidden md:table-cell",
-    },
-    {
-      header:"Eylemler", 
-      accessor:"action",
-      className: "hidden md:table-cell",
     },
     
 ];
 
-const DeviceListPage = () => {
+const EventListPage = () => {
 
-    const renderRow = (item: Device) => (
+    const renderRow = (item: Event) => (
         <tr
           key={item.id}
           className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
         >
+          <td className="hidden md:table-cell">{item.eventId}</td>
           <td className="flex items-center gap-4 p-4">
-            <Image
+            {/* <Image
               src={item.photo}
               alt=""
               width={40}
               height={40}
               className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
-            />
+            /> */}
             <div className="flex flex-col">
-              <h3 className="font-semibold">{item.deviceType}</h3>
-              <p className="text-xs text-gray-500">{item.serialNumber}</p>
-              <p className="text-xs text-gray-500">{item.ownerName}</p>
-              <td className="hidden md:table-cell">{item.address}</td>
-
+              <h3 className="font-semibold">{item.creatorName}</h3>
+              <p className="text-xs text-gray-500">{item.creatorId}</p>
+              <p className="text-xs text-gray-500">{item.creatorOrganization}</p>
             </div>
           </td>
-          {/* <td className="hidden md:table-cell">{item.deviceId}</td> */}
-          <td className="hidden md:table-cell">{item.feature}</td>
-          <td className="hidden md:table-cell">{item.respPerson}</td>
-          <td className="hidden md:table-cell">{item.manufactureDate}</td>
-          <td className="hidden md:table-cell">{item.expiryDate}</td>
-          <td className="hidden md:table-cell">{item.lastInspectionDate}</td>
-          <td className="hidden md:table-cell">{item.location}</td>
-          <td className="hidden md:table-cell">{item.statuss}</td>
-          <td className="hidden md:table-cell">{item.details}</td>
+
+          
+
+          <td className="hidden md:table-cell">{item.title}</td>
+          <td className="flex items-center gap-4 p-4">
+            {/* <Image
+              src={item.photo}
+              alt=""
+              width={40}
+              height={40}
+              className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+            /> */}
+            <div className="flex flex-col">
+              <h3 className="font-semibold">{item.respPersonName}</h3>
+              <p className="text-xs text-gray-500">{item.respPersonId}</p>
+              <p className="text-xs text-gray-500">{item.respPersonOrg}</p>
+            </div>
+          </td>
+          <td className="hidden md:table-cell">{item.message}</td>
+          <td className="hidden md:table-cell">{item.start}</td>
+          <td className="hidden md:table-cell">{item.end}</td>
+          <td className="hidden md:table-cell">{item.create}</td>
+          <td className="hidden md:table-cell">{item.allDay}</td>
           <td>
             <div className="flex items-center gap-2">
-              <Link href={`/list/devices/${item.id}`}>
+              <Link href={`/list/events/${item.id}`}>
                 <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaSky">
                   <Image src="/view.png" alt="" width={16} height={16} />
                 </button>
@@ -134,7 +130,7 @@ const DeviceListPage = () => {
                 // <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
                 //   <Image src="/delete.png" alt="" width={16} height={16} />
                 // </button>
-                <FormModal table="device" type="delete" id={item.id}/>
+                <FormModal table="event" type="delete" id={item.id}/>
               )}
             </div>
           </td>
@@ -145,7 +141,7 @@ const DeviceListPage = () => {
         <div className='bg-white p-4 rounded-md flex-1 m-4 mt-0'>
             {/* TOP */}
             <div className='flex item-center justify-between'>
-                <h1 className="hidden md:block text-lg font-semibold">Tüm Cihazlar</h1>
+                <h1 className="hidden md:block text-lg font-semibold">Tüm Randevular</h1>
                 <div className='flex flex-col md:flex-row items-center gap-4 w-full md:w-auto'>
                     <TableSearch />
                     <div className="flex items-center gap-4 self-end">
@@ -160,7 +156,7 @@ const DeviceListPage = () => {
                         // <button className="w-8 h-8 flex items-center justify-center rounded-full bg-firelightorange">
                         //     <Image src="/plus.png" alt="" width={14} height={14}/>
                         // </button>
-                        <FormModal table="device" type="create" />
+                        <FormModal table="event" type="create" />
                         )}
                     </div>
                 </div>
@@ -168,7 +164,7 @@ const DeviceListPage = () => {
 
             {/* LIST */}
             <div className=''>
-                <Table columns={columns} renderRow={renderRow} data={devicesData}/>
+                <Table columns={columns} renderRow={renderRow} data={calendarEvents}/>
             </div>
 
             {/* PAGINATION */}
@@ -177,4 +173,4 @@ const DeviceListPage = () => {
     )
 }
 
-export default DeviceListPage
+export default EventListPage

@@ -8,17 +8,19 @@ import Image from "next/image";
 
 const schema = z.object({
 
-    recordID: z.string().min(1, { message: "Kayıt ID boş geçilemez!" }),
-    deviceSerialNumber: z.string().min(1, { message: "Seri No boş geçilemez!" }),
-    performedByID: z.string().min(1, { message: "Kontrol eden ID boş geçilemez!" }),
-    performedByName: z.string().min(1, { message: "Kontrol eden kişi boş geçilemez!" }),
-    instPerformed:z.string().min(1, { message: "Sorumlu firma boş geçilemez!" }),
-    instServed: z.string().min(1, { message: "Hizmet edilen boş geçilemez!" }),
-    maintenanceDate: z.string().min(1, { message: "Bakım tarihi boş geçilemez!" }),
-    maintenanceType: z.string().min(1, { message: "Bakım türü boş geçilemez!" }),
-    details: z.string().min(1, { message: "Bakım detayları boş geçilemez!" }),
-    nexyMaintenanceDate: z.string().min(1, { message: "Sonraki bakım tarihi boş geçilemez!" }),
-    status: z.string().min(1, { message: "Durumu boş geçilemez!" }),
+    recordID: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
+    deviceSerialNumber: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
+    performedById: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
+    performedByName: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
+    instPerformed:z.string().min(1, { message: "Bu alan boş geçilemez!" }),
+    customerId:z.string().min(1, { message: "Bu alan boş geçilemez!" }),
+    customerName:z.string().min(1, { message: "Bu alan boş geçilemez!" }),
+    instServed: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
+    maintenanceDate: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
+    maintenanceType: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
+    details: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
+    nexyMaintenanceDate: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
+    status: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
 
 });
 
@@ -44,119 +46,46 @@ const MaintenanceForm = ({
   });
 
   return (
-    <form className="flex flex-col gap-8" onSubmit={onSubmit}>
-      <h1 className="text-xl font-semibold">Yeni Bakım Girişi</h1>
+    <form className="flex flex-col gap-4" onSubmit={onSubmit}>
+      <h1 className="text-xl font-semibold">Bakım Kartı</h1>
       <span className="text-xs text-gray-400 font-medium">
-       Bakım Bİlgileri
+       Bakım
       </span>
       <div className="flex justify-between flex-wrap gap-4">
         <InputField
-          label="Bakım No"
+          label="No"
           name="recordID"
           defaultValue={data?.recordID}
           register={register}
           error={errors?.recordID}
         />
-        <InputField
-          label="Cihaz Seri No"
-          name="deviceSerialNumber"
-          defaultValue={data?.deviceSerialNumber}
-          register={register}
-          error={errors?.deviceSerialNumber}
-        />
-        {/* <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Cihaz Türü</label>
+        <div className="flex flex-col gap-2 w-full md:w-1/4">
+          <label className="text-xs text-gray-500">Türü</label>
           <select
             className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
-            {...register("deviceType")}
-            defaultValue={data?.deviceType}
+            {...register("maintenanceType")}
+            defaultValue={data?.maintenanceType}
           >
-            <option value="YT">Yangın Tüpü</option>
-            <option value="YD">Yangın Dolabı</option>
+            <option value="BK">Basınç Kontrolü</option>
+            <option value="CD">Değişim</option>
+            <option value="TM">Tamir</option>
           </select>
-          {errors.sex?.message && (
+          {errors.maintenanceType?.message && (
             <p className="text-xs text-red-400">
-              {errors.sex.message.toString()}
+              {errors.maintenanceType.message.toString()}
             </p>
           )}
         </div>
-
-        <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Özelliği</label>
-          <select
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
-            {...register("feature")}
-            defaultValue={data?.deviceType}
-          >
-            <option value="CO2">CO2</option>
-            <option value="KK">Kuru Kimyevi</option>
-          </select>
-          {errors.sex?.message && (
-            <p className="text-xs text-red-400">
-              {errors.sex.message.toString()}
-            </p>
-          )}
-        </div> */}
         <InputField
-          label="Bakımı Yapan Personel ID"
-          name="performedByID"
-          defaultValue={data?.performedByID}
-          register={register}
-          error={errors?.performedByID}
-        />
-
-        <InputField
-          label="Bakımı Yapan Personel Adı"
-          name="performedByName"
-          defaultValue={data?.performedByName}
-          register={register}
-          error={errors?.performedByName}
-        />
-
-        <InputField
-          label="Bakımı Yapan Firma"
-          name="instPerformed"
-          defaultValue={data?.instPerformed}
-          register={register}
-          error={errors?.instPerformed}
-        />
-
-        <InputField
-          label="Hizmet Verilen Firma"
-          name="instServed"
-          defaultValue={data?.instServed}
-          register={register}
-          error={errors?.instServed}
-        />
-
-        <InputField
-          label="Bakım Tarihi"
+          label="Tarihi"
           name="maintenanceDate"
           type= "date"
           defaultValue={data?.maintenanceDate}
           register={register}
           error={errors?.maintenanceDate}
         />
-        <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Bakım Türü</label>
-          <select
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
-            {...register("maintenanceType")}
-            defaultValue={data?.deviceType}
-          >
-            <option value="BK">Basınç Kontrolü</option>
-            <option value="CD">Değişim</option>
-            <option value="TM">Tamir</option>
-          </select>
-          {/* {errors.sex?.message && (
-            <p className="text-xs text-red-400">
-              {errors.sex.message.toString()}
-            </p>
-          )} */}
-        </div>
-
         <InputField
-          label="Bakım Detayları"
+          label="Detayları"
           name="details"
           defaultValue={data?.details}
           register={register}
@@ -179,6 +108,74 @@ const MaintenanceForm = ({
           register={register}
           error={errors?.status}
         />
+        </div>
+        <span className="text-xs text-gray-400 font-medium">
+          Cihaz
+        </span>
+      <div className="flex justify-between flex-wrap gap-4">
+        <InputField
+          label="Seri No"
+          name="deviceSerialNumber"
+          defaultValue={data?.deviceSerialNumber}
+          register={register}
+          error={errors?.deviceSerialNumber}
+        />
+        </div>
+        <span className="text-xs text-gray-400 font-medium">
+          Bakım Personeli
+        </span>
+      <div className="flex justify-between flex-wrap gap-4">
+        <InputField
+          label="ID"
+          name="performedById"
+          defaultValue={data?.performedById}
+          register={register}
+          error={errors?.performedById}
+        />
+
+        <InputField
+          label="Adı"
+          name="performedByName"
+          defaultValue={data?.performedByName}
+          register={register}
+          error={errors?.performedByName}
+        />
+
+        <InputField
+          label="Kurumu"
+          name="instPerformed"
+          defaultValue={data?.instPerformed}
+          register={register}
+          error={errors?.instPerformed}
+        />
+        </div>
+        <span className="text-xs text-gray-400 font-medium">
+          Hizmet Verilen Firma
+        </span>
+      <div className="flex justify-between flex-wrap gap-4">
+        <InputField
+          label="Sorumlu Personel ID"
+          name="customerId"
+          defaultValue={data?.customerId}
+          register={register}
+          error={errors?.customerId}
+        />
+        <InputField
+          label="Sorumlu Personel Adı"
+          name="customerName"
+          defaultValue={data?.customerName}
+          register={register}
+          error={errors?.customerName}
+        />
+        <InputField
+          label="Firma"
+          name="instServed"
+          defaultValue={data?.instServed}
+          register={register}
+          error={errors?.instServed}
+        />
+
+       
        
         {/* <div className="flex flex-col gap-2 w-full md:w-1/4 justify-center">
           <label

@@ -7,32 +7,43 @@ import InputField from "../InputField";
 import Image from "next/image";
 
 const schema = z.object({
-  username: z
-    .string()
-    .min(3, { message: "Username must be at least 3 characters long!" })
-    .max(20, { message: "Username must be at most 20 characters long!" }),
-  email: z.string().email({ message: "Invalid email address!" }),
-  password: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters long!" }),
-  firstName: z.string().min(1, { message: "First name is required!" }),
-  lastName: z.string().min(1, { message: "Last name is required!" }),
-  phone: z.string().min(1, { message: "Phone is required!" }),
-  address: z.string().min(1, { message: "Address is required!" }),
-  bloodType: z.string().min(1, { message: "Blood Type is required!" }),
-  birthday: z.date({ message: "Birthday is required!" }),
-  sex: z.enum(["male", "female"], { message: "Sex is required!" }),
-  img: z.instanceof(File, { message: "Image is required" }),
-  serialNumber: z.string().min(8, { message: "Seri No boş geçilemez!" }),
-  owner: z.string().min(8, { message: "Cihaz sahibi boş geçilemez!" }),
-  deviceType: z.string().min(8, { message: "Cihaz türü boş geçilemez!" }),
-  feature: z.string().min(8, { message: "Cihaz özelliği boş geçilemez!" }),
-  manufactureDate:z.string().min(8, { message: "Üretim tarihi boş geçilemez!" }),
-  lastInspectionDate: z.string().min(8, { message: "Son bakım tarihi boş geçilemez!" }),
-  expiryDate: z.string().min(8, { message: "Son kullanma tarihi boş geçilemez!" }),
-  location: z.string().min(8, { message: "Konumu boş geçilemez!" }),
-  statuss: z.string().min(8, { message: "Kullanım durumu boş geçilemez!" }),
-  photo: z.instanceof(File, { message: "Image is required" }),
+deviceId: z
+  .string()
+  .min(3, { message: "Cihaz ID min 3 karakter uzunluğunda olmalı!" })
+  .max(20, { message: "Cihaz ID maks 20 karakter uzunluğunda olmalı!" }),
+serialNumber: z
+  .string()
+  .min(3, { message: "Cihaz Seri No min 3 karakter uzunluğunda olmalı!" })
+  .max(20, { message: "Cihaz Seri No maks 20 karakter uzunluğunda olmalı!" }),
+ownerId: z
+  .string()
+  .min(1, { message: "Bu alan boş geçilemez!" }),
+ownerName: z
+  .string()
+  .min(1, { message: "Bu alan boş geçilemez!" }),
+address: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
+deviceType: z
+  .enum(["YT", "YD", "SPR", "YK"], { message: "Bu alan boş geçilemez!" }),
+feature: z
+  .enum(["co2", "KK", "TZ"], { message: "Bu alan boş geçilemez!" }),
+respPersonId: z
+  .string()
+  .min(1, { message: "Bu alan boş geçilemez!" }),
+respPerson: z
+  .string()
+  .min(1, { message: "Bu alan boş geçilemez!" }),
+manufactureDate: z.
+  date({ message: "Bu alan boş geçilemez!" }),
+expiryDate: z.
+  date({ message: "Bu alan boş geçilemez!" }),
+lastInspectionDate: z.
+  date({ message: "Bu alan boş geçilemez!" }),
+location: z
+  .string().min(1, { message: "Bu alan boş geçilemez!" }),
+statuss: z
+  .string().min(1, { message: "Bu alan boş geçilemez!" }),
+photo: z.instanceof(File, { message: "Bu alan boş geçilemez!" }),
+details: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
 
 });
 
@@ -58,12 +69,20 @@ const DeviceForm = ({
   });
 
   return (
-    <form className="flex flex-col gap-8" onSubmit={onSubmit}>
+    <form className="flex flex-col gap-4" onSubmit={onSubmit}>
       <h1 className="text-xl font-semibold">Yeni Cihaz Oluştur</h1>
       <span className="text-xs text-gray-400 font-medium">
-        Cihaz Kimlik Bİlgileri
+        Cihaz  
       </span>
       <div className="flex justify-between flex-wrap gap-4">
+        <InputField
+          label="ID"
+          name="deviceId"
+          defaultValue={data?.deviceId}
+          register={register}
+          error={errors?.deviceId}
+        />
+
         <InputField
           label="Seri No"
           name="serialNumber"
@@ -71,47 +90,40 @@ const DeviceForm = ({
           register={register}
           error={errors?.serialNumber}
         />
-        <InputField
-          label="Cihaz Sahibi"
-          name="owner"
-          defaultValue={data?.owner}
-          register={register}
-          error={errors?.owner}
-        />
+        
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Cihaz Türü</label>
-          <select
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
-            {...register("deviceType")}
-            defaultValue={data?.deviceType}
-          >
-            <option value="YT">Yangın Tüpü</option>
-            <option value="YD">Yangın Dolabı</option>
-          </select>
-          {errors.sex?.message && (
-            <p className="text-xs text-red-400">
-              {errors.sex.message.toString()}
-            </p>
-          )}
-        </div>
+            <label className="text-xs text-gray-500">Cihaz Türü</label>
+            <select
+              className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+              {...register("deviceType")}
+              defaultValue={data?.deviceType}
+            >
+              <option value="YT">Yangın Tüpü</option>
+              <option value="YD">Yangın Dolabı</option>
+              <option value="SPR">Sprinkler</option>
+              <option value="YK">Yangın Kapısı</option>
 
-        <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Özelliği</label>
-          <select
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
-            {...register("feature")}
-            defaultValue={data?.deviceType}
-          >
-            <option value="CO2">CO2</option>
-            <option value="KK">Kuru Kimyevi</option>
-          </select>
-          {errors.sex?.message && (
-            <p className="text-xs text-red-400">
-              {errors.sex.message.toString()}
-            </p>
-          )}
-        </div>
-        <InputField
+            </select>
+          </div>
+          <div className="flex flex-col gap-2 w-full md:w-1/4">
+            <label className="text-xs text-gray-500">Özelliği</label>
+            <select
+              className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+              {...register("feature")}
+              defaultValue={data?.feature}
+            >
+              <option value="co2">CO2</option>
+              <option value="KK">Kuru Kimyevi</option>
+              <option value="TZ">Toz</option>
+
+            </select>
+            {errors.feature?.message && (
+              <p className="text-xs text-red-400">
+                {errors.feature.message.toString()}
+              </p>
+            )}
+          </div>
+          <InputField
           label="Üretim Tarihi"
           name="manufactureDate"
           type="date"
@@ -119,7 +131,6 @@ const DeviceForm = ({
           register={register}
           error={errors?.manufactureDate}
         />
-
         <InputField
           label="Son Kullanma Tarihi"
           name="expiryDate"
@@ -128,7 +139,6 @@ const DeviceForm = ({
           register={register}
           error={errors?.expiryDate}
         />
-
         <InputField
           label="Son Kontrol Tarihi"
           name="lastInspectionDate"
@@ -137,7 +147,6 @@ const DeviceForm = ({
           register={register}
           error={errors?.lastInspectionDate}
         />
-
         <InputField
           label="Konum"
           name="location"
@@ -145,16 +154,62 @@ const DeviceForm = ({
           register={register}
           error={errors?.location}
         />
-
         <InputField
           label="Durum"
           name="statuss"
           defaultValue={data?.statuss}
           register={register}
           error={errors?.statuss}
+        />        
+        </div>
+        <span className="text-xs text-gray-400 font-medium">
+          Cihaz Sahibi
+        </span>
+      <div className="flex justify-between flex-wrap gap-4">
+        <InputField
+          label="ID"
+          name="ownerId"
+          defaultValue={data?.ownerId}
+          register={register}
+          error={errors?.ownerId}
         />
-
-       
+        <InputField
+          label="Adı"
+          name="ownerName"
+          defaultValue={data?.ownerName}
+          register={register}
+          error={errors?.ownerName}
+        />
+        <InputField
+          label="Adres"
+          name="address"
+          defaultValue={data?.address}
+          register={register}
+          error={errors?.address}
+        />
+          
+        <InputField
+          label="Sorumlu Personel ID"
+          name="respPersonId"
+          defaultValue={data?.respPersonId}
+          register={register}
+          error={errors?.respPersonId}
+        />
+        <InputField
+          label="Sorumlu Personel Adı"
+          name="respPerson"
+          defaultValue={data?.respPerson}
+          register={register}
+          error={errors?.respPerson}
+        />
+        
+        <InputField
+          label="Detaylar"
+          name="details"
+          defaultValue={data?.details}
+          register={register}
+          error={errors?.details}
+        />
         <div className="flex flex-col gap-2 w-full md:w-1/4 justify-center">
           <label
             className="text-xs text-gray-500 flex items-center gap-2 cursor-pointer"
@@ -163,10 +218,10 @@ const DeviceForm = ({
             <Image src="/upload.png" alt="" width={28} height={28} />
             <span>Foto Yükleyin</span>
           </label>
-          <input type="file" id="img" {...register("img")} className="hidden" />
-          {errors.img?.message && (
+          <input type="file" id="img" {...register("photo")} className="hidden" />
+          {errors.photo?.message && (
             <p className="text-xs text-red-400">
-              {errors.img.message.toString()}
+              {errors.photo.message.toString()}
             </p>
           )}
         </div>

@@ -6,7 +6,7 @@ import { role } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 
-const SingleNotificationPage = () => {
+const SingleEventPage = () => {
   return (
     <div className="flex-1 p-4 flex flex-col gap-4 xl:flex-row">
       {/* LEFT */}
@@ -26,23 +26,28 @@ const SingleNotificationPage = () => {
             </div>
             <div className="w-2/3 flex flex-col justify-between gap-4">
               <div className="flex items-center gap-4">
-                <h1 className="text-xl font-semibold">Bildirim No: 0078</h1>
+                <h1 className="text-xl font-semibold">Etkinlik No: 0078</h1>
                 {role === "admin" && <FormModal
-                  table="notification"
+                  table="event"
                   type="update"
                   data={{
                     id: 1,
-                    notificationId: "889",
-                    userId: "007",
-                    userName: "Serkan Korkmaz",
-                    organizationName: "AAA Yangın Hizmetleri A.Ş",
-                    deviceSerialNumber: "445689",
-                    deviceOwnerId: "868548",
-                    deviceOwner: "BBG Hayvancılık A.Ş.",
-                    message: "xxxx nolu cihazın bakım tarihi yaklaşıyor...",
-                    notificationDate: "24/10/2024",
-                    isRead: "Okundu",
-                    notificationType: "Hatırlatma",
+                    eventId: "001",
+                    creatorId: "008",
+                    creatorName: "Harun Gümüş",
+                    creatorOrganization: "Dokuz Eylül Üniversitesi",
+                    respPersonId: "123",
+                    respPersonName: "Abay Adalı",
+                    respPersonOrg: "Yaşar Üniversitesi",
+                    title: "Bakım",
+                    message: "dhfgkjdhfgkhd",
+                    // start: new Date(2024, 10, 30, 11, 0),
+                    // end: new Date(2024, 10, 30, 11, 45),
+                    // create: new Date(2024, 10, 10, 8, 45),
+                    start: "30/10/2024",
+                    end: "30/10/2024",
+                    create: "10/10/2024",
+                    allDay: false,
                   }}
                 />}
               </div>
@@ -52,11 +57,11 @@ const SingleNotificationPage = () => {
               <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/blood.png" alt="" width={14} height={14} />
-                  <span>Süleyman Çokbilir</span>
+                  <span>Süleyman Çakır</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/blood.png" alt="" width={14} height={14} />
-                  <span>BİM Marketler A.Ş.</span>
+                  <span>A101 Marketler A.Ş.</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/date.png" alt="" width={14} height={14} />
@@ -87,8 +92,10 @@ const SingleNotificationPage = () => {
                 className="w-6 h-6"
               />
               <div className="">
-                <h1 className="text-md font-semibold">İlgili Cihaz Seri No</h1>
-                <span className="text-sm text-gray-400">898974547</span>
+                <h1 className="text-md font-semibold">İlgili Personel</h1>
+                <span className="text-sm text-gray-400">998</span><br></br>
+                <span className="text-sm text-gray-400">Ahmet Uysal</span><br></br>
+                <span className="text-sm text-gray-400">FFF Yangın A.Ş.</span>
               </div>
             </div>
             {/* CARD */}
@@ -103,8 +110,8 @@ const SingleNotificationPage = () => {
                 className="w-6 h-6"
               />
               <div className="">
-                <h1 className="text-md font-semibold">Cihaz Türü</h1>
-                <span className="text-sm text-gray-400">Sprinkler</span>
+                <h1 className="text-md font-semibold">Etkinlik Başlangıç Tarihi</h1>
+                <span className="text-sm text-gray-400">31/12/2024</span>
               </div>
             </div>
             {/* CARD */}
@@ -119,8 +126,8 @@ const SingleNotificationPage = () => {
                 className="w-6 h-6"
               />
               <div className="">
-                <h1 className="text-md font-semibold">Bildirim Tarihi</h1>
-                <span className="text-sm text-gray-400">10/12/2024</span>
+              <h1 className="text-md font-semibold">Etkinlik Bitiş Tarihi</h1>
+                <span className="text-sm text-gray-400">31/12/2024</span>
               </div>
             </div>
 
@@ -136,27 +143,12 @@ const SingleNotificationPage = () => {
                 className="w-6 h-6"
               />
               <div className="">
-                <h1 className="text-md font-semibold">Bildirim Türü</h1>
-                <span className="text-sm text-gray-400">Hatırlatma- Uyarı</span>
+              <h1 className="text-md font-semibold">Etkinlik Oluşturma Tarihi</h1>
+                <span className="text-sm text-gray-400">31/12/2024</span>
               </div>
             </div>
 
-             {/* CARD */}
-             {/* <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]"> */}
-             <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4">
-
-              <Image
-                src="/singleAttendance.png"
-                alt=""
-                width={24}
-                height={24}
-                className="w-6 h-6"
-              />
-              <div className="">
-                <h1 className="text-md font-semibold">Durumu</h1>
-                <span className="text-sm text-gray-400">Aktif</span>
-              </div>
-            </div>
+             
           </div>
         </div>
         {/* BOTTOM */}
@@ -194,4 +186,4 @@ const SingleNotificationPage = () => {
   );
 };
 
-export default SingleNotificationPage;
+export default SingleEventPage;

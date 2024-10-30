@@ -32,17 +32,22 @@ const SingleUserPage = () => {
                   type="update"
                   data={{
                     id: 1,
-                    username: "deanguerrero",
-                    email: "deanguerrero@gmail.com",
-                    password: "password",
-                    firstName: "Dean",
-                    lastName: "Guerrero",
-                    phone: "+1 234 567 89",
-                    address: "1234 Main St, Anytown, USA",
-                    bloodType: "A+",
-                    dateOfBirth: "2000-01-01",
-                    sex: "male",
-                    img: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=1200",
+                    userId: "1234567890",
+                    userName: "Fırat Salmanoğlu",
+                    password: "12345678",
+                    firstName: "Fırat",
+                    lastName: "Salmanoğlu",
+                    bloodType: "ARh+",
+                    birthday: "01/01/2000",
+                    sex: "Erkek",
+                    organizationId: "009",
+                    organizationName: "Ege University",
+                    address: "Bornova. İzmir",
+                    role: ["Admin"],
+                    photo: "/avatar.png",
+                    email: "john@doe.com",
+                    phoneNumber: "1234567890",
+                    registrationDate: "10/06/2024",
                   }}
                 />}
               </div>
@@ -123,8 +128,8 @@ const SingleUserPage = () => {
                 className="w-6 h-6"
               />
               <div className="">
-                <h1 className="text-md font-semibold">ZZZ</h1>
-                <span className="text-sm text-gray-400">XXX</span>
+                <h1 className="text-md font-semibold">Üyelik Tarihi</h1>
+                <span className="text-sm text-gray-400">10/06/2024</span>
               </div>
             </div>
           </div>

@@ -28,21 +28,26 @@ const SingleDevicePage = () => {
               <div className="flex items-center gap-4">
                 <h1 className="text-xl font-semibold">Seri No: 78584878</h1>
                 {role === "admin" && <FormModal
-                  table="user"
+                  table="device"
                   type="update"
                   data={{
                     id: 1,
-                    username: "deanguerrero",
-                    email: "deanguerrero@gmail.com",
-                    password: "password",
-                    firstName: "Dean",
-                    lastName: "Guerrero",
-                    phone: "+1 234 567 89",
-                    address: "1234 Main St, Anytown, USA",
-                    bloodType: "A+",
-                    dateOfBirth: "2000-01-01",
-                    sex: "male",
-                    img: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=1200",
+                    deviceId: "1234567890",
+                    serialNumber:"95958478784",
+                    ownerId:"75",
+                    ownerName:"XXXX Hospital",
+                    address: "Bornova İzmir",
+                    deviceType: "Yangın Tüpü",
+                    feature: "CO2",
+                    respPersonId: ["105", "215"],
+                    respPerson: ["Ayhan Uğur","Fırat Salmanoğlu"],
+                    manufactureDate: "25/10/2024",
+                    expiryDate: "25/10/2025",
+                    lastInspectionDate: "25/06/2024",
+                    location: "roof",
+                    statuss: "OK",
+                    photo:"/avatar.png",
+                    details: "2mt hortum, üstten basmalı vs",
                   }}
                 />}
               </div>
