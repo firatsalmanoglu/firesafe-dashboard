@@ -77,13 +77,13 @@ const SingleUserPage = () => {
           {/* SMALL CARDS */}
           <div className="flex-1 flex gap-4 justify-between flex-wrap">
             {/* CARD */}
-            <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+            <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[100%]">
               <Image
-                src="/singleAttendance.png"
+                src="/smc-role.png"
                 alt=""
                 width={24}
                 height={24}
-                className="w-6 h-6"
+                className="w-10 h-10"
               />
               <div className="">
                 <h1 className="text-md font-semibold">Rolü</h1>
@@ -91,13 +91,13 @@ const SingleUserPage = () => {
               </div>
             </div>
             {/* CARD */}
-            <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+            <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[100%]">
               <Image
-                src="/singleBranch.png"
+                src="/smc-sex.png"
                 alt=""
                 width={24}
                 height={24}
-                className="w-6 h-6"
+                className="w-10 h-10"
               />
               <div className="">
                 <h1 className="text-md font-semibold">Cinsiyet</h1>
@@ -105,13 +105,13 @@ const SingleUserPage = () => {
               </div>
             </div>
             {/* CARD */}
-            <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+            <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[100%]">
               <Image
-                src="/singleLesson.png"
+                src="/smc-company.png"
                 alt=""
                 width={24}
                 height={24}
-                className="w-6 h-6"
+                className="w-10 h-12"
               />
               <div className="">
                 <h1 className="text-md font-semibold">Kurumu</h1>
@@ -119,13 +119,13 @@ const SingleUserPage = () => {
               </div>
             </div>
             {/* CARD */}
-            <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+            <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[100%]">
               <Image
-                src="/singleClass.png"
+                src="/smc-calendar.png"
                 alt=""
                 width={24}
                 height={24}
-                className="w-6 h-6"
+                className="w-10 h-10"
               />
               <div className="">
                 <h1 className="text-md font-semibold">Üyelik Tarihi</h1>
@@ -145,19 +145,19 @@ const SingleUserPage = () => {
         <div className="bg-white p-4 rounded-md">
           <h1 className="text-xl font-semibold">Kısayollar</h1>
           <div className="mt-4 flex gap-4 flex-wrap text-xs text-gray-500">
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href="/">
+            <Link className="p-3 rounded-md bg-lamaSkyLight" href="/list/offers">
             Kullanıcı&apos;nın Teklifleri
             </Link>
-            <Link className="p-3 rounded-md bg-lamaPurpleLight" href="/">
+            <Link className="p-3 rounded-md bg-lamaPurpleLight" href="/list/maintenances">
               Kullanıcı&apos;nın Bakımları
             </Link>
-            <Link className="p-3 rounded-md bg-lamaYellowLight" href="/">
+            <Link className="p-3 rounded-md bg-lamaYellowLight" href="/list/devices">
             Kullanıcı&apos;nın Cihazları
             </Link>
-            <Link className="p-3 rounded-md bg-pink-50" href="/">
+            <Link className="p-3 rounded-md bg-pink-50" href="/list/notifications">
             Kullanıcı&apos;nın Bildirimleri
             </Link>
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href="/">
+            <Link className="p-3 rounded-md bg-lamaSkyLight" href="/list/users">
               Hizmet Sağlayıcılarım / Müşterilerim
             </Link>
           </div>

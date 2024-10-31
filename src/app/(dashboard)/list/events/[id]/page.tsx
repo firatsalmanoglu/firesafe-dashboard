@@ -86,15 +86,15 @@ const SingleEventPage = () => {
           {/* SMALL CARDS */}
           <div className="flex-1 flex gap-4 justify-between flex-wrap">
             {/* CARD */}
-            {/* <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]"> */}
-            <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4">
+            <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[100%]">
+            {/* <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4"> */}
 
               <Image
-                src="/singleAttendance.png"
+                src="/smc-customer.png"
                 alt=""
                 width={24}
                 height={24}
-                className="w-6 h-6"
+                className="w-10 h-12"
               />
               <div className="">
                 <h1 className="text-md font-semibold">İlgili Personel</h1>
@@ -104,15 +104,15 @@ const SingleEventPage = () => {
               </div>
             </div>
             {/* CARD */}
-            {/* <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]"> */}
-            <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4">
+            <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[100%]">
+            {/* <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4"> */}
 
               <Image
-                src="/singleBranch.png"
+                src="/smc-calendar.png"
                 alt=""
                 width={24}
                 height={24}
-                className="w-6 h-6"
+                className="w-10 h-10"
               />
               <div className="">
                 <h1 className="text-md font-semibold">Etkinlik Başlangıç Tarihi</h1>
@@ -120,15 +120,15 @@ const SingleEventPage = () => {
               </div>
             </div>
             {/* CARD */}
-            {/* <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]"> */}
-            <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4">
+            <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[100%]">
+            {/* <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4"> */}
 
               <Image
-                src="/singleLesson.png"
+                src="/smc-calendar.png"
                 alt=""
                 width={24}
                 height={24}
-                className="w-6 h-6"
+                className="w-10 h-10"
               />
               <div className="">
               <h1 className="text-md font-semibold">Etkinlik Bitiş Tarihi</h1>
@@ -137,15 +137,15 @@ const SingleEventPage = () => {
             </div>
 
              {/* CARD */}
-             {/* <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]"> */}
-             <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4">
+             <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[100%]">
+             {/* <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4"> */}
 
               <Image
-                src="/singleAttendance.png"
+                src="/smc-calendar.png"
                 alt=""
                 width={24}
                 height={24}
-                className="w-6 h-6"
+                className="w-10 h-10"
               />
               <div className="">
               <h1 className="text-md font-semibold">Etkinlik Oluşturma Tarihi</h1>

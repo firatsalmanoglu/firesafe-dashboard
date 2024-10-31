@@ -19,10 +19,26 @@ const config: Config = {
         // fireorange:"#FFCB87",
         // whitetext:"#ffffff",
 
-         firered:"#C40808",
-         firelightorange:"#EA723E",
-         fireorange:"#E04D24",
-         whitetext:"#ffffff",
+          firered:"#C40808",
+          firelightorange:"#EA723E",
+          fireorange:"#E04D24",
+
+
+          //PASTEL
+          // firered: "#E86A6A", //(Açık Kırmızı)
+          // firelightorange: "#F2B7A6", //(Açık Şeftali)
+          // fireorange: "#F1A07A", //(Açık Turuncu)
+
+          //LİGHT
+          // firered:"#FF6B6B",  //(Soluk Kırmızı)
+          // firelightorange:"#FF9F76", //(Soluk Turuncu)
+          // fireorange: "#FFB84D", //(Soluk Altın Turuncu)
+
+          whitetext:"#ffffff",
+
+
+
+
 
         lamaSky: "#C3EBFA",
         lamaSkyLight: "#EDF9FD",

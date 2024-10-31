@@ -61,7 +61,7 @@ const SingleDevicePage = () => {
                 </div>
                 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
-                  <Image src="/fire-extinguisher.png" alt="" width={14} height={14} />
+                  <Image src="/black-fire-extinguisher.png" alt="" width={14} height={14} />
                   <span>Yangın Tüpü</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
@@ -106,15 +106,15 @@ const SingleDevicePage = () => {
               </div>
             </div> */}
             {/* CARD */}
-            <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+            <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[100%]">
             {/* <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4"> */}
 
               <Image
-                src="/singleBranch.png"
+                src="/smc-calendar.png"
                 alt=""
                 width={24}
                 height={24}
-                className="w-6 h-6"
+                className="w-10 h-10"
               />
               <div className="">
                 <h1 className="text-md font-semibold">Üretim Tarihi</h1>
@@ -122,15 +122,15 @@ const SingleDevicePage = () => {
               </div>
             </div>
             {/* CARD */}
-            <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+            <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[100%]">
             {/* <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4"> */}
 
               <Image
-                src="/singleLesson.png"
+                src="/smc-calendar.png"
                 alt=""
                 width={24}
                 height={24}
-                className="w-6 h-6"
+                className="w-10 h-10"
               />
               <div className="">
                 <h1 className="text-md font-semibold">Son Kullanma Tarihi</h1>
@@ -138,15 +138,15 @@ const SingleDevicePage = () => {
               </div>
             </div>
             {/* CARD */}
-            <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+            <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[100%]">
             {/* <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4"> */}
 
               <Image
-                src="/singleClass.png"
+                src="/smc-calendar.png"
                 alt=""
                 width={24}
                 height={24}
-                className="w-6 h-6"
+                className="w-10 h-10"
               />
               <div className="">
                 <h1 className="text-md font-semibold">Son Bakım Tarihi</h1>
@@ -172,15 +172,15 @@ const SingleDevicePage = () => {
             </div> */}
 
              {/* CARD */}
-             <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+             <div className="bg-lamaPurpleLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[100%]">
              {/* <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4"> */}
 
               <Image
-                src="/singleAttendance.png"
+                src="/smc-status.png"
                 alt=""
                 width={24}
                 height={24}
-                className="w-6 h-6"
+                className="w-10 h-10"
               />
               <div className="">
                 <h1 className="text-md font-semibold">Durumu</h1>
@@ -200,10 +200,10 @@ const SingleDevicePage = () => {
         <div className="bg-white p-4 rounded-md">
           <h1 className="text-xl font-semibold">Kısayollar</h1>
           <div className="mt-4 flex gap-4 flex-wrap text-xs text-gray-500">
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href="/">
+            <Link className="p-3 rounded-md bg-lamaSkyLight" href="/list/maintenances">
             Cihaz&apos;ın Bakım Geçmişi
             </Link>
-            <Link className="p-3 rounded-md bg-lamaPurpleLight" href="/">
+            <Link className="p-3 rounded-md bg-lamaPurpleLight" href="/list/notifications">
               Cihazla İlgili Bildirimler
             </Link>
             {/* <Link className="p-3 rounded-md bg-lamaYellowLight" href="/">

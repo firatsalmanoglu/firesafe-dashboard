@@ -24,6 +24,9 @@ const NotificationForm = dynamic(() => import("./forms/NotificationForm"), {
 const EventForm = dynamic(() => import("./forms/EventForm"), {
   loading: () => <h1>Loading...</h1>,
 });
+const OfferForm = dynamic(() => import("./forms/OfferForm"), {
+  loading: () => <h1>Loading...</h1>,
+});
 
 const forms: {
   [key: string]: (type: "create" | "update", data?: any) => JSX.Element;
@@ -32,7 +35,8 @@ const forms: {
   device: (type, data) => <DeviceForm type={type} data={data} />,
   maintenance: (type, data) => <MaintenanceForm type={type} data={data} />,
   notification: (type, data) => <NotificationForm type={type} data={data} />,
-  event: (type, data) => <EventForm type={type} data={data} />
+  event: (type, data) => <EventForm type={type} data={data} />,
+  offer: (type, data) => <OfferForm type={type} data={data} />
 
 
 };
