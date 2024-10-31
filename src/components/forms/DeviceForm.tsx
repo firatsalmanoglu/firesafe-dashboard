@@ -41,7 +41,7 @@ lastInspectionDate: z.
 location: z
   .string().min(1, { message: "Bu alan boş geçilemez!" }),
 statuss: z
-  .string().min(1, { message: "Bu alan boş geçilemez!" }),
+  .enum(["A", "P"], { message: "Bu alan boş geçilemez!" }),
 photo: z.instanceof(File, { message: "Bu alan boş geçilemez!" }),
 details: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
 
@@ -75,6 +75,7 @@ const DeviceForm = ({
         Cihaz  
       </span>
       <div className="flex justify-between flex-wrap gap-4">
+      
         <InputField
           label="ID"
           name="deviceId"
@@ -82,7 +83,7 @@ const DeviceForm = ({
           register={register}
           error={errors?.deviceId}
         />
-
+      
         <InputField
           label="Seri No"
           name="serialNumber"
@@ -90,8 +91,9 @@ const DeviceForm = ({
           register={register}
           error={errors?.serialNumber}
         />
+       
         
-        <div className="flex flex-col gap-2 w-full md:w-1/4">
+          <div className="flex flex-col gap-2 w-full md:w-1/4">
             <label className="text-xs text-gray-500">Cihaz Türü</label>
             <select
               className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
@@ -154,13 +156,23 @@ const DeviceForm = ({
           register={register}
           error={errors?.location}
         />
-        <InputField
-          label="Durum"
-          name="statuss"
-          defaultValue={data?.statuss}
-          register={register}
-          error={errors?.statuss}
-        />        
+        <div className="flex flex-col gap-2 w-full md:w-1/4">
+            <label className="text-xs text-gray-500">Durumu</label>
+            <select
+              className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+              {...register("statuss")}
+              defaultValue={data?.statuss}
+            >
+              <option value="A">Kullanımda</option>
+              <option value="P">Kullanım Dışı</option>
+
+            </select>
+            {errors.statuss?.message && (
+              <p className="text-xs text-red-400">
+                {errors.statuss.message.toString()}
+              </p>
+            )}
+          </div>       
         </div>
         <span className="text-xs text-gray-400 font-medium">
           Cihaz Sahibi

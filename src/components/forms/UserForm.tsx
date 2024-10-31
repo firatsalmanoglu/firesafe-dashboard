@@ -25,8 +25,7 @@ const schema = z.object({
     .string()
     .min(1, { message: "Bu alan boş geçilemez!" }),
   bloodType: z
-    .string()
-    .min(1, { message: "Bu alan boş geçilemez!" }),
+  .enum(["A+", "A-", "B+", "B-", "AB+", "AB-","0+", "0-"], { message: "Bu alan boş geçilemez!" }),  
   birthday: z.
     date({ message: "Bu alan boş geçilemez!" }),
   sex: z
@@ -37,7 +36,8 @@ const schema = z.object({
     .string().min(1, { message: "Bu alan boş geçilemez!" }),
   address: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
   role: z
-  .enum(["admin", "customerI", "customerII", "providerI", "providerII"], { message: "Bu alan boş geçilemez!" }),  photo: z.instanceof(File, { message: "Bu alan boş geçilemez!" }),
+  .enum(["admin", "customerI", "customerII", "providerI", "providerII"], { message: "Bu alan boş geçilemez!" }),  
+  photo: z.instanceof(File, { message: "Bu alan boş geçilemez!" }),
   email: z.string().email({ message: "Geçersiz e-posta!" }),
   phoneNumber: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
   registrationDate: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
@@ -114,13 +114,31 @@ const UserForm = ({
           register={register}
           error={errors.lastName}
         />
-        <InputField
-          label="Kan Grubu"
-          name="bloodType"
-          defaultValue={data?.bloodType}
-          register={register}
-          error={errors.bloodType}
-        />
+
+        <div className="flex flex-col gap-2 w-full md:w-1/4">
+          <label className="text-xs text-gray-500">Kan Grubu</label>
+          <select
+            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+            {...register("bloodType")}
+            defaultValue={data?.sex}
+          >
+            <option value="A+">A Rh Pozitif /A+/</option>
+            <option value="A-"> A Rh Negatif /A-/</option>
+            <option value="B+">B Rh Pozitif /B+/</option>
+            <option value="B-">B Rh Negatif /B+/</option>
+            <option value="AB+">AB Rh Pozitif /AB+/</option>
+            <option value="AB-">AB Rh Negatif /AB+/</option>
+            <option value="0+">0 Rh Pozitif /0+/</option>
+            <option value="0-">0 Rh Negatif /0-/</option>
+
+          </select>
+          {errors.bloodType?.message && (
+            <p className="text-xs text-red-400">
+              {errors.bloodType.message.toString()}
+            </p>
+          )}
+
+        </div>
         <InputField
           label="Doğum Tarihi"
           name="birthday"
@@ -148,27 +166,7 @@ const UserForm = ({
           )}
 
         </div>
-        <InputField
-          label="Kurum ID"
-          name="organizationId"
-          defaultValue={data?.organizationId}
-          register={register}
-          error={errors.organizationId}
-        />
-        <InputField
-          label="Kurum Adı"
-          name="organizationName"
-          defaultValue={data?.organizationName}
-          register={register}
-          error={errors.organizationName}
-        />
-        <InputField
-          label="Adres"
-          name="address"
-          defaultValue={data?.address}
-          register={register}
-          error={errors.address}
-        />
+
         <div className="flex flex-col gap-2 w-full md:w-1/4">
           <label className="text-xs text-gray-500">Rol</label>
           <select
@@ -214,6 +212,35 @@ const UserForm = ({
           error={errors.registrationDate}
           type="date"
         />
+
+        </div>
+      <span className="text-xs text-gray-400 font-medium">
+        Kurum
+      </span>
+      <div className="flex justify-between flex-wrap gap-4">
+        
+        <InputField
+          label="ID"
+          name="organizationId"
+          defaultValue={data?.organizationId}
+          register={register}
+          error={errors.organizationId}
+        />
+        <InputField
+          label="Adı"
+          name="organizationName"
+          defaultValue={data?.organizationName}
+          register={register}
+          error={errors.organizationName}
+        />
+        <InputField
+          label="Adres"
+          name="address"
+          defaultValue={data?.address}
+          register={register}
+          error={errors.address}
+        />
+        
         
         <div className="flex flex-col gap-2 w-full md:w-1/4 justify-center">
           <label
