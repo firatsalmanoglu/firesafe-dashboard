@@ -29,6 +29,11 @@ type Device = {
 
 const columns =[
     {
+        header:"Seri No", 
+        accessor:"serialNumber",
+        className: "hidden md:table-cell",
+    },
+    {
         header:"Bilgi", 
         accessor:"info",
     },
@@ -53,36 +58,36 @@ const columns =[
         accessor:"respPerson",
         className: "hidden md:table-cell",
     },
-    {
-      header:"Üret.Tar.", 
-      accessor:"manufactureDate",
-      className: "hidden md:table-cell",
-    },
-    {
-        header:"Son Kul.Tar.", 
-        accessor:"expiryDate",
-        className: "hidden md:table-cell",
-    },
+    // {
+    //   header:"Üret.Tar.", 
+    //   accessor:"manufactureDate",
+    //   className: "hidden md:table-cell",
+    // },
+    // {
+    //     header:"Son Kul.Tar.", 
+    //     accessor:"expiryDate",
+    //     className: "hidden md:table-cell",
+    // },
     {
         header:"Son Kont.Tar.", 
         accessor:"lastInspectionDate",
         className: "hidden md:table-cell",
     },
-    {
-        header:"Konum", 
-        accessor:"location",
-        className: "hidden md:table-cell",
-    },
+    // {
+    //     header:"Konum", 
+    //     accessor:"location",
+    //     className: "hidden md:table-cell",
+    // },
     {
         header:"Durumu", 
         accessor:"statuss",
         className: "hidden md:table-cell",
     },
-    {
-      header:"Detaylar", 
-      accessor:"details",
-      className: "hidden md:table-cell",
-    },
+    // {
+    //   header:"Detaylar", 
+    //   accessor:"details",
+    //   className: "hidden md:table-cell",
+    // },
     {
       header:"Eylemler", 
       accessor:"action",
@@ -98,6 +103,7 @@ const DeviceListPage = () => {
           key={item.id}
           className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
         >
+          <td className="hidden md:table-cell">{item.serialNumber}</td>
           <td className="flex items-center gap-4 p-4">
             <Image
               src={item.photo}
@@ -108,7 +114,6 @@ const DeviceListPage = () => {
             />
             <div className="flex flex-col">
               <h3 className="font-semibold">{item.deviceType}</h3>
-              <p className="text-xs text-gray-500">{item.serialNumber}</p>
               <p className="text-xs text-gray-500">{item.ownerName}</p>
               <td className="hidden md:table-cell">{item.address}</td>
 
@@ -117,17 +122,17 @@ const DeviceListPage = () => {
           {/* <td className="hidden md:table-cell">{item.deviceId}</td> */}
           <td className="hidden md:table-cell">{item.feature}</td>
           <td className="hidden md:table-cell">{item.respPerson}</td>
-          <td className="hidden md:table-cell">{item.manufactureDate}</td>
-          <td className="hidden md:table-cell">{item.expiryDate}</td>
+          {/* <td className="hidden md:table-cell">{item.manufactureDate}</td> */}
+          {/* <td className="hidden md:table-cell">{item.expiryDate}</td> */}
           <td className="hidden md:table-cell">{item.lastInspectionDate}</td>
-          <td className="hidden md:table-cell">{item.location}</td>
+          {/* <td className="hidden md:table-cell">{item.location}</td> */}
           <td className="hidden md:table-cell">{item.statuss}</td>
-          <td className="hidden md:table-cell">{item.details}</td>
+          {/* <td className="hidden md:table-cell">{item.details}</td> */}
           <td>
             <div className="flex items-center gap-2">
               <Link href={`/list/devices/${item.id}`}>
-                <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaSky">
-                  <Image src="/view.png" alt="" width={16} height={16} />
+                <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+                  <Image src="/view.png" alt="" width={24} height={24} />
                 </button>
               </Link>
               {role === "admin" && (

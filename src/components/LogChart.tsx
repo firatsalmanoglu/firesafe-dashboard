@@ -112,10 +112,10 @@ const LogChart = () => {
           <Line
             type="monotone"
             dataKey="müşteri"
-            stroke="#C40808"
+            stroke="#EA4C4C"
             strokeWidth={5}
           />
-          <Line type="monotone" dataKey="Sağlayıcı" stroke="#EA723E" strokeWidth={5}/>
+          <Line type="monotone" dataKey="Sağlayıcı" stroke="#FAE27C" strokeWidth={5}/>
         </LineChart>
       </ResponsiveContainer>
     </div>

@@ -28,7 +28,7 @@ type Event = {
 
 const columns =[
     {
-        header:"Etkinlik ID", 
+        header:"Randevu ID", 
         accessor:"eventId",
         className: "hidden md:table-cell"
     },
@@ -37,20 +37,25 @@ const columns =[
         accessor:"info",
     },
     {
-        header:"Etkinlik Başlığı", 
-        accessor:"title",
-        className: "hidden md:table-cell"
+      header:"Oluşturma Tarihi", 
+      accessor:"create",
+      className: "hidden md:table-cell",
     },
+    // {
+    //     header:"Etkinlik Başlığı", 
+    //     accessor:"title",
+    //     className: "hidden md:table-cell"
+    // },
     {
         header:"İlgili Kullanıcı", 
         accessor:"info",
     },
     
-    {
-        header:"Açıklama", 
-        accessor:"message",
-        className: "hidden md:table-cell",
-    },
+    // {
+    //     header:"Açıklama", 
+    //     accessor:"message",
+    //     className: "hidden md:table-cell",
+    // },
     {
         header:"Başlangıç Tarihi", 
         accessor:"start",
@@ -61,15 +66,16 @@ const columns =[
         accessor:"end",
         className: "hidden md:table-cell",
     },
+    
+    // {
+    //     header:"Tüm GÜn mü?", 
+    //     accessor:"allDay",
+    //     className: "hidden md:table-cell",
+    // },
     {
-        header:"Oluşturma Tarihi", 
-        accessor:"create",
-        className: "hidden md:table-cell",
-    },
-    {
-        header:"Tüm GÜn mü?", 
-        accessor:"allDay",
-        className: "hidden md:table-cell",
+      header:"Eylemler", 
+      accessor:"action",
+      className: "hidden md:table-cell",
     },
     
 ];
@@ -97,9 +103,9 @@ const EventListPage = () => {
             </div>
           </td>
 
-          
+          <td className="hidden md:table-cell">{item.create}</td>
 
-          <td className="hidden md:table-cell">{item.title}</td>
+          {/* <td className="hidden md:table-cell">{item.title}</td> */}
           <td className="flex items-center gap-4 p-4">
             {/* <Image
               src={item.photo}
@@ -114,16 +120,16 @@ const EventListPage = () => {
               <p className="text-xs text-gray-500">{item.respPersonOrg}</p>
             </div>
           </td>
-          <td className="hidden md:table-cell">{item.message}</td>
+          {/* <td className="hidden md:table-cell">{item.message}</td> */}
           <td className="hidden md:table-cell">{item.start}</td>
           <td className="hidden md:table-cell">{item.end}</td>
-          <td className="hidden md:table-cell">{item.create}</td>
-          <td className="hidden md:table-cell">{item.allDay}</td>
+          
+          {/* <td className="hidden md:table-cell">{item.allDay}</td> */}
           <td>
             <div className="flex items-center gap-2">
               <Link href={`/list/events/${item.id}`}>
-                <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaSky">
-                  <Image src="/view.png" alt="" width={16} height={16} />
+                <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+                  <Image src="/view.png" alt="" width={24} height={24} />
                 </button>
               </Link>
               {role === "admin" && (

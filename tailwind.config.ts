@@ -14,38 +14,57 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors:{
-        // firered:"#CF352E",
-        // firelightorange:"#FFE59E",
-        // fireorange:"#FFCB87",
-        // whitetext:"#ffffff",
+        
+        //1. Renk Paleti - Lama
+        // lamaSky: "#C3EBFA",
+        // lamaSkyLight: "#EDF9FD",
+        // lamaPurple: "#CFCEFF",
+        // lamaPurpleLight: "#F1F0FF",
+        // lamaYellow: "#FAE27C",
+        // lamaYellowLight: "#FEFCE8",
 
-          firered:"#C40808",
-          firelightorange:"#EA723E",
-          fireorange:"#E04D24",
+        //2. Renk Paleti - Açık Logo Tonları
+        // lamaSky: "#F6B0B0",
+        // lamaSkyLight: "#F6C4A2",
+        // lamaPurple: "#F9E97E",
+        // lamaPurpleLight: "#D9D9D9",
+        // lamaYellow: "#FAE27C",
+        // lamaYellowLight: "#FEFCE8",
+
+        //3. Renk Paleti - Soluk Logo Tonları
+         lamaSky: "#EA4C4C",
+         lamaSkyLight: "#ea723e",
+         lamaPurple: "#FAE27C",
+         lamaPurpleLight: "#EAEAEA",
+         lamaYellow: "#FAE27C",
+         lamaYellowLight: "#FFB84D",
+         pastelOrange: "F2B500",
+
+        //4. Renk Paleti - Logo Renkleri
+        // lamaSky: "#C40808",
+        // lamaSkyLight: "#EA723E",
+        // lamaPurple: "#FFB84D",
+        // lamaPurpleLight: "#F1F0FF",
+        // lamaYellow: "#FAE27C",
+        // lamaYellowLight: "#FEFCE8",
+
+        //5. Renk Paleti
+        // lamaSky: "#C3EBFA",
+        // lamaSkyLight: "#EDF9FD",
+        // lamaPurple: "#CFCEFF",
+        // lamaPurpleLight: "#FFE59E",
+        // lamaYellow: "#FAE27C",
+        // lamaYellowLight: "#FEFCE8",
+        
+        
+
+        whitetext:"#ffffff",
 
 
-          //PASTEL
-          // firered: "#E86A6A", //(Açık Kırmızı)
-          // firelightorange: "#F2B7A6", //(Açık Şeftali)
-          // fireorange: "#F1A07A", //(Açık Turuncu)
-
-          //LİGHT
-          // firered:"#FF6B6B",  //(Soluk Kırmızı)
-          // firelightorange:"#FF9F76", //(Soluk Turuncu)
-          // fireorange: "#FFB84D", //(Soluk Altın Turuncu)
-
-          whitetext:"#ffffff",
 
 
 
-
-
-        lamaSky: "#C3EBFA",
-        lamaSkyLight: "#EDF9FD",
-        lamaPurple: "#CFCEFF",
-        lamaPurpleLight: "#F1F0FF",
-        lamaYellow: "#FAE27C",
-        lamaYellowLight: "#FEFCE8",
+        
 
 
       }

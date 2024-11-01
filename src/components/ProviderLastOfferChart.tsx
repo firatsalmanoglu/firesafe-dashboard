@@ -77,13 +77,13 @@ const ProviderLastOfferChart = () => {
           />
           <Bar
             dataKey="teklif"
-            fill="#C40808"
+            fill="#EA4C4C"
             legendType="circle"
             radius={[10, 10, 0, 0]}
           />
           <Bar
             dataKey="kabul"
-            fill="#EA723E"
+            fill="#FAE27C"
             legendType="circle"
             radius={[10, 10, 0, 0]}
           />

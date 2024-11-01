@@ -27,6 +27,11 @@ type Offer = {
 
 const columns =[
     {
+        header:"Teklif ID", 
+        accessor:"offerId",
+        className: "hidden md:table-cell",
+    },
+    {
         header:"Teklif Veren", 
         accessor:"info",
     },
@@ -40,17 +45,17 @@ const columns =[
       header:"Müşteri", 
       accessor:"info",
       className: "hidden md:table-cell"
-  },
-    {
-        header:"Geçerlilik Tarihi", 
-        accessor:"expiryDate",
-        className: "hidden md:table-cell",
     },
-    {
-      header:"Teklif İçeriği", 
-      accessor:"servicesOffered",
-      className: "hidden md:table-cell",
-    },
+    // {
+    //     header:"Geçerlilik Tarihi", 
+    //     accessor:"expiryDate",
+    //     className: "hidden md:table-cell",
+    // },
+    // {
+    //   header:"Teklif İçeriği", 
+    //   accessor:"servicesOffered",
+    //   className: "hidden md:table-cell",
+    // },
     {
         header:"Teklif Tutarı", 
         accessor:"amount",
@@ -78,6 +83,7 @@ const OfferListPage = () => {
           key={item.id}
           className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
         >
+          <td className="hidden md:table-cell">{item.offerId}</td>
           <td className="flex items-center gap-4 p-4">
             {/* <Image
               src={item.photo}
@@ -87,9 +93,8 @@ const OfferListPage = () => {
               className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
             /> */}
             <div className="flex flex-col">
-              <h3 className="font-semibold">{item.offerId}</h3>
+              <h3 className="font-semibold">{item.providerOrganization}</h3>
               <p className="text-xs text-gray-500">{item.providerName}</p>
-              <p className="text-xs text-gray-500">{item.providerOrganization}</p>
             </div>
           </td>
 
@@ -103,19 +108,19 @@ const OfferListPage = () => {
               className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
             /> */}
             <div className="flex flex-col">
-              <h3 className="font-semibold">{item.ownerName}</h3>
-              <p className="text-xs text-gray-500">{item.ownerOrganization}</p>
+              <h3 className="font-semibold">{item.ownerOrganization}</h3>
+              <p className="text-xs text-gray-500">{item.ownerName}</p>
             </div>
           </td>
-          <td className="hidden md:table-cell">{item.expiryDate}</td>
-          <td className="hidden md:table-cell">{item.servicesOffered}</td>
+          {/* <td className="hidden md:table-cell">{item.expiryDate}</td> */}
+          {/* <td className="hidden md:table-cell">{item.servicesOffered}</td> */}
           <td className="hidden md:table-cell">{item.amount}</td>
           <td className="hidden md:table-cell">{item.status}</td>
           <td>
             <div className="flex items-center gap-2">
               <Link href={`/list/offers/${item.id}`}>
-                <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaSky">
-                  <Image src="/view.png" alt="" width={16} height={16} />
+                <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+                  <Image src="/view.png" alt="" width={24} height={24} />
                 </button>
               </Link>
               {role === "admin" && (

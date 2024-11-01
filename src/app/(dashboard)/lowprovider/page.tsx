@@ -17,7 +17,7 @@ const LowProviderPage = () => {
                 <UserCard type="Tüm Tekliflerim" />
                 <UserCard type="Bekleyen Teklifler" />
                 <UserCard type="Yaklaşan Randevularım" />
-                <UserCard type="Bakımı Gerçekleşen Cihaz Sayısı" />
+                <UserCard type="Bakımlarım" />
             </div>
             {/* MIDDLE CHARTS */}
             <div className='flex gap-4 flex-col lg:flex-row'>

@@ -112,13 +112,13 @@ const ProviderMaintChart = () => {
           <Line
             type="monotone"
             dataKey="talep"
-            stroke="#C40808"
+            stroke="#EA4C4C"
             strokeWidth={5}
           />
           <Line 
             type="monotone" 
             dataKey="gerçekleşen" 
-            stroke="#EA723E" 
+            stroke="#FAE27C" 
             strokeWidth={5}
             />
         </LineChart>

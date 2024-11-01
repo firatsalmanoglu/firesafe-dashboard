@@ -16,12 +16,12 @@ const data = [
   {
     name: "Aktif",
     count: 85,
-    fill: "#C40808",
+    fill: "#EA4C4C",
   },
   {
     name: "Pasif",
     count: 53,
-    fill: "#EA723E",
+    fill: "#FAE27C",
   },
 ];
 
@@ -58,12 +58,12 @@ const CustomerExtingChart = () => {
       {/* BOTTOM */}
       <div className="flex justify-center gap-16">
         <div className="flex flex-col gap-1">
-          <div className="w-5 h-5 bg-firered rounded-full" />
+          <div className="w-5 h-5 bg-lamaSky rounded-full" />
           <h1 className="font-bold">1,234</h1>
           <h2 className="text-xs text-[#000000]-300">Aftif (55%)</h2>
         </div>
         <div className="flex flex-col gap-1">
-          <div className="w-5 h-5 bg-firelightorange rounded-full" />
+          <div className="w-5 h-5 bg-lamaPurple rounded-full" />
           <h1 className="font-bold">1,234</h1>
           <h2 className="text-xs text-[#000000]-300">Pasif (45%)</h2>
         </div>

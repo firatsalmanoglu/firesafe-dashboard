@@ -11,7 +11,7 @@ const schema = z.object({
     notificationId: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
     userId: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
     userName: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
-    organizationName: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
+    //organizationName: z.string().min(1, { message: "Bu alan boş geçilemez!" }),
     deviceSerialNumber:z.string().min(1, { message: "Bu alan boş geçilemez!" }),
     deviceOwnerId:z.string().min(1, { message: "Bu alan boş geçilemez!" }),
     deviceOwner:z.string().min(1, { message: "Bu alan boş geçilemez!" }),
@@ -117,13 +117,13 @@ const NotificationForm = ({
           error={errors?.userName}
         />
 
-        <InputField
+        {/* <InputField
           label="Kurum"
           name="organizationName"
           defaultValue={data?.organizationName}
           register={register}
           error={errors?.organizationName}
-        />
+        /> */}
       </div>
       <span className="text-xs text-gray-400 font-medium">
         İlgili Cihaz

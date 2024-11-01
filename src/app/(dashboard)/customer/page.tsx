@@ -14,7 +14,7 @@ const CustomerPage = () => {
                 <UserCard type="Cihazlarım" />
                 <UserCard type="Bakımı Yaklşan Cihazlarım" />
                 <UserCard type="Tekliflerim" />
-                <UserCard type="XXXXX" />
+                <UserCard type="Bakımlarım" />
             </div>
 
 

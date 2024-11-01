@@ -118,7 +118,7 @@ const CustomerLastMaintChart = () => {
           <Line 
             type="monotone" 
             dataKey="gerçekleşen" 
-            stroke="#EA723E" 
+            stroke="#EA4C4C" 
             strokeWidth={5}
             />
         </LineChart>

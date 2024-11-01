@@ -28,17 +28,22 @@ type Offer = {
 const columns =[
 
     {
+      header:"Kayıt No", 
+      accessor:"recordID",
+    },
+    {
+      header:"Cihaz Seri No", 
+      accessor:"deviceSerialNumber",
+      className: "hidden md:table-cell"
+    },
+    {
       header:"Servis Sağlayıcı", 
       accessor:"info",
     },
     {
-        header:"Kayıt No", 
-        accessor:"recordID",
-    },
-    {
-        header:"Cihaz Seri No", 
-        accessor:"deviceSerialNumber",
-        className: "hidden md:table-cell"
+      header:"Bakım Tarihi", 
+      accessor:"maintenanceDate",
+      className: "hidden md:table-cell",
     },
     {
       header:"Müşteri", 
@@ -50,32 +55,28 @@ const columns =[
     //     accessor:"instServed",
     //     className: "hidden md:table-cell",
     // },
-    {
-        header:"Bakım Tarihi", 
-        accessor:"maintenanceDate",
-        className: "hidden md:table-cell",
-    },
-    {
-        header:"Bakım Türü", 
-        accessor:"maintenanceType",
-        className: "hidden md:table-cell",
-    },
-    {
-        header:"Detay", 
-        accessor:"details",
-        className: "hidden md:table-cell",
-    },
-    {
-        header:"Sonraki Bakım Tarihi", 
-        accessor:"nexyMaintenanceDate",
-        className: "hidden md:table-cell",
-    },
+   
+    // {
+    //     header:"Bakım Türü", 
+    //     accessor:"maintenanceType",
+    //     className: "hidden md:table-cell",
+    // },
+    // {
+    //     header:"Detay", 
+    //     accessor:"details",
+    //     className: "hidden md:table-cell",
+    // },
+    // {
+    //     header:"Sonraki Bakım Tarihi", 
+    //     accessor:"nexyMaintenanceDate",
+    //     className: "hidden md:table-cell",
+    // },
     
-    {
-        header:"Durumu", 
-        accessor:"status",
-        className: "hidden md:table-cell",
-    },
+    // {
+    //     header:"Durumu", 
+    //     accessor:"status",
+    //     className: "hidden md:table-cell",
+    // },
     {
       header:"Eylemler", 
       accessor:"action",
@@ -91,6 +92,8 @@ const MaintenanceListPage = () => {
           key={item.id}
           className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
         >
+          <td className="hidden md:table-cell">{item.recordID}</td>
+          <td className="hidden md:table-cell">{item.deviceSerialNumber}</td>
           <td className="flex items-center gap-4 p-4">
             {/* <Image
               src={item.photo}
@@ -105,9 +108,8 @@ const MaintenanceListPage = () => {
               <p className="text-xs text-gray-500">{item.performedById}</p>
             </div>
           </td>
-          <td className="hidden md:table-cell">{item.recordID}</td>
-          <td className="hidden md:table-cell">{item.deviceSerialNumber}</td>
-          
+          <td className="hidden md:table-cell">{item.maintenanceDate}</td>
+
           <td className="flex items-center gap-4 p-4">
             {/* <Image
               src={item.photo}
@@ -123,16 +125,15 @@ const MaintenanceListPage = () => {
             </div>
           </td>
 
-          <td className="hidden md:table-cell">{item.maintenanceDate}</td>
-          <td className="hidden md:table-cell">{item.maintenanceType}</td>
-          <td className="hidden md:table-cell">{item.details}</td>
-          <td className="hidden md:table-cell">{item.nexyMaintenanceDate}</td>
-          <td className="hidden md:table-cell">{item.status}</td>
+          {/* <td className="hidden md:table-cell">{item.maintenanceType}</td> */}
+          {/* <td className="hidden md:table-cell">{item.details}</td> */}
+          {/* <td className="hidden md:table-cell">{item.nexyMaintenanceDate}</td> */}
+          {/* <td className="hidden md:table-cell">{item.status}</td> */}
           <td>
             <div className="flex items-center gap-2">
               <Link href={`/list/maintenances/${item.id}`}>
-                <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaSky">
-                  <Image src="/view.png" alt="" width={16} height={16} />
+                <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+                  <Image src="/view.png" alt="" width={24} height={24} />
                 </button>
               </Link>
               {role === "admin" && (

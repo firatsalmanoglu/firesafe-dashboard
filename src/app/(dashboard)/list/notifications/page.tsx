@@ -12,7 +12,7 @@ type Notification = {
     notificationId: string;
     userId: string;
     userName: string;
-    organizationName: string;
+    //organizationName: string;
     deviceSerialNumber: string;
     deviceOwnerId: string;
     deviceOwner: string;
@@ -39,17 +39,17 @@ const columns =[
         accessor:"deviceSerialNumber",
         className: "hidden md:table-cell"
     },
-    {
-        header:"Cihaz Sahibi", 
-        accessor:"deviceOwner",
-        className: "hidden md:table-cell"
-    },
+    // {
+    //     header:"Cihaz Sahibi", 
+    //     accessor:"deviceOwner",
+    //     className: "hidden md:table-cell"
+    // },
     
-    {
-        header:"Bildirim", 
-        accessor:"message",
-        className: "hidden md:table-cell",
-    },
+    // {
+    //     header:"Bildirim", 
+    //     accessor:"message",
+    //     className: "hidden md:table-cell",
+    // },
     {
         header:"Bildirim Tarihi", 
         accessor:"notificationDate",
@@ -60,11 +60,11 @@ const columns =[
         accessor:"isRead",
         className: "hidden md:table-cell",
     },
-    {
-        header:"Bildirim Türü", 
-        accessor:"notificationType",
-        className: "hidden md:table-cell",
-    },
+    // {
+    //     header:"Bildirim Türü", 
+    //     accessor:"notificationType",
+    //     className: "hidden md:table-cell",
+    // },
     {
       header:"Eylemler", 
       accessor:"action",
@@ -92,20 +92,20 @@ const NotificationListPage = () => {
             <div className="flex flex-col">
               <h3 className="font-semibold">{item.userName}</h3>
               <p className="text-xs text-gray-500">{item.userId}</p>
-              <p className="text-xs text-gray-500">{item.organizationName}</p>
+              <p className="text-xs text-gray-500">{item.deviceOwner}</p>
             </div>
           </td>
           <td className="hidden md:table-cell">{item.deviceSerialNumber}</td>
-          <td className="hidden md:table-cell">{item.deviceOwner}</td>
-          <td className="hidden md:table-cell">{item.message}</td>
+          {/* <td className="hidden md:table-cell">{item.deviceOwner}</td> */}
+          {/* <td className="hidden md:table-cell">{item.message}</td> */}
           <td className="hidden md:table-cell">{item.notificationDate}</td>
           <td className="hidden md:table-cell">{item.isRead}</td>
-          <td className="hidden md:table-cell">{item.notificationType}</td>
+          {/* <td className="hidden md:table-cell">{item.notificationType}</td> */}
           <td>
             <div className="flex items-center gap-2">
               <Link href={`/list/notifications/${item.id}`}>
-                <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaSky">
-                  <Image src="/view.png" alt="" width={16} height={16} />
+                <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+                  <Image src="/view.png" alt="" width={24} height={24}/>
                 </button>
               </Link>
               {role === "admin" && (

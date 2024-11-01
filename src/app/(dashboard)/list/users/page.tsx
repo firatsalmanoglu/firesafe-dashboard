@@ -42,40 +42,41 @@ type User = {
 
 const columns =[
     {
-        header:"Bilgi", 
-        accessor:"info",
-    },
-    
-    {
         header:"Kullanıcı ID", 
         accessor:"userId",
         className: "hidden md:table-cell"
     },
     {
-      header:"Kullanıcı Adı", 
-      accessor:"userName",
-      className: "hidden md:table-cell"
+        header:"Bilgi", 
+        accessor:"info",
     },
+    
+    
+    // {
+    //   header:"Kullanıcı Adı", 
+    //   accessor:"userName",
+    //   className: "hidden md:table-cell"
+    // },
     {
         header:"Rolü", 
         accessor:"role",
         className: "hidden md:table-cell",
     },
-    {
-      header:"Cinsiyet", 
-      accessor:"sex",
-      className: "hidden md:table-cell",
-    },
-    {
-      header:"Doğum Tarihi", 
-      accessor:"birthday",
-      className: "hidden md:table-cell",
-    },
-    {
-      header:"Kan Grubu", 
-      accessor:"bloodType",
-      className: "hidden md:table-cell",
-    },
+    // {
+    //   header:"Cinsiyet", 
+    //   accessor:"sex",
+    //   className: "hidden md:table-cell",
+    // },
+    // {
+    //   header:"Doğum Tarihi", 
+    //   accessor:"birthday",
+    //   className: "hidden md:table-cell",
+    // },
+    // {
+    //   header:"Kan Grubu", 
+    //   accessor:"bloodType",
+    //   className: "hidden md:table-cell",
+    // },
     {
       header:"Üyelik Tarihi", 
       accessor:"registrationDate",
@@ -91,11 +92,11 @@ const columns =[
       accessor:"email",
       className: "hidden md:table-cell",
     },
-    {
-        header:"Adres", 
-        accessor:"address",
-        className: "hidden md:table-cell",
-    },
+    // {
+    //     header:"Adres", 
+    //     accessor:"address",
+    //     className: "hidden md:table-cell",
+    // },
     {
       header:"Eylemler", 
       accessor:"action",
@@ -110,6 +111,7 @@ const UserListPage = () => {
           key={item.id}
           className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
         >
+          <td className="hidden md:table-cell">{item.userId}</td>
           <td className="flex items-center gap-4 p-4">
             <Image
               src={item.photo}
@@ -124,21 +126,20 @@ const UserListPage = () => {
               <p className="text-xs text-gray-500">{item.organizationName}</p>
             </div>
           </td>
-          <td className="hidden md:table-cell">{item.userId}</td>
-          <td className="hidden md:table-cell">{item.userName}</td>
+          {/* <td className="hidden md:table-cell">{item.userName}</td> */}
           <td className="hidden md:table-cell">{item.role}</td>
-          <td className="hidden md:table-cell">{item.sex}</td>
-          <td className="hidden md:table-cell">{item.birthday}</td>
-          <td className="hidden md:table-cell">{item.bloodType}</td>
+          {/* <td className="hidden md:table-cell">{item.sex}</td> */}
+          {/* <td className="hidden md:table-cell">{item.birthday}</td> */}
+          {/* <td className="hidden md:table-cell">{item.bloodType}</td> */}
           <td className="hidden md:table-cell">{item.registrationDate}</td>
           <td className="hidden md:table-cell">{item.phoneNumber}</td>
           <td className="hidden md:table-cell">{item.email}</td>
-          <td className="hidden md:table-cell">{item.address}</td>
+          {/* <td className="hidden md:table-cell">{item.address}</td> */}
           <td>
             <div className="flex items-center gap-2">
               <Link href={`/list/users/${item.id}`}>
-                <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaSky">
-                  <Image src="/view.png" alt="" width={16} height={16} />
+                <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+                  <Image src="/view.png" alt="" width={24} height={24} />
                 </button>
               </Link>
                {role === "admin" && (
