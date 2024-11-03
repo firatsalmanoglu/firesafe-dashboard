@@ -1604,7 +1604,7 @@ export const announcementsData = [
 
 
 // YOU SHOULD CHANGE THE DATES OF THE EVENTS TO THE CURRENT DATE TO SEE THE EVENTS ON THE CALENDAR
-export const calendarEvents = [
+export const ccalendarEvents = [
   {
     id: 1,
     eventId: "001",
@@ -1616,9 +1616,9 @@ export const calendarEvents = [
     respPersonOrg: "Yaşar Üniversitesi",
     title: "Bakım",
     message: "dhfgkjdhfgkhd",
-    // start: new Date(2024, 10, 30, 11, 0),
-    // end: new Date(2024, 10, 30, 11, 45),
-    // create: new Date(2024, 10, 10, 8, 45),
+    // start: new Date(2024, 11, 1, 8, 0),
+    // end: new Date(2024, 11, 1, 8, 45),
+    //create: new Date(2024, 10, 10, 8, 45),
     start: "30/10/2024",
     end: "30/10/2024",
     create: "10/10/2024",
@@ -1989,4 +1989,273 @@ export const calendarEvents = [
     allDay: false,
   },
   
+];
+
+// YOU SHOULD CHANGE THE DATES OF THE EVENTS TO THE CURRENT DATE TO SEE THE EVENTS ON THE CALENDAR
+export const calendarEvents = [
+  {
+    title: "Math",
+    allDay: false,
+    start: new Date(2024, 11, 1, 8, 0),
+    end: new Date(2024, 11, 1, 8, 45),
+  },
+  {
+    title: "English",
+    allDay: false,
+    start: new Date(2024, 7, 12, 9, 0),
+    end: new Date(2024, 7, 12, 9, 45),
+  },
+  {
+    title: "Biology",
+    allDay: false,
+    start: new Date(2024, 7, 12, 10, 0),
+    end: new Date(2024, 7, 12, 10, 45),
+  },
+  {
+    title: "Physics",
+    allDay: false,
+    start: new Date(2024, 7, 12, 11, 0),
+    end: new Date(2024, 7, 12, 11, 45),
+  },
+  {
+    title: "Chemistry",
+    allDay: false,
+    start: new Date(2024, 7, 12, 13, 0),
+    end: new Date(2024, 7, 12, 13, 45),
+  },
+  {
+    title: "History",
+    allDay: false,
+    start: new Date(2024, 7, 12, 14, 0),
+    end: new Date(2024, 7, 12, 14, 45),
+  },
+  {
+    title: "English",
+    allDay: false,
+    start: new Date(2024, 7, 13, 9, 0),
+    end: new Date(2024, 7, 13, 9, 45),
+  },
+  {
+    title: "Biology",
+    allDay: false,
+    start: new Date(2024, 7, 13, 10, 0),
+    end: new Date(2024, 7, 13, 10, 45),
+  },
+  {
+    title: "Physics",
+    allDay: false,
+    start: new Date(2024, 7, 13, 11, 0),
+    end: new Date(2024, 7, 13, 11, 45),
+  },
+
+  {
+    title: "History",
+    allDay: false,
+    start: new Date(2024, 7, 13, 14, 0),
+    end: new Date(2024, 7, 13, 14, 45),
+  },
+  {
+    title: "Math",
+    allDay: false,
+    start: new Date(2024, 7, 14, 8, 0),
+    end: new Date(2024, 7, 14, 8, 45),
+  },
+  {
+    title: "Biology",
+    allDay: false,
+    start: new Date(2024, 7, 14, 10, 0),
+    end: new Date(2024, 7, 14, 10, 45),
+  },
+
+  {
+    title: "Chemistry",
+    allDay: false,
+    start: new Date(2024, 7, 14, 13, 0),
+    end: new Date(2024, 7, 14, 13, 45),
+  },
+  {
+    title: "History",
+    allDay: false,
+    start: new Date(2024, 7, 14, 14, 0),
+    end: new Date(2024, 7, 13, 14, 45),
+  },
+  {
+    title: "English",
+    allDay: false,
+    start: new Date(2024, 7, 15, 9, 0),
+    end: new Date(2024, 7, 15, 9, 45),
+  },
+  {
+    title: "Biology",
+    allDay: false,
+    start: new Date(2024, 7, 15, 10, 0),
+    end: new Date(2024, 7, 15, 10, 45),
+  },
+  {
+    title: "Physics",
+    allDay: false,
+    start: new Date(2024, 7, 15, 11, 0),
+    end: new Date(2024, 7, 15, 11, 45),
+  },
+
+  {
+    title: "History",
+    allDay: false,
+    start: new Date(2024, 7, 15, 14, 0),
+    end: new Date(2024, 7, 15, 14, 45),
+  },
+  {
+    title: "Math",
+    allDay: false,
+    start: new Date(2024, 7, 16, 8, 0),
+    end: new Date(2024, 7, 16, 8, 45),
+  },
+  {
+    title: "English",
+    allDay: false,
+    start: new Date(2024, 7, 16, 9, 0),
+    end: new Date(2024, 7, 16, 9, 45),
+  },
+
+  {
+    title: "Physics",
+    allDay: false,
+    start: new Date(2024, 7, 16, 11, 0),
+    end: new Date(2024, 7, 16, 11, 45),
+  },
+  {
+    title: "Chemistry",
+    allDay: false,
+    start: new Date(2024, 7, 16, 13, 0),
+    end: new Date(2024, 7, 16, 13, 45),
+  },
+  {
+    title: "History",
+    allDay: false,
+    start: new Date(2024, 7, 16, 14, 0),
+    end: new Date(2024, 7, 16, 14, 45),
+  },
+];
+
+export const logsData = [
+  {
+    id: 1,
+    logId: "001",
+    date: "01/11/2024",
+    userId: "001",
+    action: "ekle",
+    tableName: "users",
+    prevValue: "",
+    actualValue: "FFF",
+    IP: "123.155.24.78",
+  },
+
+  {
+    id: 2,
+    logId: "001",
+    date: "01/11/2024",
+    userId: "001",
+    action: "ekle",
+    tableName: "users",
+    prevValue: "",
+    actualValue: "FFF",
+    IP: "123.155.24.78",
+  },
+
+  {
+    id: 3,
+    logId: "001",
+    date: "01/11/2024",
+    userId: "001",
+    action: "ekle",
+    tableName: "users",
+    prevValue: "",
+    actualValue: "FFF",
+    IP: "123.155.24.78",
+  },
+
+  {
+    id: 4,
+    logId: "001",
+    date: "01/11/2024",
+    userId: "001",
+    action: "ekle",
+    tableName: "users",
+    prevValue: "",
+    actualValue: "FFF",
+    IP: "123.155.24.78",
+  },
+
+  {
+    id: 5,
+    logId: "001",
+    date: "01/11/2024",
+    userId: "001",
+    action: "ekle",
+    tableName: "users",
+    prevValue: "",
+    actualValue: "FFF",
+    IP: "123.155.24.78",
+  },
+
+  {
+    id: 6,
+    logId: "001",
+    date: "01/11/2024",
+    userId: "001",
+    action: "ekle",
+    tableName: "users",
+    prevValue: "",
+    actualValue: "FFF",
+    IP: "123.155.24.78",
+  },
+
+  {
+    id: 7,
+    logId: "001",
+    date: "01/11/2024",
+    userId: "001",
+    action: "ekle",
+    tableName: "users",
+    prevValue: "",
+    actualValue: "FFF",
+    IP: "123.155.24.78",
+  },
+
+  {
+    id: 8,
+    logId: "001",
+    date: "01/11/2024",
+    userId: "001",
+    action: "ekle",
+    tableName: "users",
+    prevValue: "",
+    actualValue: "FFF",
+    IP: "123.155.24.78",
+  },
+
+  {
+    id: 9,
+    logId: "001",
+    date: "01/11/2024",
+    userId: "001",
+    action: "ekle",
+    tableName: "users",
+    prevValue: "",
+    actualValue: "FFF",
+    IP: "123.155.24.78",
+  },
+
+  {
+    id: 10,
+    logId: "001",
+    date: "01/11/2024",
+    userId: "001",
+    action: "ekle",
+    tableName: "users",
+    prevValue: "",
+    actualValue: "FFF",
+    IP: "123.155.24.78",
+  },
+
 ];

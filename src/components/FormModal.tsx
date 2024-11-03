@@ -28,6 +28,7 @@ const OfferForm = dynamic(() => import("./forms/OfferForm"), {
   loading: () => <h1>Loading...</h1>,
 });
 
+
 const forms: {
   [key: string]: (type: "create" | "update", data?: any) => JSX.Element;
 } = {
