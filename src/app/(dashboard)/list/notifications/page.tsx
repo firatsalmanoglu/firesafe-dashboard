@@ -9,36 +9,41 @@ import Link from "next/link";
 
 type Notification = {
     id: number;
-    notificationId: string;
-    userId: string;
-    userName: string;
-    //organizationName: string;
-    deviceSerialNumber: string;
-    deviceOwnerId: string;
-    deviceOwner: string;
-    message: string;
+    //notificationId: string;
+    content: string;
+    creatorId: string;
+    recipientId: string;
     notificationDate: string;
     isRead: string;
-    notificationType: string;
+    typeId: string;
 
   };
+
+    // id: 1,
+    // //notificationId: "889",
+    // content: "xxxx nolu cihazın bakım tarihi yaklaşıyor...",
+    // creatorId: "007",
+    // recipientId: "445689",
+    // notificationDate: "24/10/2024",
+    // isRead: "Okundu",
+    // notificationType: "Hatırlatma",
 
 
 const columns =[
     {
         header:"Bildirim ID", 
-        accessor:"notificationId",
+        accessor:"id",
         className: "hidden md:table-cell"
     },
     {
         header:"İlgili Kullanıcı", 
         accessor:"info",
     },
-    {
-        header:"Cihaz Seri No", 
-        accessor:"deviceSerialNumber",
-        className: "hidden md:table-cell"
-    },
+    // {
+    //     header:"Cihaz Seri No", 
+    //     accessor:"deviceSerialNumber",
+    //     className: "hidden md:table-cell"
+    // },
     // {
     //     header:"Cihaz Sahibi", 
     //     accessor:"deviceOwner",
@@ -80,7 +85,7 @@ const NotificationListPage = () => {
           key={item.id}
           className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
         >
-          <td className="hidden md:table-cell">{item.notificationId}</td>
+          <td className="hidden md:table-cell">{item.id}</td>
           <td className="flex items-center gap-4 p-4">
             {/* <Image
               src={item.photo}
@@ -90,12 +95,12 @@ const NotificationListPage = () => {
               className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
             /> */}
             <div className="flex flex-col">
-              <h3 className="font-semibold">{item.userName}</h3>
-              <p className="text-xs text-gray-500">{item.userId}</p>
-              <p className="text-xs text-gray-500">{item.deviceOwner}</p>
+              {/* <h3 className="font-semibold">{item.userName}</h3> recipientId ile ilişkili userName gelecek */}
+              <p className="text-xs text-gray-500">{item.recipientId}</p>
+              {/* <p className="text-xs text-gray-500">{item.deviceOwner}</p> recipientId ile ilişkili Kurum Adı gelecek */}
             </div>
           </td>
-          <td className="hidden md:table-cell">{item.deviceSerialNumber}</td>
+          {/* <td className="hidden md:table-cell">{item.deviceSerialNumber}</td>  */}
           {/* <td className="hidden md:table-cell">{item.deviceOwner}</td> */}
           {/* <td className="hidden md:table-cell">{item.message}</td> */}
           <td className="hidden md:table-cell">{item.notificationDate}</td>

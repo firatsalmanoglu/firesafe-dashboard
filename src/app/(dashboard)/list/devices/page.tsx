@@ -9,23 +9,35 @@ import Link from "next/link";
 
 type Device = {
     id: number;
-    deviceId: string;
+    //deviceId: string;
     serialNumber: string;
-    ownerId: string;
-    ownerName: string;
-    address: string;
-    deviceType: string;
-    feature: string;
-    respPersonId: string;
-    respPerson: string;
-    manufactureDate: string;
-    expiryDate: string;
-    lastInspectionDate: string;
+    qrcode: string;
+    productionDate: string;
+    lastControlDate: string;
+    expirationDate: string;
     location: string;
-    statuss: string;
     photo: string;
+    currentStatus: string;
+    type: string;
+    features: string;
+    ownerId: string;    
     details: string;
   };
+
+    //Database Orj Table
+    // id: 1,
+    // //deviceId: "1234567890",
+    // serialNumber:"95958478784",
+    // productionDate: "25/10/2024",
+    // lastControlDate: "25/10/2025",
+    // expirationDate: "25/06/2024",
+    // location: "roof",
+    // photo:"/avatar.png",
+    // currentStatus: "OK",
+    // type: "Yangın Tüpü",
+    // features: "CO2",
+    // ownerId:"75",
+    // details: "2mt hortum, üstten basmalı vs",
 
 const columns =[
     {
@@ -50,12 +62,12 @@ const columns =[
     
     {
         header:"Özelliği", 
-        accessor:"feature",
+        accessor:"features",
         className: "hidden md:table-cell",
     },
     {
         header:"Sorumlu Personel", 
-        accessor:"respPerson",
+        accessor:"ownerId",
         className: "hidden md:table-cell",
     },
     // {
@@ -70,7 +82,7 @@ const columns =[
     // },
     {
         header:"Son Kont.Tar.", 
-        accessor:"lastInspectionDate",
+        accessor:"lastControlDate",
         className: "hidden md:table-cell",
     },
     // {
@@ -80,7 +92,7 @@ const columns =[
     // },
     {
         header:"Durumu", 
-        accessor:"statuss",
+        accessor:"currentStatus",
         className: "hidden md:table-cell",
     },
     // {
@@ -113,20 +125,20 @@ const DeviceListPage = () => {
               className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
             />
             <div className="flex flex-col">
-              <h3 className="font-semibold">{item.deviceType}</h3>
-              <p className="text-xs text-gray-500">{item.ownerName}</p>
-              <td className="hidden md:table-cell">{item.address}</td>
+              <h3 className="font-semibold">{item.type}</h3>
+              <p className="text-xs text-gray-500">{item.ownerId}</p>
+              {/* <td className="hidden md:table-cell">{item.address}</td> */}
 
             </div>
           </td>
           {/* <td className="hidden md:table-cell">{item.deviceId}</td> */}
-          <td className="hidden md:table-cell">{item.feature}</td>
-          <td className="hidden md:table-cell">{item.respPerson}</td>
+          <td className="hidden md:table-cell">{item.features}</td>
+          <td className="hidden md:table-cell">{item.ownerId}</td>
           {/* <td className="hidden md:table-cell">{item.manufactureDate}</td> */}
           {/* <td className="hidden md:table-cell">{item.expiryDate}</td> */}
-          <td className="hidden md:table-cell">{item.lastInspectionDate}</td>
+          <td className="hidden md:table-cell">{item.lastControlDate}</td>
           {/* <td className="hidden md:table-cell">{item.location}</td> */}
-          <td className="hidden md:table-cell">{item.statuss}</td>
+          <td className="hidden md:table-cell">{item.currentStatus}</td>
           {/* <td className="hidden md:table-cell">{item.details}</td> */}
           <td>
             <div className="flex items-center gap-2">

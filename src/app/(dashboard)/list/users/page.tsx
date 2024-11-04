@@ -10,40 +10,46 @@ import Link from "next/link";
 type User = {
 
     id: number,
-    userId: string,
+    //userId: string,
     userName: string,
     firstName: string,
     lastName: string,
     bloodType: string,
     birthday: string,
     sex: string,
-    organizationId: string,
-    organizationName: string,
-    address: string,
-    role: string,
     photo: string,
     email: string,
-    phoneNumber: string,
+    phone: string,
     registrationDate: string,
+    institutionId: string,
+    //organizationName: string,
+    //address: string,
+    roleId: string,
+    
 
-    // id: number;
-    // userId: string;
-    // userName: string;
-    // organizationName: string;
-    // role: string;
-    // email?: string;
-    // photo: string;
-    // phoneNumber: string;
-    // registrationDate: string;
-    // //subjects: string[];
-    // //classes: string[];
-    // address: string;
+    //Database Real Table
+    // id: 1,
+    // //userId: "1234567890",
+    // userName: "Fırat Salmanoğlu",
+    // password: "12345678",
+    // firstName: "Fırat",
+    // lastName: "Salmanoğlu",
+    // bloodType: "ARh+",
+    // birthday: "01/01/2000",
+    // sex: "Erkek",
+    // photo: "/firat.jpg",
+    // email: "john@doe.com",
+    // phone: "1234567890",
+    // registrationDate: "10/06/2024",
+    // institutionId: "009",
+    // roleId: ["Admin"],
+
   };
 
 const columns =[
     {
         header:"Kullanıcı ID", 
-        accessor:"userId",
+        accessor:"id",
         className: "hidden md:table-cell"
     },
     {
@@ -59,7 +65,7 @@ const columns =[
     // },
     {
         header:"Rolü", 
-        accessor:"role",
+        accessor:"roleId",
         className: "hidden md:table-cell",
     },
     // {
@@ -84,7 +90,7 @@ const columns =[
     },
     {
         header:"Tel No", 
-        accessor:"phoneNumber",
+        accessor:"phone",
         className: "hidden md:table-cell",
     },
     {
@@ -111,7 +117,7 @@ const UserListPage = () => {
           key={item.id}
           className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
         >
-          <td className="hidden md:table-cell">{item.userId}</td>
+          <td className="hidden md:table-cell">{item.id}</td>
           <td className="flex items-center gap-4 p-4">
             <Image
               src={item.photo}
@@ -123,16 +129,16 @@ const UserListPage = () => {
             <div className="flex flex-col">
               <h3 className="font-semibold">{item.firstName}</h3>
               <h3 className="font-semibold">{item.lastName}</h3>
-              <p className="text-xs text-gray-500">{item.organizationName}</p>
+              <p className="text-xs text-gray-500">{item.institutionId}</p>
             </div>
           </td>
           {/* <td className="hidden md:table-cell">{item.userName}</td> */}
-          <td className="hidden md:table-cell">{item.role}</td>
+          <td className="hidden md:table-cell">{item.roleId}</td>
           {/* <td className="hidden md:table-cell">{item.sex}</td> */}
           {/* <td className="hidden md:table-cell">{item.birthday}</td> */}
           {/* <td className="hidden md:table-cell">{item.bloodType}</td> */}
           <td className="hidden md:table-cell">{item.registrationDate}</td>
-          <td className="hidden md:table-cell">{item.phoneNumber}</td>
+          <td className="hidden md:table-cell">{item.phone}</td>
           <td className="hidden md:table-cell">{item.email}</td>
           {/* <td className="hidden md:table-cell">{item.address}</td> */}
           <td>

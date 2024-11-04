@@ -9,27 +9,32 @@ import Link from "next/link";
 
 type Offer = {
     id: number;
-    recordID: string;
-    deviceSerialNumber: string;
-    performedById: string;
-    performedByName: string;
-    instPerformed: string;
-    customerId: string;
-    customerName: string;
-    instServed: string;
+    //recordID: string;
     maintenanceDate: string;
-    maintenanceType: string;
-    details: string;
     nexyMaintenanceDate: string;
+    typeId: string;
+    deviceId: string;
+    providerId: string;
+    details: string;
     status: string;
 
 }
+
+    // id: 1,
+    // //recordID: "005",
+    // maintenanceDate: "13/07/2023",
+    // nexyMaintenanceDate: "13/07/2024",
+    // maintenanceType: "Bakım",
+    // deviceId: "125487",
+    // providerId: "196587",
+    // details: "Basınçlar kontrol edildi",
+    // status: "OK",
 
 const columns =[
 
     {
       header:"Kayıt No", 
-      accessor:"recordID",
+      accessor:"id",
     },
     {
       header:"Cihaz Seri No", 
@@ -92,8 +97,9 @@ const MaintenanceListPage = () => {
           key={item.id}
           className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
         >
-          <td className="hidden md:table-cell">{item.recordID}</td>
-          <td className="hidden md:table-cell">{item.deviceSerialNumber}</td>
+          <td className="hidden md:table-cell">{item.id}</td>
+          <td className="hidden md:table-cell">{item.id}</td>
+          {/* Yukarıya deviceId ile ilişkili serialNumber gelecek */}
           <td className="flex items-center gap-4 p-4">
             {/* <Image
               src={item.photo}
@@ -103,9 +109,9 @@ const MaintenanceListPage = () => {
               className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
             /> */}
             <div className="flex flex-col">
-              <h3 className="font-semibold">{item.instPerformed}</h3>
-              <p className="text-xs text-gray-500">{item.performedByName}</p>
-              <p className="text-xs text-gray-500">{item.performedById}</p>
+              {/* <h3 className="font-semibold">{item.providerId}</h3> providerId ile ilişkili hizmet verilen kurum adı gelecek*/}
+              {/* <p className="text-xs text-gray-500">{item.performedByName}</p> providerId ile ilişkili hizmet verilen personel adı gelecek*/}
+              <p className="text-xs text-gray-500">{item.providerId}</p> 
             </div>
           </td>
           <td className="hidden md:table-cell">{item.maintenanceDate}</td>
@@ -119,9 +125,9 @@ const MaintenanceListPage = () => {
               className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
             /> */}
             <div className="flex flex-col">
-              <h3 className="font-semibold">{item.instServed}</h3>
-              <p className="text-xs text-gray-500">{item.customerName}</p>
-              <p className="text-xs text-gray-500">{item.customerId}</p>
+              {/* <h3 className="font-semibold">{item.instServed}</h3> deviceId ile ilişkili Teklif verilen kurum gelecek*/} 
+              {/* <p className="text-xs text-gray-500">{item.customerName}</p> deviceId ile ilişkili Teklif verilen personel gelecek*/}
+              {/* <p className="text-xs text-gray-500">{item.customerId}</p> deviceId ile ilişkili Teklif verilen pers ID gelecek*/}
             </div>
           </td>
 

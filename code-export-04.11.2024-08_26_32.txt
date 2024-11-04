@@ -1,0 +1,144 @@
+users [icon: user, color: red] {
+  id string pk
+  userName string
+  password password
+  firstName string
+  lastName string
+  bloodType string
+  birthday date
+  sex string
+  photo string
+  email string
+  phone string
+  registrationDate date
+  institutionId string
+  roleId string
+}
+
+roles [icon: building, color: orange] {
+  id string pk
+  name string
+}
+
+institutions [icon: building, color: orange] {
+  id string pk
+  name string
+  address string
+}
+
+devices [icon: alert-triangle, color: yellow] {
+  id string pk
+  serialNumber string unique
+  qrcode string
+  productionDate date
+  lastControlDate date
+  expirationDate date
+  location string
+  photo string
+  currentStatus string
+  type string
+  features string
+  ownerId string 
+  details string
+}
+
+maintenance_cards [icon: file-text, color: purple] {
+  id string pk
+  maintenanceDate date
+  nextMaintenanceDate date
+  typeId string
+  deviceId string
+  providerId string 
+  details string
+}
+
+offer_cards [icon: file, color: teal] {
+  id string pk
+  offerDate date
+  validityDate date
+  unitPrice decimal
+  size decimal
+  amount decimal
+  paymentTerms string
+  servicesId string
+  status string
+  creatorId string
+  recipientId string
+  details string
+}
+
+services [icon: building, color: orange] {
+  id string pk
+  name string
+}
+
+notifications [icon: bell, color: pink] {
+  id string pk
+  content string
+  creatorId string
+  recipientId string
+  notificationDate date
+  isRead string
+  typeId string
+}
+
+appointments [icon: calendar, color: brown] {
+  id string pk
+  tittle string
+  content string
+  start date
+  end date
+  create date
+  creatorId string
+  recipientId string
+}
+
+logs [icon: building, color: orange] {
+  id string pk
+  date date
+  userId string
+  actionId string
+  tableId string
+  IP string
+}
+
+tables [icon: building, color: orange] {
+  id string pk
+  name string
+}
+
+actions [icon: building, color: orange] {
+  id string pk
+  name string
+}
+
+notificationTypes [icon: building, color: orange] {
+  id string pk
+  name string
+}
+
+// End of tables
+// Title
+title Fire Safety Management System ERD
+
+// Relationships
+users.institutionId > institutions.id
+users.roleId > roles.id
+devices.id > maintenance_cards.deviceId
+devices.ownerId > users.id
+maintenance_cards.providerId > users.id
+maintenance_cards.deviceId > devices.id
+maintenance_cards.typeId > services.id
+offer_cards.servicesId > services.id
+offer_cards.creatorId > users.id
+offer_cards.recipientId > users.id
+notifications.creatorId > users.id
+notifications.recipientId > users.id
+notifications.typeId > notificationTypes.id
+appointments.creatorId > users.id
+appointments.recipientId > users.id
+logs.userId >users.id
+logs.tableId >tables.id
+logs.actionId >actions.id
+
+

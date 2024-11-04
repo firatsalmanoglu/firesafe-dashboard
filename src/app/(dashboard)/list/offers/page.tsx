@@ -10,25 +10,38 @@ import Link from "next/link";
 type Offer = {
   
     id: number;
-    offerId: string;
-    providerId: string;
-    providerName: string;
-    providerOrganization: string;
-    ownerId: string;
-    ownerName: string;
-    ownerOrganization: string;
+    //offerId: string;
     offerDate: string;
-    expiryDate: string;
+    validityDate: string;
+    unitPrice: string;
+    size: string;
     amount: string;
-    servicesOffered: string;
+    paymentTerms: string;
+    servicesId: string;
     status: string; 
+    creatorId: string;
+    recipientId: string;
+    details: string;
 }
 
+    // Database Orj Table
+    // id: 1,
+    // //offerId: "101",
+    // validityDate: "25/10/2025",
+    // unitPrice: "63.450,00",
+    // size: "2",
+    // amount: "126.900,00",
+    // paymentTerms:["Teslimatta Peşin", "Vadeli"],
+    // servicesId: ["Değişim", "Bakım"],
+    // status: "OK",
+    // creatorId: "001",
+    // recipientId: "138",
+    // details: "8 adet kuru kimyevi yangın tüpü değişimi anahtar teslim fiyat teklifidir.",
 
 const columns =[
     {
         header:"Teklif ID", 
-        accessor:"offerId",
+        accessor:"id",
         className: "hidden md:table-cell",
     },
     {
@@ -64,7 +77,7 @@ const columns =[
     
     {
         header:"Durumu", 
-        accessor:"statuss",
+        accessor:"status",
         className: "hidden md:table-cell",
     },
 
@@ -83,7 +96,7 @@ const OfferListPage = () => {
           key={item.id}
           className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
         >
-          <td className="hidden md:table-cell">{item.offerId}</td>
+          <td className="hidden md:table-cell">{item.id}</td>
           <td className="flex items-center gap-4 p-4">
             {/* <Image
               src={item.photo}
@@ -93,8 +106,8 @@ const OfferListPage = () => {
               className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
             /> */}
             <div className="flex flex-col">
-              <h3 className="font-semibold">{item.providerOrganization}</h3>
-              <p className="text-xs text-gray-500">{item.providerName}</p>
+              {/* <h3 className="font-semibold">{item.providerOrganization}</h3> */}
+              <p className="text-xs text-gray-500">{item.creatorId}</p>
             </div>
           </td>
 
@@ -108,8 +121,8 @@ const OfferListPage = () => {
               className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
             /> */}
             <div className="flex flex-col">
-              <h3 className="font-semibold">{item.ownerOrganization}</h3>
-              <p className="text-xs text-gray-500">{item.ownerName}</p>
+              {/* <h3 className="font-semibold">{item.ownerOrganization}</h3> */}
+              <p className="text-xs text-gray-500">{item.recipientId}</p>
             </div>
           </td>
           {/* <td className="hidden md:table-cell">{item.expiryDate}</td> */}

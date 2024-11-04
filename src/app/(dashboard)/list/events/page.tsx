@@ -2,34 +2,44 @@ import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
-import { role, calendarEvents } from "@/lib/data";
+import { role, ccalendarEvents } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 
 
 type Event = {
     id: number;
-    eventId: string;
-    creatorId: string;
-    creatorName: string;
-    creatorOrganization: string;
-    respPersonId: string;
-    respPersonName: string;
-    respPersonOrg: string;
+    //eventId: string;
     title: string;
-    message: string;
+    content: string;
     start: string;
     end: string;
     create: string;
-    allDay: string;
+    creatorId: string;
+    recipientId: string;  
+    //allDay: string;
 
   };
+
+    // id: 1,
+    // //eventId: "001",
+    // title: "Bakım",
+    // content: "dhfgkjdhfgkhd",
+    // start: "30/10/2024",
+    // end: "30/10/2024",
+    // create: "10/10/2024",
+    // creatorId: "008",
+    // recipientId: "123",
+    // // start: new Date(2024, 11, 1, 8, 0),
+    // // end: new Date(2024, 11, 1, 8, 45),
+    // //create: new Date(2024, 10, 10, 8, 45),
+    // //allDay: false, 
 
 
 const columns =[
     {
         header:"Randevu ID", 
-        accessor:"eventId",
+        accessor:"id",
         className: "hidden md:table-cell"
     },
     {
@@ -87,7 +97,7 @@ const EventListPage = () => {
           key={item.id}
           className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
         >
-          <td className="hidden md:table-cell">{item.eventId}</td>
+          <td className="hidden md:table-cell">{item.id}</td>
           <td className="flex items-center gap-4 p-4">
             {/* <Image
               src={item.photo}
@@ -97,9 +107,9 @@ const EventListPage = () => {
               className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
             /> */}
             <div className="flex flex-col">
-              <h3 className="font-semibold">{item.creatorName}</h3>
+              {/* <h3 className="font-semibold">{item.creatorName}</h3> creatorId ile ilişkili creatorName gelecek */}
               <p className="text-xs text-gray-500">{item.creatorId}</p>
-              <p className="text-xs text-gray-500">{item.creatorOrganization}</p>
+              {/* <p className="text-xs text-gray-500">{item.creatorOrganization}</p> creatorId ile ilişkili creatorOrganization gelecek */}
             </div>
           </td>
 
@@ -115,9 +125,9 @@ const EventListPage = () => {
               className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
             /> */}
             <div className="flex flex-col">
-              <h3 className="font-semibold">{item.respPersonName}</h3>
-              <p className="text-xs text-gray-500">{item.respPersonId}</p>
-              <p className="text-xs text-gray-500">{item.respPersonOrg}</p>
+              {/* <h3 className="font-semibold">{item.respPersonName}</h3> recipientId ile ilşikili Personel adı gelecek */}
+              <p className="text-xs text-gray-500">{item.recipientId}</p>
+              {/* <p className="text-xs text-gray-500">{item.respPersonOrg}</p> recipientId ile ilşkili Kurum Adı gelecek  */}
             </div>
           </td>
           {/* <td className="hidden md:table-cell">{item.message}</td> */}
@@ -170,7 +180,7 @@ const EventListPage = () => {
 
             {/* LIST */}
             <div className=''>
-                <Table columns={columns} renderRow={renderRow} data={calendarEvents}/>
+                <Table columns={columns} renderRow={renderRow} data={ccalendarEvents}/>
             </div>
 
             {/* PAGINATION */}

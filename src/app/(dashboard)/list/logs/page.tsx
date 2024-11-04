@@ -9,21 +9,27 @@ import Link from "next/link";
 
 type Log = {
     id: number;
-    logId: string;
+    //logId: string;
     date: string;
     userId: string;
-    action: string;
-    tableName: string;
-    prevValue: string;
-    actualValue: string;
+    actionId: string;
+    tableId: string;
     IP: string;
   };
 
 
+    // id: 1,
+    // //logId: "001",
+    // date: "01/11/2024",
+    // userId: "001",
+    // actionId: "ekle",
+    // tableId: "users",
+    // IP: "123.155.24.78",
+
 const columns =[
     {
         header:"Log ID", 
-        accessor:"logId",
+        accessor:"id",
         className: "hidden md:table-cell"
     },
 
@@ -41,27 +47,16 @@ const columns =[
     
     {
         header:"İşlem", 
-        accessor:"action",
+        accessor:"actionId",
         className: "hidden md:table-cell",
     },
    
     {
       header:"Tablo Adı", 
-      accessor:"tableName",
+      accessor:"tableId",
       className: "hidden md:table-cell",
     },
-    {
-        header:"Önceki Değer", 
-        accessor:"prevValue",
-        className: "hidden md:table-cell"
-    },
-    
-    {
-        header:"Güncel Değer", 
-        accessor:"actualValue",
-        className: "hidden md:table-cell",
-    },
-   
+      
     {
       header:"IP", 
       accessor:"IP",
@@ -76,16 +71,14 @@ const LogListPage = () => {
         <tr
           key={item.id}
           className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight">
-          <td className="hidden md:table-cell">{item.logId}</td>
+          <td className="hidden md:table-cell">{item.id}</td>
           
           <td className="hidden md:table-cell">{item.date}</td>
           {/* <td className="hidden md:table-cell">{item.deviceOwner}</td> */}
           {/* <td className="hidden md:table-cell">{item.message}</td> */}
           <td className="hidden md:table-cell">{item.userId}</td>
-          <td className="hidden md:table-cell">{item.action}</td>
-          <td className="hidden md:table-cell">{item.tableName}</td>
-          <td className="hidden md:table-cell">{item.prevValue}</td>
-          <td className="hidden md:table-cell">{item.actualValue}</td>
+          <td className="hidden md:table-cell">{item.actionId}</td>
+          <td className="hidden md:table-cell">{item.tableId}</td>
           <td className="hidden md:table-cell">{item.IP}</td>
           
         </tr>
