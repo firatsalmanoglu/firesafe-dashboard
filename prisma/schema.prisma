@@ -1,0 +1,245 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Users {
+  id                  String @id
+  userName            String @unique
+  password            String
+  firstName           String
+  lastName            String
+  bloodType           UserBloodType
+  birthday            DateTime
+  sex                 UserSex
+  photo               String?
+  email               String
+  phone               String
+  registrationDate    DateTime @default (now())
+  
+  institutionId       Int
+  institution         Institutions @relation(fields: [institutionId], references: [id])
+
+  roleId              Int 
+  role                Roles @relation(fields: [roleId], references: [id])
+}
+
+model Institutions {
+  id                  Int @id @default(autoincrement())
+  name                String
+  address             String
+  events              Events []
+  announcements       Announcements []
+}
+
+model Roles {
+  id                  Int @id @default(autoincrement())
+  name                String
+}
+
+model Devices {
+  id                  Int @id @default(autoincrement())
+  serialNumber        String @unique
+  qrcode              String @unique
+  productionDate      DateTime
+  lastControlDate     DateTime
+  expirationDate      DateTime
+  location            String
+  photo               String
+  currentStatus       DeviceStatus
+
+  typeId              Int
+  type                DeviceTypes @relation(fields: [typeId], references: [id]) 
+
+  features            String
+
+  ownerId             String 
+  owner               Users @relation(fields: [ownerId], references: [id])
+  
+  details             String
+}
+
+model DeviceTypes {
+  id                  Int @id @default(autoincrement())
+  name                String
+}
+
+model MaintenanceCards {
+  id                  Int @id @default(autoincrement())
+  maintenanceDate     DateTime @default (now())
+  nextMaintenanceDate DateTime
+
+  typeId              Int
+  type                Services @relation(fields: [typeId], references: [id])
+
+  deviceId            Int
+  device              Devices @relation(fields: [deviceId], references: [id])
+
+  providerId          String 
+  provider            Users @relation(fields: [providerId], references: [id])
+
+  details             String
+}
+
+model Services {
+  id                  Int @id @default(autoincrement())
+  name                String
+}
+
+model OfferCards {
+  id                  Int @id @default(autoincrement())
+  offerDate           DateTime @default (now())
+  validityDate        DateTime
+  unitPrice           Decimal
+  size                Decimal
+  amount              Decimal
+
+  paymentTermId       Int
+  paymentTerm         PaymentTermTypes @relation(fields: [paymentTermId], references: [id])
+
+  servicesId          Int
+  service             Services @relation(fields: [servicesId], references: [id])
+
+  status              OfferStatus
+
+  creatorId           String
+  creator             Users @relation(fields: [creatorId], references: [id])
+
+  recipientId         String
+  recipient           Users @relation(fields: [recipientId], references: [id])
+
+  details             String
+}
+
+model PaymentTermTypes {
+  id                  Int @id @default(autoincrement())
+  name                String
+}
+
+model Notifications {
+  id                  Int @id @default(autoincrement())
+  content             String
+
+  creatorId           String
+  creator             Users @relation(fields: [creatorId], references: [id])
+
+  recipientId         String
+  recipient           Users @relation(fields: [recipientId], references: [id])
+
+  notificationDate    DateTime @default (now()) 
+  isRead              NotificationStatus
+
+  typeId              Int
+  type                NotificationTypes @relation(fields: [typeId], references: [id])
+}
+
+model NotificationTypes {
+  id                  Int @id @default(autoincrement())
+  name                String
+}
+
+model Appointments {
+  id                  Int @id @default(autoincrement())
+  tittle              String
+  content             String
+  start               DateTime
+  end                 DateTime
+  create              DateTime @default (now())
+
+  creatorId           String
+  creator             Users @relation(fields: [creatorId], references: [id])
+
+  recipientId         String
+  recipient           Users @relation(fields: [recipientId], references: [id])
+
+}
+
+model Logs {
+  id                  Int @id @default(autoincrement())
+  date                DateTime @default (now())
+
+  userId              String
+  user                Users @relation(fields: [userId], references: [id])
+
+  actionId            Int
+  action              Actions @relation(fields: [actionId], references: [id])
+
+  tableId             Int
+  table               Tables @relation(fields: [tableId], references: [id])
+
+  IP string
+}
+
+model Actions {
+  id                 Int @id @default(autoincrement())
+  name               String
+}
+
+model Tables {
+  id                 Int @id @default(autoincrement())
+  name               String
+}
+
+model Events {
+  id                 Int @id @default(autoincrement())
+  title              String
+  description        String
+  startTime          DateTime
+  endTime            DateTime
+  institutionId?     int
+  institution?       Institutions @relation(fields: [institutionId], references: [id])
+
+}
+
+model Announcements {
+  id                 Int @id @default(autoincrement())
+  title              String
+  description        String
+  date               DateTime
+  institutionId?     int
+  institution?       Institutions @relation(fields: [institutionId], references: [id])
+}
+
+enum UserSex {
+  Erkek
+  Kadın
+  Diğer
+}
+
+enum UserBloodType {
+  ARh+
+  ARh-
+  BRh+
+  BRh-
+  ABRh+
+  ABRh-
+  0Rh+
+  0Rh-
+}
+
+enum DeviceStatus {
+  Aktif
+  Pasif
+}
+
+enum OfferStatus {
+  Onaylandı
+  Red Edildi
+  Beklemede
+}
+
+enum NotificationStatus {
+  Okundu
+  Okunmadı
+}

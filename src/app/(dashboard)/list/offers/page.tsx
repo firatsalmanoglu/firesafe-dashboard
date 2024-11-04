@@ -16,7 +16,7 @@ type Offer = {
     unitPrice: string;
     size: string;
     amount: string;
-    paymentTerms: string;
+    paymentTermId: string;
     servicesId: string;
     status: string; 
     creatorId: string;

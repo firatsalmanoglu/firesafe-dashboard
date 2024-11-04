@@ -18,7 +18,7 @@ type Device = {
     location: string;
     photo: string;
     currentStatus: string;
-    type: string;
+    typeId: string;
     features: string;
     ownerId: string;    
     details: string;
@@ -125,7 +125,7 @@ const DeviceListPage = () => {
               className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
             />
             <div className="flex flex-col">
-              <h3 className="font-semibold">{item.type}</h3>
+              <h3 className="font-semibold">{item.typeId}</h3>
               <p className="text-xs text-gray-500">{item.ownerId}</p>
               {/* <td className="hidden md:table-cell">{item.address}</td> */}
 
