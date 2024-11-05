@@ -194,7 +194,7 @@ model Logs {
   tableId             Int
   table               Tables @relation(fields: [tableId], references: [id])
 
-  IP string
+  IP                  String
 }
 
 model Actions {
@@ -213,7 +213,7 @@ model Events {
   description        String
   startTime          DateTime
   endTime            DateTime
-  institutionId?     int
+  institutionId?     Int
   institution?       Institutions @relation(fields: [institutionId], references: [id])
 
 }
@@ -223,7 +223,7 @@ model Announcements {
   title              String
   description        String
   date               DateTime
-  institutionId?     int
+  institutionId?     Int
   institution?       Institutions @relation(fields: [institutionId], references: [id])
 }
 
@@ -252,19 +252,19 @@ model TeamsMemebers {
 
 enum UserSex {
   Erkek
-  Kadın
-  Diğer
+  Kadin
+  Diger
 }
 
 enum UserBloodType {
-  ARh+
-  ARh-
-  BRh+
-  BRh-
-  ABRh+
-  ABRh-
-  0Rh+
-  0Rh-
+  ARhP
+  ARhN
+  BRhP
+  BRhN
+  ABRhP
+  ABRhN
+  0RhP
+  0RhN
 }
 
 enum DeviceStatus {
@@ -273,12 +273,12 @@ enum DeviceStatus {
 }
 
 enum OfferStatus {
-  Onaylandı
-  Red Edildi
+  Onaylandi
+  Red
   Beklemede
 }
 
 enum NotificationStatus {
   Okundu
-  Okunmadı
+  Okunmadi
 }
