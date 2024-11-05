@@ -62,7 +62,8 @@ model Devices {
   typeId              Int
   type                DeviceTypes @relation(fields: [typeId], references: [id]) 
 
-  features            String
+  featureId           Int
+  feature             DeviceFeatures @relation(fields: [featureId], references: [id])
 
   ownerId             String 
   owner               Users @relation(fields: [ownerId], references: [id])
@@ -71,6 +72,11 @@ model Devices {
 }
 
 model DeviceTypes {
+  id                  Int @id @default(autoincrement())
+  name                String
+}
+
+model DeviceFeatures {
   id                  Int @id @default(autoincrement())
   name                String
 }
@@ -89,7 +95,17 @@ model MaintenanceCards {
   providerId          String 
   provider            Users @relation(fields: [providerId], references: [id])
 
+  operations          Operations[]
+            
+
   details             String
+
+}
+
+model Operations {
+  id                  Int @id @default(autoincrement())
+  name                String
+  maintenanceCards    MaintenanceCards[]
 }
 
 model Services {
@@ -209,6 +225,29 @@ model Announcements {
   date               DateTime
   institutionId?     int
   institution?       Institutions @relation(fields: [institutionId], references: [id])
+}
+
+model Teams {
+  id                 Int @id @default(autoincrement())
+  name               String
+  teamsMemebers      TeamsMemebers []
+}
+
+model TeamsMemebers {
+  id                  String @id
+  teams               Teams []
+  firstName           String
+  lastName            String
+  bloodType           UserBloodType
+  birthday            DateTime
+  sex                 UserSex
+  photo               String?
+  email               String
+  phone               String
+  registrationDate    DateTime @default (now())
+  
+  institutionId       Int
+  institution         Institutions @relation(fields: [institutionId], references: [id])
 }
 
 enum UserSex {
