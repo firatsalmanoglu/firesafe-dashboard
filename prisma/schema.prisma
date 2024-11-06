@@ -1,8 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
   provider = "prisma-client-js"
@@ -33,6 +29,24 @@ model Users {
 
   roleId              Int 
   role                Roles @relation(fields: [roleId], references: [id])
+
+  MaintenanceCards MaintenanceCards[]
+
+  OfferCards OfferCards[] @relation(name: "user1")
+
+  OfferCards1 OfferCards[] @relation(name: "user2")
+
+  Devices Devices[]
+
+  Notifications Notifications[] @relation(name: "user1")
+
+  Notifications1 Notifications[] @relation(name: "user2")
+
+  Appointments Appointments[] @relation(name: "user1")
+
+  Appointments1 Appointments[] @relation(name: "user2")
+
+  Logs Logs[]
 }
 
 model Institutions {
@@ -41,11 +55,17 @@ model Institutions {
   address             String
   events              Events []
   announcements       Announcements []
+
+  Users Users[]
+
+  TeamsMemebers TeamsMemebers[]
 }
 
 model Roles {
   id                  Int @id @default(autoincrement())
   name                String
+
+  Users Users[]
 }
 
 model Devices {
@@ -69,16 +89,22 @@ model Devices {
   owner               Users @relation(fields: [ownerId], references: [id])
   
   details             String
+
+  MaintenanceCards MaintenanceCards[]
 }
 
 model DeviceTypes {
   id                  Int @id @default(autoincrement())
   name                String
+
+  Devices Devices[]
 }
 
 model DeviceFeatures {
   id                  Int @id @default(autoincrement())
   name                String
+
+  Devices Devices[]
 }
 
 model MaintenanceCards {
@@ -111,6 +137,10 @@ model Operations {
 model Services {
   id                  Int @id @default(autoincrement())
   name                String
+
+  MaintenanceCards MaintenanceCards[]
+
+  OfferCards OfferCards[]
 }
 
 model OfferCards {
@@ -130,17 +160,22 @@ model OfferCards {
   status              OfferStatus
 
   creatorId           String
-  creator             Users @relation(fields: [creatorId], references: [id])
+  creator             Users @relation(fields: [creatorId], references: [id], name: "user1")
 
   recipientId         String
-  recipient           Users @relation(fields: [recipientId], references: [id])
+  recipient           Users @relation(fields: [recipientId], references: [id], name: "user2")
 
   details             String
+
+  
+
 }
 
 model PaymentTermTypes {
   id                  Int @id @default(autoincrement())
   name                String
+
+  OfferCards OfferCards[]
 }
 
 model Notifications {
@@ -148,10 +183,10 @@ model Notifications {
   content             String
 
   creatorId           String
-  creator             Users @relation(fields: [creatorId], references: [id])
+  creator             Users @relation(fields: [creatorId], references: [id], name: "user1")
 
   recipientId         String
-  recipient           Users @relation(fields: [recipientId], references: [id])
+  recipient           Users @relation(fields: [recipientId], references: [id], name: "user2")
 
   notificationDate    DateTime @default (now()) 
   isRead              NotificationStatus
@@ -163,6 +198,8 @@ model Notifications {
 model NotificationTypes {
   id                  Int @id @default(autoincrement())
   name                String
+
+  Notifications Notifications[]
 }
 
 model Appointments {
@@ -174,10 +211,10 @@ model Appointments {
   create              DateTime @default (now())
 
   creatorId           String
-  creator             Users @relation(fields: [creatorId], references: [id])
+  creator             Users @relation(fields: [creatorId], references: [id], name: "user1")
 
   recipientId         String
-  recipient           Users @relation(fields: [recipientId], references: [id])
+  recipient           Users @relation(fields: [recipientId], references: [id], name: "user2")
 
 }
 
@@ -200,11 +237,15 @@ model Logs {
 model Actions {
   id                 Int @id @default(autoincrement())
   name               String
+
+  Logs Logs[]
 }
 
 model Tables {
   id                 Int @id @default(autoincrement())
   name               String
+
+  Logs Logs[]
 }
 
 model Events {
@@ -213,8 +254,8 @@ model Events {
   description        String
   startTime          DateTime
   endTime            DateTime
-  institutionId?     Int
-  institution?       Institutions @relation(fields: [institutionId], references: [id])
+  institutionId      Int
+  institution        Institutions @relation(fields: [institutionId], references: [id])
 
 }
 
@@ -223,8 +264,8 @@ model Announcements {
   title              String
   description        String
   date               DateTime
-  institutionId?     Int
-  institution?       Institutions @relation(fields: [institutionId], references: [id])
+  institutionId       Int
+  institution        Institutions @relation(fields: [institutionId], references: [id])
 }
 
 model Teams {
@@ -234,7 +275,7 @@ model Teams {
 }
 
 model TeamsMemebers {
-  id                  String @id
+  id                  Int @id @default(autoincrement())
   teams               Teams []
   firstName           String
   lastName            String
@@ -263,8 +304,8 @@ enum UserBloodType {
   BRhN
   ABRhP
   ABRhN
-  0RhP
-  0RhN
+  ORhP
+  ORhN
 }
 
 enum DeviceStatus {
