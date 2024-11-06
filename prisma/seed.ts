@@ -186,12 +186,21 @@ async function main() {
         }
 
 
+    // INSTITUTIONS
+        for (let i = 1; i <= 25; i++) {
+            await prisma.institutions.create({
+            data: {
+                name: `IName${i}`,
+                address: `Address${i}`,
+            },
+            });
+        }
+
 
     // USERS
         for (let i = 1; i <= 50; i++) {
             await prisma.users.create({
             data: {
-                id: `userId${i}`,
                 userName: `userId${i}`,
                 password: `userId${i}`,
                 firstName: `UName ${i}`,
@@ -214,15 +223,7 @@ async function main() {
         }
 
 
-    // INSTITUTIONS
-        for (let i = 1; i <= 25; i++) {
-            await prisma.institutions.create({
-            data: {
-                name: `IName${i}`,
-                address: `Address${i}`,
-            },
-            });
-        }
+   
 
 
     // DEVICES
@@ -239,7 +240,7 @@ async function main() {
                 currentStatus: i % 2 === 0 ? DeviceStatus.Aktif : DeviceStatus.Pasif,
                 typeId: (i % 9) + 1,
                 featureId: (i % 9) + 1,
-                ownerId: `user${(i % 50) + 1}`,
+                ownerId: (i % 50) + 1,
                 details: `Güvenlik Önlemi Detayı ${i}`,
             },
             });
@@ -254,7 +255,7 @@ async function main() {
                 nextMaintenanceDate: new Date(new Date().setHours(new Date().getHours() + 10)),
                 typeId: (i % 5) + 1, 
                 deviceId: (i % 50) + 1, 
-                providerId: `user${(i % 50) + 1}`,
+                providerId: (i % 50) + 1,
                 details: `Bakım Detayı ${i}`,
             },
             });
@@ -274,8 +275,8 @@ async function main() {
                 paymentTermId: (i % 6) + 1, 
                 servicesId: (i % 5) + 1, 
                 status: i % 2 === 0 ? OfferStatus.Onaylandi : OfferStatus.Beklemede,
-                creatorId: `user${(i % 50) + 1}`,
-                recipientId: `user${(i % 50) + 1}`, 
+                creatorId: (i % 50) + 1,
+                recipientId: (i % 50) + 1,
                 details: `Teklif Detayı ${i}`,
             },
             });
@@ -288,8 +289,8 @@ async function main() {
             await prisma.notifications.create({
             data: {
                 content: `Bildirim İçeriği ${i}`,
-                creatorId: `user${(i % 50) + 1}`,
-                recipientId: `user${(i % 50) + 1}`,
+                creatorId: (i % 50) + 1,
+                recipientId: (i % 50) + 1,
                 notificationDate: new Date(new Date().setHours(new Date().getHours() + 1)),
                 isRead: i % 2 === 0 ? NotificationStatus.Okundu : NotificationStatus.Okunmadi,
                 typeId: (i % 3) + 1,
@@ -307,8 +308,8 @@ async function main() {
                 start: new Date(new Date().setHours(new Date().getHours() + 5)),
                 end: new Date(new Date().setHours(new Date().getHours() + 10)),
                 create: new Date(new Date().setHours(new Date().getHours() + 1)),
-                creatorId: `user${(i % 50) + 1}`,
-                recipientId: `user${(i % 50) + 1}`,
+                creatorId: (i % 50) + 1,
+                recipientId: (i % 50) + 1,
             },
             });
         }
@@ -318,7 +319,7 @@ async function main() {
             await prisma.logs.create({
             data: {
                 date: new Date(new Date().setHours(new Date().getHours() + 5)),
-                userId: `user${(i % 50) + 1}`,
+                userId: (i % 50) + 1,
                 actionId: (i % 5) + 1,
                 tableId: (i % 21) + 1,
                 IP: `192.168.1.12${i}`,
@@ -360,7 +361,6 @@ async function main() {
         for (let i = 1; i <= 50; i++) {
             await prisma.teamsMemebers.create({
             data: {
-                //id: `userId${i}`,
                 firstName: `Ekip Üyesi Adı ${i}`,
                 lastName: `USurname ${i}`,
                 bloodType: 

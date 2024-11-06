@@ -15,7 +15,7 @@ CREATE TYPE "NotificationStatus" AS ENUM ('Okundu', 'Okunmadi');
 
 -- CreateTable
 CREATE TABLE "Users" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "userName" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "firstName" TEXT NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE "Devices" (
     "currentStatus" "DeviceStatus" NOT NULL,
     "typeId" INTEGER NOT NULL,
     "featureId" INTEGER NOT NULL,
-    "ownerId" TEXT NOT NULL,
+    "ownerId" INTEGER NOT NULL,
     "details" TEXT NOT NULL,
 
     CONSTRAINT "Devices_pkey" PRIMARY KEY ("id")
@@ -92,7 +92,7 @@ CREATE TABLE "MaintenanceCards" (
     "nextMaintenanceDate" TIMESTAMP(3) NOT NULL,
     "typeId" INTEGER NOT NULL,
     "deviceId" INTEGER NOT NULL,
-    "providerId" TEXT NOT NULL,
+    "providerId" INTEGER NOT NULL,
     "details" TEXT NOT NULL,
 
     CONSTRAINT "MaintenanceCards_pkey" PRIMARY KEY ("id")
@@ -125,8 +125,8 @@ CREATE TABLE "OfferCards" (
     "paymentTermId" INTEGER NOT NULL,
     "servicesId" INTEGER NOT NULL,
     "status" "OfferStatus" NOT NULL,
-    "creatorId" TEXT NOT NULL,
-    "recipientId" TEXT NOT NULL,
+    "creatorId" INTEGER NOT NULL,
+    "recipientId" INTEGER NOT NULL,
     "details" TEXT NOT NULL,
 
     CONSTRAINT "OfferCards_pkey" PRIMARY KEY ("id")
@@ -144,8 +144,8 @@ CREATE TABLE "PaymentTermTypes" (
 CREATE TABLE "Notifications" (
     "id" SERIAL NOT NULL,
     "content" TEXT NOT NULL,
-    "creatorId" TEXT NOT NULL,
-    "recipientId" TEXT NOT NULL,
+    "creatorId" INTEGER NOT NULL,
+    "recipientId" INTEGER NOT NULL,
     "notificationDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "isRead" "NotificationStatus" NOT NULL,
     "typeId" INTEGER NOT NULL,
@@ -169,8 +169,8 @@ CREATE TABLE "Appointments" (
     "start" TIMESTAMP(3) NOT NULL,
     "end" TIMESTAMP(3) NOT NULL,
     "create" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "creatorId" TEXT NOT NULL,
-    "recipientId" TEXT NOT NULL,
+    "creatorId" INTEGER NOT NULL,
+    "recipientId" INTEGER NOT NULL,
 
     CONSTRAINT "Appointments_pkey" PRIMARY KEY ("id")
 );
@@ -179,7 +179,7 @@ CREATE TABLE "Appointments" (
 CREATE TABLE "Logs" (
     "id" SERIAL NOT NULL,
     "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "userId" TEXT NOT NULL,
+    "userId" INTEGER NOT NULL,
     "actionId" INTEGER NOT NULL,
     "tableId" INTEGER NOT NULL,
     "IP" TEXT NOT NULL,
@@ -260,7 +260,7 @@ CREATE TABLE "_MaintenanceCardsToOperations" (
 -- CreateTable
 CREATE TABLE "_TeamsToTeamsMemebers" (
     "A" INTEGER NOT NULL,
-    "B" TEXT NOT NULL
+    "B" INTEGER NOT NULL
 );
 
 -- CreateIndex
