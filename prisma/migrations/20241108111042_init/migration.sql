@@ -59,11 +59,12 @@ CREATE TABLE "Devices" (
     "lastControlDate" TIMESTAMP(3) NOT NULL,
     "expirationDate" TIMESTAMP(3) NOT NULL,
     "location" TEXT NOT NULL,
-    "photo" TEXT NOT NULL,
+    "photo" TEXT,
     "currentStatus" "DeviceStatus" NOT NULL,
     "typeId" INTEGER NOT NULL,
     "featureId" INTEGER NOT NULL,
     "ownerId" INTEGER NOT NULL,
+    "institutionId" INTEGER NOT NULL,
     "details" TEXT NOT NULL,
 
     CONSTRAINT "Devices_pkey" PRIMARY KEY ("id")
@@ -300,6 +301,9 @@ ALTER TABLE "Devices" ADD CONSTRAINT "Devices_featureId_fkey" FOREIGN KEY ("feat
 ALTER TABLE "Devices" ADD CONSTRAINT "Devices_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "Devices" ADD CONSTRAINT "Devices_institutionId_fkey" FOREIGN KEY ("institutionId") REFERENCES "Institutions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "MaintenanceCards" ADD CONSTRAINT "MaintenanceCards_typeId_fkey" FOREIGN KEY ("typeId") REFERENCES "Services"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -318,7 +322,7 @@ ALTER TABLE "OfferCards" ADD CONSTRAINT "OfferCards_servicesId_fkey" FOREIGN KEY
 ALTER TABLE "OfferCards" ADD CONSTRAINT "OfferCards_creatorId_fkey" FOREIGN KEY ("creatorId") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "OfferCards" ADD CONSTRAINT "OfferCards_recipientId_fkey" FOREIGN KEY ("recipientId") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "OfferCards" ADD CONSTRAINT "OfferCards_recipientId_fkey" FOREIGN KEY ("recipientId") REFERENCES "Institutions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Notifications" ADD CONSTRAINT "Notifications_creatorId_fkey" FOREIGN KEY ("creatorId") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

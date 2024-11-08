@@ -3,40 +3,14 @@ import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import { role, offersData } from "@/lib/data";
+import prisma from "@/lib/prisma";
+import { ITEM_PER_PAGE } from "@/lib/settings";
+import { Institutions, OfferCards, PaymentTermTypes, Prisma, Services, Users } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
 
-type Offer = {
-  
-    id: number;
-    //offerId: string;
-    offerDate: string;
-    validityDate: string;
-    unitPrice: string;
-    size: string;
-    amount: string;
-    paymentTermId: string;
-    servicesId: string;
-    status: string; 
-    creatorId: string;
-    recipientId: string;
-    details: string;
-}
-
-    // Database Orj Table
-    // id: 1,
-    // //offerId: "101",
-    // validityDate: "25/10/2025",
-    // unitPrice: "63.450,00",
-    // size: "2",
-    // amount: "126.900,00",
-    // paymentTerms:["Teslimatta Peşin", "Vadeli"],
-    // servicesId: ["Değişim", "Bakım"],
-    // status: "OK",
-    // creatorId: "001",
-    // recipientId: "138",
-    // details: "8 adet kuru kimyevi yangın tüpü değişimi anahtar teslim fiyat teklifidir.",
+type OfferList = OfferCards & { paymentTerm: PaymentTermTypes } & { service: Services } & { creator: Users } & { recipient: Institutions };
 
 const columns =[
     {
@@ -89,63 +63,119 @@ const columns =[
     
 ];
 
-const OfferListPage = () => {
+const renderRow = (item: OfferList) => (
+  <tr
+    key={item.id}
+    className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
+  >
+    <td className="hidden md:table-cell">{item.id}</td>
+    <td className="flex items-center gap-4 p-4">
+      {/* <Image
+        src={item.photo}
+        alt=""
+        width={40}
+        height={40}
+        className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+      /> */}
+      <div className="flex flex-col">
+        {/* <h3 className="font-semibold">{item.providerOrganization}</h3> */}
+        <p className="text-xs text-gray-500">{item.creator.firstName}</p>
+        <p className="text-xs text-gray-500">{item.creator.lastName}</p>
+      </div>
+    </td>
 
-    const renderRow = (item: Offer) => (
-        <tr
-          key={item.id}
-          className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
-        >
-          <td className="hidden md:table-cell">{item.id}</td>
-          <td className="flex items-center gap-4 p-4">
-            {/* <Image
-              src={item.photo}
-              alt=""
-              width={40}
-              height={40}
-              className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
-            /> */}
-            <div className="flex flex-col">
-              {/* <h3 className="font-semibold">{item.providerOrganization}</h3> */}
-              <p className="text-xs text-gray-500">{item.creatorId}</p>
-            </div>
-          </td>
+    <td className="hidden md:table-cell">{item.offerDate.toLocaleDateString()}</td>
+    <td className="flex items-center gap-4 p-4">
+      {/* <Image
+        src={item.photo}
+        alt=""
+        width={40}
+        height={40}
+        className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+      /> */}
+      <div className="flex flex-col">
+        {/* <h3 className="font-semibold">{item.ownerOrganization}</h3> */}
+        <p className="text-xs text-gray-500">{item.recipient.name}</p>
+      </div>
+    </td>
+    {/* <td className="hidden md:table-cell">{item.expiryDate}</td> */}
+    {/* <td className="hidden md:table-cell">{item.servicesOffered}</td> */}
+    <td className="hidden md:table-cell">
+        {Number(item.amount).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+    </td>
+    <td className="hidden md:table-cell">{item.status}</td>
+    <td>
+      <div className="flex items-center gap-2">
+        <Link href={`/list/offers/${item.id}`}>
+          <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+            <Image src="/view.png" alt="" width={24} height={24} />
+          </button>
+        </Link>
+        {role === "admin" && (
+          // <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+          //   <Image src="/delete.png" alt="" width={16} height={16} />
+          // </button>
+          <FormModal table="offer" type="delete" id={item.id}/>
+        )}
+      </div>
+    </td>
+  </tr>
+);
 
-          <td className="hidden md:table-cell">{item.offerDate}</td>
-          <td className="flex items-center gap-4 p-4">
-            {/* <Image
-              src={item.photo}
-              alt=""
-              width={40}
-              height={40}
-              className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
-            /> */}
-            <div className="flex flex-col">
-              {/* <h3 className="font-semibold">{item.ownerOrganization}</h3> */}
-              <p className="text-xs text-gray-500">{item.recipientId}</p>
-            </div>
-          </td>
-          {/* <td className="hidden md:table-cell">{item.expiryDate}</td> */}
-          {/* <td className="hidden md:table-cell">{item.servicesOffered}</td> */}
-          <td className="hidden md:table-cell">{item.amount}</td>
-          <td className="hidden md:table-cell">{item.status}</td>
-          <td>
-            <div className="flex items-center gap-2">
-              <Link href={`/list/offers/${item.id}`}>
-                <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
-                  <Image src="/view.png" alt="" width={24} height={24} />
-                </button>
-              </Link>
-              {role === "admin" && (
-                // <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
-                //   <Image src="/delete.png" alt="" width={16} height={16} />
-                // </button>
-                <FormModal table="offer" type="delete" id={item.id}/>
-              )}
-            </div>
-          </td>
-        </tr>
-      );
+const OfferListPage = async ({
+  searchParams,
+}: {
+  searchParams: { [key:string] : string | undefined };
+}) => {
+  const {page, ...queryParams} = searchParams;
+
+  const p = page ? parseInt(page) : 1;
+
+  //URL PARAMS CONDITION
+ 
+  const query: Prisma.OfferCardsWhereInput = {}; // Prisma için boş bir query nesnesi oluşturuluyor.
+
+    if (queryParams) {
+      for (const [key, value] of Object.entries(queryParams)) {
+        if (value !== undefined) {
+          switch (key) {
+            case "paymentTermId":
+              const paymentTermId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+              if (!isNaN(paymentTermId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                query.paymentTermId = paymentTermId; 
+              }
+              break;
+            // Diğer case'ler eklenebilir. Örneğin, daha fazla filtrasyon yapılmak istenirse.
+            case "search":
+              query.details = {contains:value, mode: "insensitive"}
+              break;
+          }
+        }
+      }
+    }
+
+  const [data,count] = await prisma.$transaction([
+
+    prisma.offerCards.findMany ({
+      where:query,
+
+      include: {
+        paymentTerm:true,
+        service: true,
+        creator: true,
+        recipient: true,
+        
+      },
+
+      take:ITEM_PER_PAGE,
+      skip: ITEM_PER_PAGE * (p-1),
+    }),
+    prisma.users.count()
+  ]);
+
+
+    
 
     return (
         <div className='bg-white p-4 rounded-md flex-1 m-4 mt-0'>
@@ -174,11 +204,11 @@ const OfferListPage = () => {
 
             {/* LIST */}
             <div className=''>
-                <Table columns={columns} renderRow={renderRow} data={offersData}/>
+                <Table columns={columns} renderRow={renderRow} data={data}/>
             </div>
 
             {/* PAGINATION */}
-                <Pagination />
+              <Pagination page={p} count={count} />
         </div>
     )
 }

@@ -3,12 +3,14 @@ import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import { role, devicesData } from "@/lib/data";
-import { DeviceFeatures, Devices, DeviceTypes, MaintenanceCards, Users } from "@prisma/client";
+import prisma from "@/lib/prisma";
+import { ITEM_PER_PAGE } from "@/lib/settings";
+import { DeviceFeatures, Devices, DeviceTypes, Institutions, MaintenanceCards, Prisma, Users } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
 
-type DeviceList = Devices & {type: DeviceTypes} & {feature: DeviceFeatures} & {owner: Users} & {MaintenanceCards: MaintenanceCards []};
+type DeviceList = Devices & {type: DeviceTypes} & {feature: DeviceFeatures} & {owner: Users} & {institution: Institutions} & {MaintenanceCards: MaintenanceCards []};
 
 
 const columns =[
@@ -96,14 +98,22 @@ const renderRow = (item: DeviceList) => (
       />
       <div className="flex flex-col">
         <h3 className="font-semibold">{item.type.name}</h3>
-        <p className="text-xs text-gray-500">{item.owner.firstName}</p>
+        <p className="text-xs text-gray-500">{item.institution.name}</p>
         {/* <td className="hidden md:table-cell">{item.address}</td> */}
 
       </div>
     </td>
     {/* <td className="hidden md:table-cell">{item.deviceId}</td> */}
-    <td className="hidden md:table-cell">{item.feature.name}</td>
-    <td className="hidden md:table-cell">{item.owner.firstName}</td>
+    <td className="hidden md:table-cell">
+        {item.feature.name}
+    </td>
+
+    <div className="flex flex-col">
+      <td className="hidden md:table-cell">{item.owner.firstName}</td>
+      <td className="hidden md:table-cell">{item.owner.lastName}</td>
+
+    </div>
+    
     {/* <td className="hidden md:table-cell">{item.manufactureDate}</td> */}
     {/* <td className="hidden md:table-cell">{item.expiryDate}</td> */}
     <td className="hidden md:table-cell">{item.lastControlDate.toLocaleDateString()}</td>
@@ -128,7 +138,57 @@ const renderRow = (item: DeviceList) => (
   </tr>
 );
 
-const DeviceListPage = () => {
+const DeviceListPage = async ({
+  searchParams,
+}: {
+  searchParams: { [key:string] : string | undefined };
+}) => {
+  const {page, ...queryParams} = searchParams;
+
+  const p = page ? parseInt(page) : 1;
+
+  //URL PARAMS CONDITION
+ 
+  const query: Prisma.DevicesWhereInput = {}; // Prisma için boş bir query nesnesi oluşturuluyor.
+
+    if (queryParams) {
+      for (const [key, value] of Object.entries(queryParams)) {
+        if (value !== undefined) {
+          switch (key) {
+            case "typeId":
+              const typeId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+              if (!isNaN(typeId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                query.typeId = typeId; 
+              }
+              break;
+            // Diğer case'ler eklenebilir. Örneğin, daha fazla filtrasyon yapılmak istenirse.
+            case "search":
+              query.serialNumber = {contains:value, mode: "insensitive"}
+              break;
+          }
+        }
+      }
+    }
+
+  const [data,count] = await prisma.$transaction([
+
+    prisma.devices.findMany ({
+      where:query,
+
+      include: {
+        type:true,
+        owner: true,
+        feature: true,
+        institution: true,
+        MaintenanceCards: true
+      },
+
+      take:ITEM_PER_PAGE,
+      skip: ITEM_PER_PAGE * (p-1),
+    }),
+    prisma.users.count()
+  ]);
 
     
 
@@ -159,11 +219,11 @@ const DeviceListPage = () => {
 
             {/* LIST */}
             <div className=''>
-                <Table columns={columns} renderRow={renderRow} data={devicesData}/>
+                <Table columns={columns} renderRow={renderRow} data={data}/>
             </div>
 
             {/* PAGINATION */}
-                <Pagination />
+            <Pagination page={p} count={count} />
         </div>
     )
 }

@@ -236,11 +236,12 @@ async function main() {
                 lastControlDate: new Date(new Date().setHours(new Date().getHours() + 3)),
                 expirationDate: new Date(new Date().setHours(new Date().getHours() + 5)),
                 location: `Kat ${i}`, 
-                photo: "Photo",
+                //photo: "photo.png",
                 currentStatus: i % 2 === 0 ? DeviceStatus.Aktif : DeviceStatus.Pasif,
                 typeId: (i % 9) + 1,
                 featureId: (i % 9) + 1,
                 ownerId: (i % 50) + 1,
+                institutionId: (i % 25) + 1,
                 details: `Güvenlik Önlemi Detayı ${i}`,
             },
             });
@@ -276,7 +277,7 @@ async function main() {
                 servicesId: (i % 5) + 1, 
                 status: i % 2 === 0 ? OfferStatus.Onaylandi : OfferStatus.Beklemede,
                 creatorId: (i % 50) + 1,
-                recipientId: (i % 50) + 1,
+                recipientId: (i % 25) + 1,
                 details: `Teklif Detayı ${i}`,
             },
             });

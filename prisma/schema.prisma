@@ -34,7 +34,6 @@ model Users {
 
   OfferCards OfferCards[] @relation(name: "user1")
 
-  OfferCards1 OfferCards[] @relation(name: "user2")
 
   Devices Devices[]
 
@@ -59,6 +58,10 @@ model Institutions {
   Users               Users[]
 
   TeamsMemebers       TeamsMemebers[]
+
+  Devices Devices[]
+
+  OfferCards OfferCards[] @relation(name: "user2")
 }
 
 model Roles {
@@ -76,7 +79,7 @@ model Devices {
   lastControlDate     DateTime
   expirationDate      DateTime
   location            String
-  photo               String
+  photo               String?
   currentStatus       DeviceStatus
 
   typeId              Int
@@ -87,6 +90,9 @@ model Devices {
 
   ownerId             Int 
   owner               Users @relation(fields: [ownerId], references: [id])
+
+  institutionId       Int 
+  institution         Institutions @relation(fields: [institutionId], references: [id])
   
   details             String
 
@@ -163,7 +169,7 @@ model OfferCards {
   creator             Users @relation(fields: [creatorId], references: [id], name: "user1")
 
   recipientId         Int
-  recipient           Users @relation(fields: [recipientId], references: [id], name: "user2")
+  recipient           Institutions @relation(fields: [recipientId], references: [id], name: "user2")
 
   details             String
 
