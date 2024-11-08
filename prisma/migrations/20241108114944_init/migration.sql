@@ -93,6 +93,7 @@ CREATE TABLE "MaintenanceCards" (
     "nextMaintenanceDate" TIMESTAMP(3) NOT NULL,
     "typeId" INTEGER NOT NULL,
     "deviceId" INTEGER NOT NULL,
+    "institutionId" INTEGER NOT NULL,
     "providerId" INTEGER NOT NULL,
     "details" TEXT NOT NULL,
 
@@ -308,6 +309,9 @@ ALTER TABLE "MaintenanceCards" ADD CONSTRAINT "MaintenanceCards_typeId_fkey" FOR
 
 -- AddForeignKey
 ALTER TABLE "MaintenanceCards" ADD CONSTRAINT "MaintenanceCards_deviceId_fkey" FOREIGN KEY ("deviceId") REFERENCES "Devices"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MaintenanceCards" ADD CONSTRAINT "MaintenanceCards_institutionId_fkey" FOREIGN KEY ("institutionId") REFERENCES "Institutions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "MaintenanceCards" ADD CONSTRAINT "MaintenanceCards_providerId_fkey" FOREIGN KEY ("providerId") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

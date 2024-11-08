@@ -256,6 +256,7 @@ async function main() {
                 nextMaintenanceDate: new Date(new Date().setHours(new Date().getHours() + 10)),
                 typeId: (i % 5) + 1, 
                 deviceId: (i % 50) + 1, 
+                institutionId: (i % 25) + 1, 
                 providerId: (i % 50) + 1,
                 details: `Bakım Detayı ${i}`,
             },

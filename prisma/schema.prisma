@@ -62,6 +62,8 @@ model Institutions {
   Devices Devices[]
 
   OfferCards OfferCards[] @relation(name: "user2")
+
+  MaintenanceCards MaintenanceCards[]
 }
 
 model Roles {
@@ -124,9 +126,13 @@ model MaintenanceCards {
   deviceId            Int
   device              Devices @relation(fields: [deviceId], references: [id])
 
+  institutionId       Int 
+  institution         Institutions @relation(fields: [institutionId], references: [id])
+
   providerId          Int 
   provider            Users @relation(fields: [providerId], references: [id])
 
+  
   operations          Operations[]
             
 

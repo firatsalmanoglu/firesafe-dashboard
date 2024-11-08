@@ -3,32 +3,15 @@ import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import { role, maintenancesData } from "@/lib/data";
+import prisma from "@/lib/prisma";
+import { ITEM_PER_PAGE } from "@/lib/settings";
+import { Devices, Institutions, MaintenanceCards, Operations, Prisma, Services, Users } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
+type ManintenanceList = MaintenanceCards & { type: Services } & { device: Devices } & { institution: Institutions } & { provider: Users } & { oprtaions: Operations[] };
 
-type Offer = {
-    id: number;
-    //recordID: string;
-    maintenanceDate: string;
-    nexyMaintenanceDate: string;
-    typeId: string;
-    deviceId: string;
-    providerId: string;
-    details: string;
-    status: string;
 
-}
-
-    // id: 1,
-    // //recordID: "005",
-    // maintenanceDate: "13/07/2023",
-    // nexyMaintenanceDate: "13/07/2024",
-    // maintenanceType: "Bakım",
-    // deviceId: "125487",
-    // providerId: "196587",
-    // details: "Basınçlar kontrol edildi",
-    // status: "OK",
 
 const columns =[
 
@@ -55,33 +38,6 @@ const columns =[
       accessor:"info",
     },
     
-    // {
-    //     header:"Müşteri", 
-    //     accessor:"instServed",
-    //     className: "hidden md:table-cell",
-    // },
-   
-    // {
-    //     header:"Bakım Türü", 
-    //     accessor:"maintenanceType",
-    //     className: "hidden md:table-cell",
-    // },
-    // {
-    //     header:"Detay", 
-    //     accessor:"details",
-    //     className: "hidden md:table-cell",
-    // },
-    // {
-    //     header:"Sonraki Bakım Tarihi", 
-    //     accessor:"nexyMaintenanceDate",
-    //     className: "hidden md:table-cell",
-    // },
-    
-    // {
-    //     header:"Durumu", 
-    //     accessor:"status",
-    //     className: "hidden md:table-cell",
-    // },
     {
       header:"Eylemler", 
       accessor:"action",
@@ -90,68 +46,122 @@ const columns =[
     
 ];
 
-const MaintenanceListPage = () => {
+const renderRow = (item: ManintenanceList) => (
+  <tr
+    key={item.id}
+    className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
+  >
+    <td className="hidden md:table-cell">{item.id}</td>
+    <td className="hidden md:table-cell">{item.device.serialNumber}</td>
+    {/* Yukarıya deviceId ile ilişkili serialNumber gelecek */}
+    <td className="flex items-center gap-4 p-4">
+      {/* <Image
+        src={item.photo}
+        alt=""
+        width={40}
+        height={40}
+        className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+      /> */}
+      <div className="flex flex-col">
+        {/* <h3 className="font-semibold">{item.providerId}</h3> providerId ile ilişkili hizmet verilen kurum adı gelecek*/}
+        {/* <p className="text-xs text-gray-500">{item.performedByName}</p> providerId ile ilişkili hizmet verilen personel adı gelecek*/}
+        <p className="text-xs text-gray-500">{item.provider.firstName}</p> 
+        <p className="text-xs text-gray-500">{item.provider.lastName}</p> 
+      </div>
+    </td>
+    <td className="hidden md:table-cell">{item.maintenanceDate.toLocaleDateString()}</td>
 
-    const renderRow = (item: Offer) => (
-        <tr
-          key={item.id}
-          className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
-        >
-          <td className="hidden md:table-cell">{item.id}</td>
-          <td className="hidden md:table-cell">{item.id}</td>
-          {/* Yukarıya deviceId ile ilişkili serialNumber gelecek */}
-          <td className="flex items-center gap-4 p-4">
-            {/* <Image
-              src={item.photo}
-              alt=""
-              width={40}
-              height={40}
-              className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
-            /> */}
-            <div className="flex flex-col">
-              {/* <h3 className="font-semibold">{item.providerId}</h3> providerId ile ilişkili hizmet verilen kurum adı gelecek*/}
-              {/* <p className="text-xs text-gray-500">{item.performedByName}</p> providerId ile ilişkili hizmet verilen personel adı gelecek*/}
-              <p className="text-xs text-gray-500">{item.providerId}</p> 
-            </div>
-          </td>
-          <td className="hidden md:table-cell">{item.maintenanceDate}</td>
+    <td className="flex items-center gap-4 p-4">
+      {/* <Image
+        src={item.photo}
+        alt=""
+        width={40}
+        height={40}
+        className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+      /> */}
+      <div className="flex flex-col">
+        <h3 className="font-semibold">{item.institution.name}</h3>
+        {/* <p className="text-xs text-gray-500">{item.customerName}</p> deviceId ile ilişkili Teklif verilen personel gelecek*/}
+        {/* <p className="text-xs text-gray-500">{item.customerId}</p> deviceId ile ilişkili Teklif verilen pers ID gelecek*/}
+      </div>
+    </td>
 
-          <td className="flex items-center gap-4 p-4">
-            {/* <Image
-              src={item.photo}
-              alt=""
-              width={40}
-              height={40}
-              className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
-            /> */}
-            <div className="flex flex-col">
-              {/* <h3 className="font-semibold">{item.instServed}</h3> deviceId ile ilişkili Teklif verilen kurum gelecek*/} 
-              {/* <p className="text-xs text-gray-500">{item.customerName}</p> deviceId ile ilişkili Teklif verilen personel gelecek*/}
-              {/* <p className="text-xs text-gray-500">{item.customerId}</p> deviceId ile ilişkili Teklif verilen pers ID gelecek*/}
-            </div>
-          </td>
+    {/* <td className="hidden md:table-cell">{item.maintenanceType}</td> */}
+    {/* <td className="hidden md:table-cell">{item.details}</td> */}
+    {/* <td className="hidden md:table-cell">{item.nexyMaintenanceDate}</td> */}
+    {/* <td className="hidden md:table-cell">{item.status}</td> */}
+    <td>
+      <div className="flex items-center gap-2">
+        <Link href={`/list/maintenances/${item.id}`}>
+          <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+            <Image src="/view.png" alt="" width={24} height={24} />
+          </button>
+        </Link>
+        {role === "admin" && (
+          // <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+          //   <Image src="/delete.png" alt="" width={16} height={16} />
+          // </button>
+          <FormModal table="maintenance" type="delete" id={item.id}/>
+        )}
+      </div>
+    </td>
+  </tr>
+);
 
-          {/* <td className="hidden md:table-cell">{item.maintenanceType}</td> */}
-          {/* <td className="hidden md:table-cell">{item.details}</td> */}
-          {/* <td className="hidden md:table-cell">{item.nexyMaintenanceDate}</td> */}
-          {/* <td className="hidden md:table-cell">{item.status}</td> */}
-          <td>
-            <div className="flex items-center gap-2">
-              <Link href={`/list/maintenances/${item.id}`}>
-                <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
-                  <Image src="/view.png" alt="" width={24} height={24} />
-                </button>
-              </Link>
-              {role === "admin" && (
-                // <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
-                //   <Image src="/delete.png" alt="" width={16} height={16} />
-                // </button>
-                <FormModal table="maintenance" type="delete" id={item.id}/>
-              )}
-            </div>
-          </td>
-        </tr>
-      );
+const MaintenanceListPage = async ({
+    searchParams,
+  }: {
+    searchParams: { [key:string] : string | undefined };
+  }) => {
+    const {page, ...queryParams} = searchParams;
+  
+    const p = page ? parseInt(page) : 1;
+  
+    //URL PARAMS CONDITION
+   
+    const query: Prisma.MaintenanceCardsWhereInput = {}; // Prisma için boş bir query nesnesi oluşturuluyor.
+  
+      if (queryParams) {
+        for (const [key, value] of Object.entries(queryParams)) {
+          if (value !== undefined) {
+            switch (key) {
+              case "typeId":
+                const typeId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+                if (!isNaN(typeId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                  // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                  query.typeId = typeId; 
+                }
+                break;
+              // Diğer case'ler eklenebilir. Örneğin, daha fazla filtrasyon yapılmak istenirse.
+              case "search":
+                query.details = {contains:value, mode: "insensitive"}
+                break;
+            }
+          }
+        }
+      }
+  
+    const [data,count] = await prisma.$transaction([
+  
+      prisma.maintenanceCards.findMany ({
+        where:query,
+  
+        include: {
+          type: true,
+          device: true,
+          institution: true,
+          provider: true,
+          operations: true,
+          
+          
+        },
+  
+        take:ITEM_PER_PAGE,
+        skip: ITEM_PER_PAGE * (p-1),
+      }),
+      prisma.users.count()
+    ]);
+  
 
     return (
         <div className='bg-white p-4 rounded-md flex-1 m-4 mt-0'>
@@ -180,11 +190,11 @@ const MaintenanceListPage = () => {
 
             {/* LIST */}
             <div className=''>
-                <Table columns={columns} renderRow={renderRow} data={maintenancesData}/>
+                <Table columns={columns} renderRow={renderRow} data={data}/>
             </div>
 
             {/* PAGINATION */}
-                <Pagination />
+              <Pagination page={p} count={count} />
         </div>
     )
 }
