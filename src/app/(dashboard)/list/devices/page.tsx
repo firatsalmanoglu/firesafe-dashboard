@@ -3,41 +3,13 @@ import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import { role, devicesData } from "@/lib/data";
+import { DeviceFeatures, Devices, DeviceTypes, MaintenanceCards, Users } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
 
-type Device = {
-    id: number;
-    //deviceId: string;
-    serialNumber: string;
-    qrcode: string;
-    productionDate: string;
-    lastControlDate: string;
-    expirationDate: string;
-    location: string;
-    photo: string;
-    currentStatus: string;
-    typeId: string;
-    features: string;
-    ownerId: string;    
-    details: string;
-  };
+type DeviceList = Devices & {type: DeviceTypes} & {feature: DeviceFeatures} & {owner: Users} & {MaintenanceCards: MaintenanceCards []};
 
-    //Database Orj Table
-    // id: 1,
-    // //deviceId: "1234567890",
-    // serialNumber:"95958478784",
-    // productionDate: "25/10/2024",
-    // lastControlDate: "25/10/2025",
-    // expirationDate: "25/06/2024",
-    // location: "roof",
-    // photo:"/avatar.png",
-    // currentStatus: "OK",
-    // type: "Yangın Tüpü",
-    // features: "CO2",
-    // ownerId:"75",
-    // details: "2mt hortum, üstten basmalı vs",
 
 const columns =[
     {
@@ -108,55 +80,57 @@ const columns =[
     
 ];
 
+const renderRow = (item: DeviceList) => (
+  <tr
+    key={item.id}
+    className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
+  >
+    <td className="hidden md:table-cell">{item.serialNumber}</td>
+    <td className="flex items-center gap-4 p-4">
+      <Image
+        src={item.photo || "/noAvatar.png"}
+        alt=""
+        width={40}
+        height={40}
+        className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+      />
+      <div className="flex flex-col">
+        <h3 className="font-semibold">{item.type.name}</h3>
+        <p className="text-xs text-gray-500">{item.owner.firstName}</p>
+        {/* <td className="hidden md:table-cell">{item.address}</td> */}
+
+      </div>
+    </td>
+    {/* <td className="hidden md:table-cell">{item.deviceId}</td> */}
+    <td className="hidden md:table-cell">{item.feature.name}</td>
+    <td className="hidden md:table-cell">{item.owner.firstName}</td>
+    {/* <td className="hidden md:table-cell">{item.manufactureDate}</td> */}
+    {/* <td className="hidden md:table-cell">{item.expiryDate}</td> */}
+    <td className="hidden md:table-cell">{item.lastControlDate.toLocaleDateString()}</td>
+    {/* <td className="hidden md:table-cell">{item.location}</td> */}
+    <td className="hidden md:table-cell">{item.currentStatus}</td>
+    {/* <td className="hidden md:table-cell">{item.details}</td> */}
+    <td>
+      <div className="flex items-center gap-2">
+        <Link href={`/list/devices/${item.id}`}>
+          <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+            <Image src="/view.png" alt="" width={24} height={24} />
+          </button>
+        </Link>
+        {role === "admin" && (
+          // <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+          //   <Image src="/delete.png" alt="" width={16} height={16} />
+          // </button>
+          <FormModal table="device" type="delete" id={item.id}/>
+        )}
+      </div>
+    </td>
+  </tr>
+);
+
 const DeviceListPage = () => {
 
-    const renderRow = (item: Device) => (
-        <tr
-          key={item.id}
-          className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
-        >
-          <td className="hidden md:table-cell">{item.serialNumber}</td>
-          <td className="flex items-center gap-4 p-4">
-            <Image
-              src={item.photo}
-              alt=""
-              width={40}
-              height={40}
-              className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
-            />
-            <div className="flex flex-col">
-              <h3 className="font-semibold">{item.typeId}</h3>
-              <p className="text-xs text-gray-500">{item.ownerId}</p>
-              {/* <td className="hidden md:table-cell">{item.address}</td> */}
-
-            </div>
-          </td>
-          {/* <td className="hidden md:table-cell">{item.deviceId}</td> */}
-          <td className="hidden md:table-cell">{item.features}</td>
-          <td className="hidden md:table-cell">{item.ownerId}</td>
-          {/* <td className="hidden md:table-cell">{item.manufactureDate}</td> */}
-          {/* <td className="hidden md:table-cell">{item.expiryDate}</td> */}
-          <td className="hidden md:table-cell">{item.lastControlDate}</td>
-          {/* <td className="hidden md:table-cell">{item.location}</td> */}
-          <td className="hidden md:table-cell">{item.currentStatus}</td>
-          {/* <td className="hidden md:table-cell">{item.details}</td> */}
-          <td>
-            <div className="flex items-center gap-2">
-              <Link href={`/list/devices/${item.id}`}>
-                <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
-                  <Image src="/view.png" alt="" width={24} height={24} />
-                </button>
-              </Link>
-              {role === "admin" && (
-                // <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
-                //   <Image src="/delete.png" alt="" width={16} height={16} />
-                // </button>
-                <FormModal table="device" type="delete" id={item.id}/>
-              )}
-            </div>
-          </td>
-        </tr>
-      );
+    
 
     return (
         <div className='bg-white p-4 rounded-md flex-1 m-4 mt-0'>

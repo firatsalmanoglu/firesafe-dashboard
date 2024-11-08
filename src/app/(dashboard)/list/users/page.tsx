@@ -3,48 +3,14 @@ import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import { role, usersData } from "@/lib/data";
+import prisma from "@/lib/prisma";
+import { Devices, Institutions, Prisma, Roles, Users } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import {ITEM_PER_PAGE} from "@/lib/settings"
 
+type UserList = Users & { institution: Institutions } & { role: Roles } & { devices: Devices[] };
 
-type User = {
-
-    id: number,
-    //userId: string,
-    userName: string,
-    firstName: string,
-    lastName: string,
-    bloodType: string,
-    birthday: string,
-    sex: string,
-    photo: string,
-    email: string,
-    phone: string,
-    registrationDate: string,
-    institutionId: string,
-    //organizationName: string,
-    //address: string,
-    roleId: string,
-    
-
-    //Database Real Table
-    // id: 1,
-    // //userId: "1234567890",
-    // userName: "Fırat Salmanoğlu",
-    // password: "12345678",
-    // firstName: "Fırat",
-    // lastName: "Salmanoğlu",
-    // bloodType: "ARh+",
-    // birthday: "01/01/2000",
-    // sex: "Erkek",
-    // photo: "/firat.jpg",
-    // email: "john@doe.com",
-    // phone: "1234567890",
-    // registrationDate: "10/06/2024",
-    // institutionId: "009",
-    // roleId: ["Admin"],
-
-  };
 
 const columns =[
     {
@@ -56,38 +22,18 @@ const columns =[
         header:"Bilgi", 
         accessor:"info",
     },
-    
-    
-    // {
-    //   header:"Kullanıcı Adı", 
-    //   accessor:"userName",
-    //   className: "hidden md:table-cell"
-    // },
+   
     {
         header:"Rolü", 
         accessor:"roleId",
         className: "hidden md:table-cell",
     },
-    // {
-    //   header:"Cinsiyet", 
-    //   accessor:"sex",
-    //   className: "hidden md:table-cell",
-    // },
-    // {
-    //   header:"Doğum Tarihi", 
-    //   accessor:"birthday",
-    //   className: "hidden md:table-cell",
-    // },
-    // {
-    //   header:"Kan Grubu", 
-    //   accessor:"bloodType",
-    //   className: "hidden md:table-cell",
-    // },
-    {
-      header:"Üyelik Tarihi", 
-      accessor:"registrationDate",
-      className: "hidden md:table-cell",
-    },
+    
+     {
+       header:"Üyelik Tarihi", 
+       accessor:"registrationDate",
+       className: "hidden md:table-cell",
+     },
     {
         header:"Tel No", 
         accessor:"phone",
@@ -98,11 +44,7 @@ const columns =[
       accessor:"email",
       className: "hidden md:table-cell",
     },
-    // {
-    //     header:"Adres", 
-    //     accessor:"address",
-    //     className: "hidden md:table-cell",
-    // },
+   
     {
       header:"Eylemler", 
       accessor:"action",
@@ -110,54 +52,107 @@ const columns =[
   },
 ];
 
-const UserListPage = () => {
 
-    const renderRow = (item: User) => (
-        <tr
-          key={item.id}
-          className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
-        >
-          <td className="hidden md:table-cell">{item.id}</td>
-          <td className="flex items-center gap-4 p-4">
-            <Image
-              src={item.photo}
-              alt=""
-              width={40}
-              height={40}
-              className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
-            />
-            <div className="flex flex-col">
-              <h3 className="font-semibold">{item.firstName}</h3>
-              <h3 className="font-semibold">{item.lastName}</h3>
-              <p className="text-xs text-gray-500">{item.institutionId}</p>
-            </div>
-          </td>
-          {/* <td className="hidden md:table-cell">{item.userName}</td> */}
-          <td className="hidden md:table-cell">{item.roleId}</td>
-          {/* <td className="hidden md:table-cell">{item.sex}</td> */}
-          {/* <td className="hidden md:table-cell">{item.birthday}</td> */}
-          {/* <td className="hidden md:table-cell">{item.bloodType}</td> */}
-          <td className="hidden md:table-cell">{item.registrationDate}</td>
-          <td className="hidden md:table-cell">{item.phone}</td>
-          <td className="hidden md:table-cell">{item.email}</td>
-          {/* <td className="hidden md:table-cell">{item.address}</td> */}
-          <td>
-            <div className="flex items-center gap-2">
-              <Link href={`/list/users/${item.id}`}>
-                <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
-                  <Image src="/view.png" alt="" width={24} height={24} />
-                </button>
-              </Link>
-               {role === "admin" && (
-                 //<button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
-                   //<Image src="/delete.png" alt="" width={16} height={16} />
-                // </button>
-                <FormModal table="user" type="delete" id={item.id}/>
-              )} 
-            </div>
-          </td>
-        </tr>
-      );
+
+const renderRow = (item: UserList) => (
+  <tr
+    key={item.id}
+    className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
+  >
+    <td className="hidden md:table-cell">{item.id}</td>
+    <td className="flex items-center gap-4 p-4">
+      <Image
+        src={item.photo || "/noAvatar.png"}
+        alt=""
+        width={40}
+        height={40}
+        className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+      />
+      <div className="flex flex-col">
+        <h3 className="font-semibold">{item.firstName}</h3>
+        <h3 className="font-semibold">{item.lastName}</h3>
+        <p className="text-xs text-gray-500">{item.institution.name}</p>
+      </div>
+    </td>
+    {/* <td className="hidden md:table-cell">{item.userName}</td> */}
+    <td className="hidden md:table-cell">{item.role.name}</td>
+    {/* <td className="hidden md:table-cell">{item.sex}</td> */}
+    {/* <td className="hidden md:table-cell">{item.birthday}</td> */}
+    {/* <td className="hidden md:table-cell">{item.bloodType}</td> */}
+    {/* <td className="hidden md:table-cell">{item.registrationDate}</td> */}
+
+    <td className="hidden md:table-cell">
+        {item.registrationDate.toLocaleDateString()}
+    </td>
+    <td className="hidden md:table-cell">{item.phone}</td>
+    <td className="hidden md:table-cell">{item.email}</td>
+    {/* <td className="hidden md:table-cell">{item.address}</td> */}
+    <td>
+      <div className="flex items-center gap-2">
+        <Link href={`/list/users/${item.id}`}>
+          <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+            <Image src="/view.png" alt="" width={24} height={24} />
+          </button>
+        </Link>
+         {role === "admin" && (
+           //<button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+             //<Image src="/delete.png" alt="" width={16} height={16} />
+          // </button>
+          <FormModal table="user" type="delete" id={item.id}/>
+        )} 
+      </div>
+    </td>
+  </tr>
+);
+
+const UserListPage = async ({
+  searchParams,
+}: {
+  searchParams: { [key:string] : string | undefined };
+}) => {
+  const {page, ...queryParams} = searchParams;
+
+  const p = page ? parseInt(page) : 1;
+
+  //URL PARAMS CONDITION
+ 
+  const query: Prisma.UsersWhereInput = {}; // Prisma için boş bir query nesnesi oluşturuluyor.
+
+    if (queryParams) {
+      for (const [key, value] of Object.entries(queryParams)) {
+        if (value !== undefined) {
+          switch (key) {
+            case "roleId":
+              const roleId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+              if (!isNaN(roleId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                query.roleId = roleId; 
+              }
+              break;
+            // Diğer case'ler eklenebilir. Örneğin, daha fazla filtrasyon yapılmak istenirse.
+            case "search":
+              query.firstName = {contains:value, mode: "insensitive"}
+              break;
+          }
+        }
+      }
+    }
+
+  const [data,count] = await prisma.$transaction([
+
+    prisma.users.findMany ({
+      where:query,
+
+      include: {
+        institution:true,
+        role: true,
+      },
+
+      take:ITEM_PER_PAGE,
+      skip: ITEM_PER_PAGE * (p-1),
+    }),
+    prisma.users.count()
+  ]);
 
     return (
         <div className='bg-white p-4 rounded-md flex-1 m-4 mt-0'>
@@ -186,11 +181,11 @@ const UserListPage = () => {
 
             {/* LIST */}
             <div className=''>
-                <Table columns={columns} renderRow={renderRow} data={usersData}/>
+                <Table columns={columns} renderRow={renderRow} data={data}/>
             </div>
 
             {/* PAGINATION */}
-                <Pagination />
+            <Pagination page={p} count={count} />
         </div>
     )
 }
