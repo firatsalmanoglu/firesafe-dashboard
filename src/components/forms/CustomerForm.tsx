@@ -46,7 +46,7 @@ const schema = z.object({
 
 type Inputs = z.infer<typeof schema>;
 
-const UserForm = ({
+const CustomerForm = ({
   type,
   data,
 }: {
@@ -67,7 +67,7 @@ const UserForm = ({
 
   return (
     <form className="flex flex-col gap-4" onSubmit={onSubmit}>
-      <h1 className="text-xl font-semibold">Yeni Kullanıcı Oluştur</h1>
+      <h1 className="text-xl font-semibold">Yeni Müşteri Oluştur</h1>
       <span className="text-xs text-gray-400 font-medium">
         Kimlik Doğrulama Bilgileri
       </span>
@@ -266,4 +266,4 @@ const UserForm = ({
   );
 };
 
-export default UserForm;
+export default CustomerForm;

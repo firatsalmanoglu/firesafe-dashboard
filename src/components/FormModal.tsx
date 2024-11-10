@@ -12,6 +12,12 @@ import { useState } from "react";
 const UserForm = dynamic(() => import("./forms/UserForm"), {
   loading: () => <h1>Loading...</h1>,
 });
+const CustomerForm = dynamic(() => import("./forms/CustomerForm"), {
+  loading: () => <h1>Loading...</h1>,
+});
+const ProviderForm = dynamic(() => import("./forms/ProviderForm"), {
+  loading: () => <h1>Loading...</h1>,
+});
 const DeviceForm = dynamic(() => import("./forms/DeviceForm"), {
   loading: () => <h1>Loading...</h1>,
 });
@@ -33,6 +39,9 @@ const forms: {
   [key: string]: (type: "create" | "update", data?: any) => JSX.Element;
 } = {
   user: (type, data) => <UserForm type={type} data={data} />,
+  customer: (type, data) => <CustomerForm type={type} data={data} />,
+  provider: (type, data) => <ProviderForm type={type} data={data} />,
+
   device: (type, data) => <DeviceForm type={type} data={data} />,
   maintenance: (type, data) => <MaintenanceForm type={type} data={data} />,
   notification: (type, data) => <NotificationForm type={type} data={data} />,
@@ -55,8 +64,9 @@ const FormModal = ({
     | "offer"
     | "notification"
     | "event"
-    | "exam"
-    | "assignment"
+    | "customer"
+    | "provider"
+    
     | "result"
     | "attendance"
     | "event"

@@ -19,6 +19,21 @@ const menuItems = [
         href: "/list/users",
         visible: ["admin","provider", "customer", "parent", "lowcustomer", "lowprovider"],
       },
+
+      {
+        icon: "/user.png",
+        label: "Müşteriler",
+        href: "/list/customers",
+        visible: ["admin","provider", "customer", "parent", "lowcustomer", "lowprovider"],
+      },
+
+      {
+        icon: "/user.png",
+        label: "Hizmet Sağlayıcılar",
+        href: "/list/providers",
+        visible: ["admin","provider", "customer", "parent", "lowcustomer", "lowprovider"],
+      },
+
       // {
       //   icon: "/user.png",
       //   label: "Müşteriler",
@@ -62,6 +77,14 @@ const menuItems = [
         href: "/list/notifications",
         visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
       },
+
+      {
+        icon: "/announcement.png",
+        label: "Hizmet Sağlayıcı Bildirimleri",
+        href: "/list/pnotifications",
+        visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
+      },
+
       {
         icon: "/report.png",
         label: "Raporlama",
