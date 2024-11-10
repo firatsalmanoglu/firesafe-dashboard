@@ -5,12 +5,30 @@ import TableSearch from "@/components/TableSearch";
 import { role, devicesData } from "@/lib/data";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
-import { DeviceFeatures, Devices, DeviceTypes, Institutions, MaintenanceCards, Prisma, Users } from "@prisma/client";
+import {  DeviceTypes,
+          DeviceFeatures, 
+          Customers,
+          CInstitutions,
+          Providers,
+          PInstitutions,
+          IsgMembers,
+          Devices,          
+          MaintenanceCards, 
+          Prisma           
+        } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
 
-type DeviceList = Devices & {type: DeviceTypes} & {feature: DeviceFeatures} & {owner: Users} & {institution: Institutions} & {MaintenanceCards: MaintenanceCards []};
+type DeviceList = Devices & 
+                  {type: DeviceTypes} & 
+                  {feature: DeviceFeatures} & 
+                  {owner: Customers} & 
+                  {institution: CInstitutions} & 
+                  {provider: Providers} & 
+                  {pinstitution: PInstitutions} & 
+                  {isgMember: IsgMembers} & 
+                  {MaintenanceCards: MaintenanceCards []};
 
 
 const columns =[
@@ -40,7 +58,7 @@ const columns =[
         className: "hidden md:table-cell",
     },
     {
-        header:"Sorumlu Personel", 
+        header:"Sorumlu Bilgileri", 
         accessor:"ownerId",
         className: "hidden md:table-cell",
     },
@@ -99,6 +117,8 @@ const renderRow = (item: DeviceList) => (
       <div className="flex flex-col">
         <h3 className="font-semibold">{item.type.name}</h3>
         <p className="text-xs text-gray-500">{item.institution.name}</p>
+        <p className="text-xs text-gray-500">{item.owner.firstName}</p>
+        <p className="text-xs text-gray-500">{item.owner.lastName}</p>
         {/* <td className="hidden md:table-cell">{item.address}</td> */}
 
       </div>
@@ -109,8 +129,9 @@ const renderRow = (item: DeviceList) => (
     </td>
 
     <div className="flex flex-col">
-      <td className="hidden md:table-cell">{item.owner.firstName}</td>
-      <td className="hidden md:table-cell">{item.owner.lastName}</td>
+      <td className="hidden md:table-cell">{item.pinstitution.name}</td>
+      <td className="hidden md:table-cell">{item.provider.firstName}</td>
+      <td className="hidden md:table-cell">{item.provider.lastName}</td>
 
     </div>
     
@@ -178,10 +199,14 @@ const DeviceListPage = async ({
 
       include: {
         type:true,
-        owner: true,
         feature: true,
+        owner: true,
         institution: true,
+        provider: true,
+        pinstitution: true,
+        isgMember: true,
         MaintenanceCards: true
+
       },
 
       take:ITEM_PER_PAGE,

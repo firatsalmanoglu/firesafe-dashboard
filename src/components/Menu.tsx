@@ -15,7 +15,7 @@ const menuItems = [
       },
       {
         icon: "/user.png",
-        label: "Kullanıcılar",
+        label: "Yöneticiler",
         href: "/list/users",
         visible: ["admin","provider", "customer", "parent", "lowcustomer", "lowprovider"],
       },
@@ -58,7 +58,7 @@ const menuItems = [
       },
       {
         icon: "/announcement.png",
-        label: "Bildirimler",
+        label: "Müşteri Bildirimleri",
         href: "/list/notifications",
         visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
       },

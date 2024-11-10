@@ -3,38 +3,23 @@ import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import { role, ccalendarEvents } from "@/lib/data";
+import prisma from "@/lib/prisma";
+import { ITEM_PER_PAGE } from "@/lib/settings";
+import {  Appointments, 
+          CInstitutions, 
+          Customers, 
+          PInstitutions, 
+          Prisma, 
+          Providers } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
 
-type Event = {
-    id: number;
-    //eventId: string;
-    title: string;
-    content: string;
-    start: string;
-    end: string;
-    create: string;
-    creatorId: string;
-    recipientId: string;  
-    //allDay: string;
-
-  };
-
-    // id: 1,
-    // //eventId: "001",
-    // title: "Bakım",
-    // content: "dhfgkjdhfgkhd",
-    // start: "30/10/2024",
-    // end: "30/10/2024",
-    // create: "10/10/2024",
-    // creatorId: "008",
-    // recipientId: "123",
-    // // start: new Date(2024, 11, 1, 8, 0),
-    // // end: new Date(2024, 11, 1, 8, 45),
-    // //create: new Date(2024, 10, 10, 8, 45),
-    // //allDay: false, 
-
+type EventList = Appointments & 
+                  {creator: Providers} & 
+                  {creatorInst: PInstitutions} & 
+                  {recipient: Customers} & 
+                  {recipientInst: CInstitutions}  ;
 
 const columns =[
     {
@@ -90,68 +75,122 @@ const columns =[
     
 ];
 
-const EventListPage = () => {
+const renderRow = (item: EventList) => (
+  <tr
+    key={item.id}
+    className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
+  >
+    <td className="hidden md:table-cell">{item.id}</td>
+    <td className="flex items-center gap-4 p-4">
+      {/* <Image
+        src={item.photo}
+        alt=""
+        width={40}
+        height={40}
+        className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+      /> */}
+      <div className="flex flex-col">
+        <h3 className="font-semibold">{item.creator.firstName}</h3>
+        <h3 className="font-semibold">{item.creator.lastName}</h3>
+        <p className="text-xs text-gray-500">{item.creatorInst.name}</p>
+        {/* <p className="text-xs text-gray-500">{item.creatorOrganization}</p> creatorId ile ilişkili creatorOrganization gelecek */}
+      </div>
+    </td>
 
-    const renderRow = (item: Event) => (
-        <tr
-          key={item.id}
-          className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
-        >
-          <td className="hidden md:table-cell">{item.id}</td>
-          <td className="flex items-center gap-4 p-4">
-            {/* <Image
-              src={item.photo}
-              alt=""
-              width={40}
-              height={40}
-              className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
-            /> */}
-            <div className="flex flex-col">
-              {/* <h3 className="font-semibold">{item.creatorName}</h3> creatorId ile ilişkili creatorName gelecek */}
-              <p className="text-xs text-gray-500">{item.creatorId}</p>
-              {/* <p className="text-xs text-gray-500">{item.creatorOrganization}</p> creatorId ile ilişkili creatorOrganization gelecek */}
-            </div>
-          </td>
+    <td className="hidden md:table-cell">{item.create.toLocaleDateString()}</td>
 
-          <td className="hidden md:table-cell">{item.create}</td>
+    {/* <td className="hidden md:table-cell">{item.title}</td> */}
+    <td className="flex items-center gap-4 p-4">
+      {/* <Image
+        src={item.photo}
+        alt=""
+        width={40}
+        height={40}
+        className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+      /> */}
+      <div className="flex flex-col">
+        <h3 className="font-semibold">{item.recipient.firstName}</h3>
+        <h3 className="font-semibold">{item.recipient.lastName}</h3>
+        <p className="text-xs text-gray-500">{item.recipientInst.name}</p>
+      </div>
+    </td>
+    {/* <td className="hidden md:table-cell">{item.message}</td> */}
+    <td className="hidden md:table-cell">{item.start.toLocaleDateString()}</td>
+    <td className="hidden md:table-cell">{item.end.toLocaleDateString()}</td>
+    
+    {/* <td className="hidden md:table-cell">{item.allDay}</td> */}
+    <td>
+      <div className="flex items-center gap-2">
+        <Link href={`/list/events/${item.id}`}>
+          <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+            <Image src="/view.png" alt="" width={24} height={24} />
+          </button>
+        </Link>
+        {role === "admin" && (
+          // <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+          //   <Image src="/delete.png" alt="" width={16} height={16} />
+          // </button>
+          <FormModal table="event" type="delete" id={item.id}/>
+        )}
+      </div>
+    </td>
+  </tr>
+);
 
-          {/* <td className="hidden md:table-cell">{item.title}</td> */}
-          <td className="flex items-center gap-4 p-4">
-            {/* <Image
-              src={item.photo}
-              alt=""
-              width={40}
-              height={40}
-              className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
-            /> */}
-            <div className="flex flex-col">
-              {/* <h3 className="font-semibold">{item.respPersonName}</h3> recipientId ile ilşikili Personel adı gelecek */}
-              <p className="text-xs text-gray-500">{item.recipientId}</p>
-              {/* <p className="text-xs text-gray-500">{item.respPersonOrg}</p> recipientId ile ilşkili Kurum Adı gelecek  */}
-            </div>
-          </td>
-          {/* <td className="hidden md:table-cell">{item.message}</td> */}
-          <td className="hidden md:table-cell">{item.start}</td>
-          <td className="hidden md:table-cell">{item.end}</td>
-          
-          {/* <td className="hidden md:table-cell">{item.allDay}</td> */}
-          <td>
-            <div className="flex items-center gap-2">
-              <Link href={`/list/events/${item.id}`}>
-                <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
-                  <Image src="/view.png" alt="" width={24} height={24} />
-                </button>
-              </Link>
-              {role === "admin" && (
-                // <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
-                //   <Image src="/delete.png" alt="" width={16} height={16} />
-                // </button>
-                <FormModal table="event" type="delete" id={item.id}/>
-              )}
-            </div>
-          </td>
-        </tr>
-      );
+const EventListPage =async ({
+  searchParams,
+}: {
+  searchParams: { [key:string] : string | undefined };
+}) => {
+  const {page, ...queryParams} = searchParams;
+
+  const p = page ? parseInt(page) : 1;
+
+  //URL PARAMS CONDITION
+ 
+  const query: Prisma.AppointmentsWhereInput = {}; // Prisma için boş bir query nesnesi oluşturuluyor.
+
+    if (queryParams) {
+      for (const [key, value] of Object.entries(queryParams)) {
+        if (value !== undefined) {
+          switch (key) {
+            case "id":
+              const id = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+              if (!isNaN(id)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                query.id = id; 
+              }
+              break;
+            // Diğer case'ler eklenebilir. Örneğin, daha fazla filtrasyon yapılmak istenirse.
+            case "search":
+              query.tittle = {contains:value, mode: "insensitive"}
+              break;
+          }
+        }
+      }
+    }
+
+  const [data,count] = await prisma.$transaction([
+
+    prisma.appointments.findMany ({
+      where:query,
+
+      include: {
+        creator:true,
+        creatorInst: true,
+        recipient: true,
+        recipientInst: true
+        
+      },
+
+      take:ITEM_PER_PAGE,
+      skip: ITEM_PER_PAGE * (p-1),
+    }),
+    prisma.users.count()
+  ]);
+
+
+    
 
     return (
         <div className='bg-white p-4 rounded-md flex-1 m-4 mt-0'>
@@ -180,11 +219,11 @@ const EventListPage = () => {
 
             {/* LIST */}
             <div className=''>
-                <Table columns={columns} renderRow={renderRow} data={ccalendarEvents}/>
+                <Table columns={columns} renderRow={renderRow} data={data}/>
             </div>
 
             {/* PAGINATION */}
-                <Pagination />
+                <Pagination page={p} count={count} />
         </div>
     )
 }

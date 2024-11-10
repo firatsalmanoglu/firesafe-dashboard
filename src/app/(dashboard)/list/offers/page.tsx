@@ -5,12 +5,26 @@ import TableSearch from "@/components/TableSearch";
 import { role, offersData } from "@/lib/data";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
-import { Institutions, OfferCards, PaymentTermTypes, Prisma, Services, Users } from "@prisma/client";
+import {  PaymentTermTypes,
+          Services,
+          Providers,
+          PInstitutions,
+          Customers,
+          CInstitutions,
+          OfferCards, 
+          Prisma 
+        } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
 
-type OfferList = OfferCards & { paymentTerm: PaymentTermTypes } & { service: Services } & { creator: Users } & { recipient: Institutions };
+type OfferList = OfferCards & 
+                { paymentTerm: PaymentTermTypes } & 
+                { service: Services } & 
+                { creator: Providers } & 
+                { creatorInst: PInstitutions } & 
+                { recipient: Customers } &
+                { recipientInst: CInstitutions }
 
 const columns =[
     {
@@ -78,7 +92,7 @@ const renderRow = (item: OfferList) => (
         className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
       /> */}
       <div className="flex flex-col">
-        {/* <h3 className="font-semibold">{item.providerOrganization}</h3> */}
+        <h3 className="font-semibold">{item.creatorInst.name}</h3>
         <p className="text-xs text-gray-500">{item.creator.firstName}</p>
         <p className="text-xs text-gray-500">{item.creator.lastName}</p>
       </div>
@@ -94,8 +108,10 @@ const renderRow = (item: OfferList) => (
         className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
       /> */}
       <div className="flex flex-col">
-        {/* <h3 className="font-semibold">{item.ownerOrganization}</h3> */}
-        <p className="text-xs text-gray-500">{item.recipient.name}</p>
+        <h3 className="font-semibold">{item.recipientInst.name}</h3>
+        <p className="text-xs text-gray-500">{item.recipient.firstName}</p>
+        <p className="text-xs text-gray-500">{item.recipient.lastName}</p>
+
       </div>
     </td>
     {/* <td className="hidden md:table-cell">{item.expiryDate}</td> */}
@@ -164,8 +180,9 @@ const OfferListPage = async ({
         paymentTerm:true,
         service: true,
         creator: true,
+        creatorInst: true,
         recipient: true,
-        
+        recipientInst: true,
       },
 
       take:ITEM_PER_PAGE,

@@ -5,11 +5,27 @@ import TableSearch from "@/components/TableSearch";
 import { role, maintenancesData } from "@/lib/data";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
-import { Devices, Institutions, MaintenanceCards, Operations, Prisma, Services, Users } from "@prisma/client";
+import {  Services,
+          Devices, 
+          Providers,
+          PInstitutions, 
+          Customers,
+          CInstitutions,
+          Operations, 
+          MaintenanceCards,
+          Prisma
+        } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
-type ManintenanceList = MaintenanceCards & { type: Services } & { device: Devices } & { institution: Institutions } & { provider: Users } & { oprtaions: Operations[] };
+type ManintenanceList = MaintenanceCards & 
+                        { type: Services } & 
+                        { device: Devices } & 
+                        { provider: Providers } & 
+                        { providerInst: PInstitutions } & 
+                        { customer: Customers } & 
+                        { customerInst: CInstitutions } & 
+                        { oprtaions: Operations[] };
 
 
 
@@ -63,8 +79,7 @@ const renderRow = (item: ManintenanceList) => (
         className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
       /> */}
       <div className="flex flex-col">
-        {/* <h3 className="font-semibold">{item.providerId}</h3> providerId ile ilişkili hizmet verilen kurum adı gelecek*/}
-        {/* <p className="text-xs text-gray-500">{item.performedByName}</p> providerId ile ilişkili hizmet verilen personel adı gelecek*/}
+        <h3 className="font-semibold">{item.providerInst.name}</h3>
         <p className="text-xs text-gray-500">{item.provider.firstName}</p> 
         <p className="text-xs text-gray-500">{item.provider.lastName}</p> 
       </div>
@@ -80,9 +95,9 @@ const renderRow = (item: ManintenanceList) => (
         className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
       /> */}
       <div className="flex flex-col">
-        <h3 className="font-semibold">{item.institution.name}</h3>
-        {/* <p className="text-xs text-gray-500">{item.customerName}</p> deviceId ile ilişkili Teklif verilen personel gelecek*/}
-        {/* <p className="text-xs text-gray-500">{item.customerId}</p> deviceId ile ilişkili Teklif verilen pers ID gelecek*/}
+        <h3 className="font-semibold">{item.customerInst.name}</h3>
+        <p className="text-xs text-gray-500">{item.customer.firstName}</p> 
+        <p className="text-xs text-gray-500">{item.customer.lastName}</p>
       </div>
     </td>
 
@@ -149,11 +164,11 @@ const MaintenanceListPage = async ({
         include: {
           type: true,
           device: true,
-          institution: true,
           provider: true,
-          operations: true,
-          
-          
+          providerInst: true,
+          customer: true,
+          customerInst: true,
+          operations: true         
         },
   
         take:ITEM_PER_PAGE,

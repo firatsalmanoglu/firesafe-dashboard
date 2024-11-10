@@ -1,5 +1,6 @@
 
 
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
+//ADMIN
 model Users {
   id                  Int @id @default(autoincrement())
   userName            String @unique
@@ -25,54 +26,141 @@ model Users {
   registrationDate    DateTime @default (now())
   
   institutionId       Int
-  institution         Institutions @relation(fields: [institutionId], references: [id])
+  institution         AInstitutions @relation(fields: [institutionId], references: [id])
 
   roleId              Int 
   role                Roles @relation(fields: [roleId], references: [id])
 
-  MaintenanceCards MaintenanceCards[]
+  Announcements       AAnnouncements []
+  Logs                ALogs[]
 
-  OfferCards OfferCards[] @relation(name: "user1")
+  CNotifications      CNotifications[]
 
-
-  Devices Devices[]
-
-  Notifications Notifications[] @relation(name: "user1")
-
-  Notifications1 Notifications[] @relation(name: "user2")
-
-  Appointments Appointments[] @relation(name: "user1")
-
-  Appointments1 Appointments[] @relation(name: "user2")
-
-  Logs Logs[]
+  PNotifications      PNotifications[]
 }
 
-model Institutions {
+
+//MÜŞTERİLER
+model Customers {
+  id                  Int @id @default(autoincrement())
+  userName            String @unique
+  password            String
+  firstName           String
+  lastName            String
+  bloodType           UserBloodType
+  birthday            DateTime
+  sex                 UserSex
+  photo               String?
+  email               String
+  phone               String
+  registrationDate    DateTime @default (now())
+  
+  institutionId       Int
+  institution         CInstitutions @relation(fields: [institutionId], references: [id])
+
+  roleId              Int 
+  role                Roles @relation(fields: [roleId], references: [id])
+
+  MaintenanceCards    MaintenanceCards[]
+  OfferCards          OfferCards[]
+  Devices             Devices[]
+  Notifications       CNotifications[]
+  Appointments        Appointments[] 
+  Announcements       CAnnouncements []
+  Logs                CLogs[]
+}
+
+
+//SERVİS SAĞLAYICILAR
+model Providers {
+  id                  Int @id @default(autoincrement())
+  userName            String @unique
+  password            String
+  firstName           String
+  lastName            String
+  bloodType           UserBloodType
+  birthday            DateTime
+  sex                 UserSex
+  photo               String?
+  email               String
+  phone               String
+  registrationDate    DateTime @default (now())
+  
+  institutionId       Int
+  institution         PInstitutions @relation(fields: [institutionId], references: [id])
+
+  roleId              Int 
+  role                Roles @relation(fields: [roleId], references: [id])
+
+  MaintenanceCards    MaintenanceCards[]
+  OfferCards          OfferCards[]
+  Devices             Devices[]
+  Notifications       PNotifications[]
+  Appointments        Appointments[] 
+  Announcements       PAnnouncements []
+  Logs                PLogs[]
+}
+
+//ADMİN ŞİRKETLER
+model AInstitutions {
   id                  Int @id @default(autoincrement())
   name                String
   address             String
-  events              Events []
-  announcements       Announcements []
-
+  Announcements       AAnnouncements []
   Users               Users[]
-
-  TeamsMemebers       TeamsMemebers[]
-
-  Devices Devices[]
-
-  OfferCards OfferCards[] @relation(name: "user2")
-
-  MaintenanceCards MaintenanceCards[]
+ 
 }
 
+//MÜŞTERİ ŞİRKETLER
+model CInstitutions {
+  id                  Int @id @default(autoincrement())
+  name                String
+  address             String
+  Announcements       CAnnouncements []
+  Users               Customers[]
+  Devices             Devices[]
+  OfferCards          OfferCards[]
+  TeamsMemebers       CTeamsMemebers[]
+  MaintenanceCards    MaintenanceCards[]
+
+  Appointments        Appointments[]
+
+  CNotifications      CNotifications[]
+
+  IsgMembers          IsgMembers[]
+}
+
+//SERVİS SAĞLAYICI ŞİRKETLER
+model PInstitutions {
+  id                  Int @id @default(autoincrement())
+  name                String
+  address             String
+  Announcements       PAnnouncements []
+  Users               Providers[]
+  Devices             Devices[]
+  OfferCards          OfferCards[]
+  TeamsMemebers       PTeamsMemebers[]
+  MaintenanceCards    MaintenanceCards[]
+
+  Appointments        Appointments[]
+
+  PNotifications      PNotifications[]
+}
+
+//ROLLER Admin- I. Seviye Müşteri- II. Seviye Müşteri- I. Seviye Hizmet Sağlayıcı-  II. Seviye Hizmet Sağlayıcı
 model Roles {
   id                  Int @id @default(autoincrement())
   name                String
+ 
 
-  Users Users[]
+  Providers           Providers[]
+
+  Customers           Customers[]
+
+  Users               Users[]
 }
 
+//CİHAZLAR Yangın Tüpü - Sprinkler vs
 model Devices {
   id                  Int @id @default(autoincrement())
   serialNumber        String @unique
@@ -91,16 +179,42 @@ model Devices {
   feature             DeviceFeatures @relation(fields: [featureId], references: [id])
 
   ownerId             Int 
-  owner               Users @relation(fields: [ownerId], references: [id])
+  owner               Customers @relation(fields: [ownerId], references: [id])
 
   institutionId       Int 
-  institution         Institutions @relation(fields: [institutionId], references: [id])
-  
+  institution         CInstitutions @relation(fields: [institutionId], references: [id])
+
+  providerId          Int 
+  provider            Providers @relation(fields: [providerId], references: [id])
+
+  pinstitutionId       Int 
+  pinstitution         PInstitutions @relation(fields: [pinstitutionId], references: [id])
+
+  isgMemberId         Int
+  isgMember           IsgMembers @relation(fields: [isgMemberId], references: [id])
+
   details             String
 
   MaintenanceCards    MaintenanceCards[]
+
+
 }
 
+
+//Müşteri tarafının İSG Uzmanları
+model IsgMembers {
+  id                  Int @id @default(autoincrement())
+  isgNumber           Int
+  name                String
+  contractDate        DateTime
+
+  institutionId       Int 
+  institution         CInstitutions @relation(fields: [institutionId], references: [id])
+
+  Devices             Devices[]
+}
+
+//Güvenlik Önlemi Türleri Yangın Tüpü - Sprinkler vs 
 model DeviceTypes {
   id                  Int @id @default(autoincrement())
   name                String
@@ -108,6 +222,7 @@ model DeviceTypes {
   Devices             Devices[]
 }
 
+//Güvenlik Önlemi Özellikleri CO2 - KKT - Otomatik Kapı
 model DeviceFeatures {
   id                  Int @id @default(autoincrement())
   name                String
@@ -115,6 +230,7 @@ model DeviceFeatures {
   Devices             Devices[]
 }
 
+//Bakım Kartı her bir cihaz için ve kimin kime yaptığını tutacak
 model MaintenanceCards {
   id                  Int @id @default(autoincrement())
   maintenanceDate     DateTime @default (now())
@@ -126,35 +242,42 @@ model MaintenanceCards {
   deviceId            Int
   device              Devices @relation(fields: [deviceId], references: [id])
 
-  institutionId       Int 
-  institution         Institutions @relation(fields: [institutionId], references: [id])
-
   providerId          Int 
-  provider            Users @relation(fields: [providerId], references: [id])
+  provider            Providers @relation(fields: [providerId], references: [id])
 
+  providerInstId      Int
+  providerInst        PInstitutions @relation(fields: [providerInstId], references: [id])
+
+  customerId          Int 
+  customer            Customers @relation(fields: [customerId], references: [id])
+
+  customerInstId      Int
+  customerInst        CInstitutions @relation(fields: [customerInstId], references: [id])
   
-  operations          Operations[]
-            
-
+  operations          Operations[]   
   details             String
 
 }
 
+//Bakım sırasında kontrol edilen şeyler bunları Serkan yazacak 15-20 tane
 model Operations {
   id                  Int @id @default(autoincrement())
   name                String
   maintenanceCards    MaintenanceCards[]
 }
 
+
+//Teklifte sunulan hizmetin başlıkları Örneğin Rutin Bakım, Eğitim, Danışmanlık, Ürün Satışı gibi
 model Services {
   id                  Int @id @default(autoincrement())
   name                String
+  OfferCards          OfferCards[]
 
   MaintenanceCards    MaintenanceCards[]
-
-  OfferCards          OfferCards[]
 }
 
+
+//Teklif Kartı, kim tarafından kime verilmiş tüm detayları tutyor
 model OfferCards {
   id                  Int @id @default(autoincrement())
   offerDate           DateTime @default (now())
@@ -172,17 +295,22 @@ model OfferCards {
   status              OfferStatus
 
   creatorId           Int
-  creator             Users @relation(fields: [creatorId], references: [id], name: "user1")
+  creator             Providers @relation(fields: [creatorId], references: [id])
+
+  creatorInstId       Int
+  creatorInst         PInstitutions @relation(fields: [creatorInstId], references: [id])
 
   recipientId         Int
-  recipient           Institutions @relation(fields: [recipientId], references: [id], name: "user2")
+  recipient           Customers @relation(fields: [recipientId], references: [id])
+
+  recipientInstId     Int
+  recipientInst       CInstitutions @relation(fields: [recipientInstId], references: [id])
 
   details             String
 
-  
-
 }
 
+//Teklif kartındaki ödeme türleri peşin, 3 taksit, 6 taksit, çekle vs
 model PaymentTermTypes {
   id                  Int @id @default(autoincrement())
   name                String
@@ -190,15 +318,21 @@ model PaymentTermTypes {
   OfferCards          OfferCards[]
 }
 
-model Notifications {
+
+
+//Hizmet Sağlayıcıya giden Bildirimler
+model PNotifications {
   id                  Int @id @default(autoincrement())
   content             String
 
   creatorId           Int
-  creator             Users @relation(fields: [creatorId], references: [id], name: "user1")
+  creator             Users @relation(fields: [creatorId], references: [id])
 
   recipientId         Int
-  recipient           Users @relation(fields: [recipientId], references: [id], name: "user2")
+  recipient           Providers @relation(fields: [recipientId], references: [id])
+
+  recipientInstId     Int
+  recipientInst       PInstitutions @relation(fields: [recipientInstId], references: [id])
 
   notificationDate    DateTime @default (now()) 
   isRead              NotificationStatus
@@ -207,13 +341,37 @@ model Notifications {
   type                NotificationTypes @relation(fields: [typeId], references: [id])
 }
 
+//Müşteriye giden Bildirimler
+model CNotifications {
+  id                  Int @id @default(autoincrement())
+  content             String
+
+  creatorId           Int
+  creator             Users @relation(fields: [creatorId], references: [id])
+
+  recipientId         Int
+  recipient           Customers @relation(fields: [recipientId], references: [id])
+
+  recipientInstId     Int
+  recipientInst       CInstitutions @relation(fields: [recipientInstId], references: [id])
+
+  notificationDate    DateTime @default (now()) 
+  isRead              NotificationStatus
+
+  typeId              Int
+  type                NotificationTypes @relation(fields: [typeId], references: [id])
+}
+
+//Bildirim Türleri Hatırlatma Uyarı vs
 model NotificationTypes {
   id                  Int @id @default(autoincrement())
   name                String
 
-  Notifications       Notifications[]
+  Notifications1       PNotifications[]
+  Notifications2       CNotifications[]
 }
 
+//Servis sağlayıcı tarafından oluşturulan bir randevu
 model Appointments {
   id                  Int @id @default(autoincrement())
   tittle              String
@@ -223,14 +381,21 @@ model Appointments {
   create              DateTime @default (now())
 
   creatorId           Int
-  creator             Users @relation(fields: [creatorId], references: [id], name: "user1")
+  creator             Providers @relation(fields: [creatorId], references: [id])
+
+  creatorInstId       Int
+  creatorInst         PInstitutions @relation(fields: [creatorInstId], references: [id])
 
   recipientId         Int
-  recipient           Users @relation(fields: [recipientId], references: [id], name: "user2")
+  recipient           Customers @relation(fields: [recipientId], references: [id])
+
+  recipientInstId     Int
+  recipientInst       CInstitutions @relation(fields: [recipientInstId], references: [id])
 
 }
 
-model Logs {
+//ADMIN Logları
+model ALogs {
   id                  Int @id @default(autoincrement())
   date                DateTime @default (now())
 
@@ -246,47 +411,126 @@ model Logs {
   IP                  String
 }
 
+//Müşteri Logları
+model CLogs {
+  id                  Int @id @default(autoincrement())
+  date                DateTime @default (now())
+
+  userId              Int
+  user                Customers @relation(fields: [userId], references: [id])
+
+  actionId            Int
+  action              Actions @relation(fields: [actionId], references: [id])
+
+  tableId             Int
+  table               Tables @relation(fields: [tableId], references: [id])
+
+  IP                  String
+}
+
+//Servis Sağlayıcı Logları
+model PLogs {
+  id                  Int @id @default(autoincrement())
+  date                DateTime @default (now())
+
+  userId              Int
+  user                Providers @relation(fields: [userId], references: [id])
+
+  actionId            Int
+  action              Actions @relation(fields: [actionId], references: [id])
+
+  tableId             Int
+  table               Tables @relation(fields: [tableId], references: [id])
+
+  IP                  String
+}
+
+//Log sırasında yapılan işlem türleri ekle-sil-düzenle vs
 model Actions {
   id                 Int @id @default(autoincrement())
   name               String
 
-  Logs Logs[]
+  Logs1               CLogs[]
+  Logs2               PLogs[]
+  Logs3               ALogs[]
+
 }
 
+
+//Tüm tablolar
 model Tables {
   id                 Int @id @default(autoincrement())
   name               String
 
-  Logs Logs[]
-}
-
-model Events {
-  id                 Int @id @default(autoincrement())
-  title              String
-  description        String
-  startTime          DateTime
-  endTime            DateTime
-  institutionId      Int
-  institution        Institutions @relation(fields: [institutionId], references: [id])
+  Logs1              CLogs[]
+  Logs2              PLogs[]
+  Logs3              ALogs[]
 
 }
 
-model Announcements {
+// //Etkinlikler
+// model Events {
+//   id                 Int @id @default(autoincrement())
+//   title              String
+//   description        String
+//   startTime          DateTime
+//   endTime            DateTime
+//   institutionId      Int
+//   institution        Institutions @relation(fields: [institutionId], references: [id])
+
+// }
+
+
+//Duyurular ADMIN için
+model AAnnouncements {
   id                 Int @id @default(autoincrement())
   title              String
   description        String
   date               DateTime
+
+  creatorInstId      Int
+  creatorInst        Users @relation(fields: [creatorInstId], references: [id])
+
   institutionId      Int
-  institution        Institutions @relation(fields: [institutionId], references: [id])
+  institution        AInstitutions @relation(fields: [institutionId], references: [id])
+}
+
+//Duyurular Customer için
+model CAnnouncements {
+  id                 Int @id @default(autoincrement())
+  title              String
+  description        String
+  date               DateTime
+
+  creatorInstId      Int
+  creatorInst        Customers @relation(fields: [creatorInstId], references: [id])
+
+  institutionId      Int
+  institution        CInstitutions @relation(fields: [institutionId], references: [id])
+}
+
+//Duyurular Hizmet Sağlayıcı için
+model PAnnouncements {
+  id                 Int @id @default(autoincrement())
+  title              String
+  description        String
+  date               DateTime
+
+  creatorInstId      Int
+  creatorInst        Providers @relation(fields: [creatorInstId], references: [id])
+
+  institutionId      Int
+  institution        PInstitutions @relation(fields: [institutionId], references: [id])
 }
 
 model Teams {
   id                 Int @id @default(autoincrement())
   name               String
-  teamsMemebers      TeamsMemebers []
+  teamsMemebers1      CTeamsMemebers []
+  teamsMemebers2      PTeamsMemebers []
 }
 
-model TeamsMemebers {
+model CTeamsMemebers {
   id                  Int @id @default(autoincrement())
   teams               Teams []
   firstName           String
@@ -300,7 +544,28 @@ model TeamsMemebers {
   registrationDate    DateTime @default (now())
   
   institutionId       Int
-  institution         Institutions @relation(fields: [institutionId], references: [id])
+  institution         CInstitutions @relation(fields: [institutionId], references: [id])
+
+  
+}
+
+model PTeamsMemebers {
+  id                  Int @id @default(autoincrement())
+  teams               Teams []
+  firstName           String
+  lastName            String
+  bloodType           UserBloodType
+  birthday            DateTime
+  sex                 UserSex
+  photo               String?
+  email               String
+  phone               String
+  registrationDate    DateTime @default (now())
+  
+  institutionId       Int
+  institution         PInstitutions @relation(fields: [institutionId], references: [id])
+
+  
 }
 
 enum UserSex {

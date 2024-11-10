@@ -11,8 +11,7 @@ datasource db {
 
 
 model Users {
-  id                  String @id
-  userId              Int @default(autoincrement()) @unique
+  id                  Int @id @default(autoincrement())
   userName            String @unique
   password            String
   firstName           String
@@ -26,16 +25,15 @@ model Users {
   registrationDate    DateTime @default (now())
   
   institutionId       Int
-  institution         Institutions @relation(fields: [institutionId], references: [institutionId])
+  institution         Institutions @relation(fields: [institutionId], references: [id])
 
   roleId              Int 
-  role                Roles @relation(fields: [roleId], references: [roleId])
+  role                Roles @relation(fields: [roleId], references: [id])
 
   MaintenanceCards MaintenanceCards[]
 
   OfferCards OfferCards[] @relation(name: "user1")
 
-  OfferCards1 OfferCards[] @relation(name: "user2")
 
   Devices Devices[]
 
@@ -52,7 +50,6 @@ model Users {
 
 model Institutions {
   id                  Int @id @default(autoincrement())
-  institutionId       Int @default(autoincrement()) @unique
   name                String
   address             String
   events              Events []
@@ -60,12 +57,17 @@ model Institutions {
 
   Users               Users[]
 
-  TeamsMemebers TeamsMemebers[]
+  TeamsMemebers       TeamsMemebers[]
+
+  Devices Devices[]
+
+  OfferCards OfferCards[] @relation(name: "user2")
+
+  MaintenanceCards MaintenanceCards[]
 }
 
 model Roles {
   id                  Int @id @default(autoincrement())
-  roleId              Int @default(autoincrement()) @unique
   name                String
 
   Users Users[]
@@ -73,61 +75,64 @@ model Roles {
 
 model Devices {
   id                  Int @id @default(autoincrement())
-  deviceId            Int @default(autoincrement()) @unique
   serialNumber        String @unique
   qrcode              String @unique
   productionDate      DateTime
   lastControlDate     DateTime
   expirationDate      DateTime
   location            String
-  photo               String
+  photo               String?
   currentStatus       DeviceStatus
 
   typeId              Int
-  type                DeviceTypes @relation(fields: [typeId], references: [deviceTypeId]) 
+  type                DeviceTypes @relation(fields: [typeId], references: [id]) 
 
   featureId           Int
-  feature             DeviceFeatures @relation(fields: [featureId], references: [deviceFeaturesId])
+  feature             DeviceFeatures @relation(fields: [featureId], references: [id])
 
   ownerId             Int 
-  owner               Users @relation(fields: [ownerId], references: [userId])
+  owner               Users @relation(fields: [ownerId], references: [id])
+
+  institutionId       Int 
+  institution         Institutions @relation(fields: [institutionId], references: [id])
   
   details             String
 
-  MaintenanceCards MaintenanceCards[]
+  MaintenanceCards    MaintenanceCards[]
 }
 
 model DeviceTypes {
   id                  Int @id @default(autoincrement())
-  deviceTypeId        Int @default(autoincrement()) @unique
   name                String
 
-  Devices Devices[]
+  Devices             Devices[]
 }
 
 model DeviceFeatures {
   id                  Int @id @default(autoincrement())
-  deviceFeaturesId    Int @default(autoincrement()) @unique
   name                String
 
-  Devices Devices[]
+  Devices             Devices[]
 }
 
 model MaintenanceCards {
   id                  Int @id @default(autoincrement())
-  maintenanceCardId   Int @default(autoincrement()) @unique
   maintenanceDate     DateTime @default (now())
   nextMaintenanceDate DateTime
 
   typeId              Int
-  type                Services @relation(fields: [typeId], references: [serviceId])
+  type                Services @relation(fields: [typeId], references: [id])
 
   deviceId            Int
-  device              Devices @relation(fields: [deviceId], references: [deviceId])
+  device              Devices @relation(fields: [deviceId], references: [id])
+
+  institutionId       Int 
+  institution         Institutions @relation(fields: [institutionId], references: [id])
 
   providerId          Int 
-  provider            Users @relation(fields: [providerId], references: [userId])
+  provider            Users @relation(fields: [providerId], references: [id])
 
+  
   operations          Operations[]
             
 
@@ -137,24 +142,21 @@ model MaintenanceCards {
 
 model Operations {
   id                  Int @id @default(autoincrement())
-  operationId         Int @default(autoincrement()) @unique
   name                String
   maintenanceCards    MaintenanceCards[]
 }
 
 model Services {
   id                  Int @id @default(autoincrement())
-  serviceId           Int @default(autoincrement()) @unique
   name                String
 
-  MaintenanceCards MaintenanceCards[]
+  MaintenanceCards    MaintenanceCards[]
 
-  OfferCards OfferCards[]
+  OfferCards          OfferCards[]
 }
 
 model OfferCards {
   id                  Int @id @default(autoincrement())
-  offerCardId         Int @default(autoincrement()) @unique
   offerDate           DateTime @default (now())
   validityDate        DateTime
   unitPrice           Decimal
@@ -162,18 +164,18 @@ model OfferCards {
   amount              Decimal
 
   paymentTermId       Int
-  paymentTerm         PaymentTermTypes @relation(fields: [paymentTermId], references: [paymentTermTypeId])
+  paymentTerm         PaymentTermTypes @relation(fields: [paymentTermId], references: [id])
 
   servicesId          Int
-  service             Services @relation(fields: [servicesId], references: [serviceId])
+  service             Services @relation(fields: [servicesId], references: [id])
 
   status              OfferStatus
 
   creatorId           Int
-  creator             Users @relation(fields: [creatorId], references: [userId], name: "user1")
+  creator             Users @relation(fields: [creatorId], references: [id], name: "user1")
 
   recipientId         Int
-  recipient           Users @relation(fields: [recipientId], references: [userId], name: "user2")
+  recipient           Institutions @relation(fields: [recipientId], references: [id], name: "user2")
 
   details             String
 
@@ -183,42 +185,37 @@ model OfferCards {
 
 model PaymentTermTypes {
   id                  Int @id @default(autoincrement())
-  paymentTermTypeId   Int @default(autoincrement()) @unique
   name                String
 
-  OfferCards OfferCards[]
+  OfferCards          OfferCards[]
 }
 
 model Notifications {
   id                  Int @id @default(autoincrement())
-  notificationId      Int @default(autoincrement()) @unique
-
   content             String
 
   creatorId           Int
-  creator             Users @relation(fields: [creatorId], references: [userId], name: "user1")
+  creator             Users @relation(fields: [creatorId], references: [id], name: "user1")
 
   recipientId         Int
-  recipient           Users @relation(fields: [recipientId], references: [userId], name: "user2")
+  recipient           Users @relation(fields: [recipientId], references: [id], name: "user2")
 
   notificationDate    DateTime @default (now()) 
   isRead              NotificationStatus
 
   typeId              Int
-  type                NotificationTypes @relation(fields: [typeId], references: [notificationTypeId])
+  type                NotificationTypes @relation(fields: [typeId], references: [id])
 }
 
 model NotificationTypes {
   id                  Int @id @default(autoincrement())
-  notificationTypeId  Int @default(autoincrement()) @unique
   name                String
 
-  Notifications Notifications[]
+  Notifications       Notifications[]
 }
 
 model Appointments {
   id                  Int @id @default(autoincrement())
-  appointmentId       Int @default(autoincrement()) @unique
   tittle              String
   content             String
   start               DateTime
@@ -226,33 +223,31 @@ model Appointments {
   create              DateTime @default (now())
 
   creatorId           Int
-  creator             Users @relation(fields: [creatorId], references: [userId], name: "user1")
+  creator             Users @relation(fields: [creatorId], references: [id], name: "user1")
 
   recipientId         Int
-  recipient           Users @relation(fields: [recipientId], references: [userId], name: "user2")
+  recipient           Users @relation(fields: [recipientId], references: [id], name: "user2")
 
 }
 
 model Logs {
   id                  Int @id @default(autoincrement())
-  logId               Int @default(autoincrement()) @unique
   date                DateTime @default (now())
 
   userId              Int
-  user                Users @relation(fields: [userId], references: [userId])
+  user                Users @relation(fields: [userId], references: [id])
 
   actionId            Int
-  action              Actions @relation(fields: [actionId], references: [actionId])
+  action              Actions @relation(fields: [actionId], references: [id])
 
   tableId             Int
-  table               Tables @relation(fields: [tableId], references: [tableId])
+  table               Tables @relation(fields: [tableId], references: [id])
 
   IP                  String
 }
 
 model Actions {
   id                 Int @id @default(autoincrement())
-  actionId           Int @default(autoincrement()) @unique
   name               String
 
   Logs Logs[]
@@ -260,7 +255,6 @@ model Actions {
 
 model Tables {
   id                 Int @id @default(autoincrement())
-  tableId            Int @default(autoincrement()) @unique
   name               String
 
   Logs Logs[]
@@ -268,36 +262,32 @@ model Tables {
 
 model Events {
   id                 Int @id @default(autoincrement())
-  eventId            Int @default(autoincrement()) @unique
   title              String
   description        String
   startTime          DateTime
   endTime            DateTime
   institutionId      Int
-  institution        Institutions @relation(fields: [institutionId], references: [institutionId])
+  institution        Institutions @relation(fields: [institutionId], references: [id])
 
 }
 
 model Announcements {
   id                 Int @id @default(autoincrement())
-  announcementId     Int @default(autoincrement()) @unique
   title              String
   description        String
   date               DateTime
   institutionId      Int
-  institution        Institutions @relation(fields: [institutionId], references: [institutionId])
+  institution        Institutions @relation(fields: [institutionId], references: [id])
 }
 
 model Teams {
   id                 Int @id @default(autoincrement())
-  teamId             Int @default(autoincrement()) @unique
   name               String
   teamsMemebers      TeamsMemebers []
 }
 
 model TeamsMemebers {
   id                  Int @id @default(autoincrement())
-  teamsMemeberId      Int @default(autoincrement()) @unique
   teams               Teams []
   firstName           String
   lastName            String
@@ -310,7 +300,7 @@ model TeamsMemebers {
   registrationDate    DateTime @default (now())
   
   institutionId       Int
-  institution         Institutions @relation(fields: [institutionId], references: [institutionId])
+  institution         Institutions @relation(fields: [institutionId], references: [id])
 }
 
 enum UserSex {

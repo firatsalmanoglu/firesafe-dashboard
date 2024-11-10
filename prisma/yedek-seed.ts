@@ -1,11 +1,4 @@
-import {    PrismaClient, 
-            UserSex, 
-            UserBloodType, 
-            DeviceStatus, 
-            OfferStatus, 
-            NotificationStatus 
-        } from "@prisma/client";
-        
+import { PrismaClient, UserSex, UserBloodType, DeviceStatus, OfferStatus, NotificationStatus } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
@@ -142,14 +135,9 @@ async function main() {
     // TABLES
         const tablesData = [
             { name: "Users" },
-            { name: "Customers" },
-            { name: "Providers" },
-            { name: "AInstitutions" },
-            { name: "CInstitutions" },
-            { name: "PInstitutions" },
+            { name: "Institutions" },
             { name: "Roles" },
             { name: "Devices" },
-            { name: "IsgMembers" },
             { name: "DeviceTypes" },
             { name: "DeviceFeatures" },
             { name: "MaintenanceCards" },
@@ -157,21 +145,19 @@ async function main() {
             { name: "Services" },
             { name: "OfferCards" },
             { name: "PaymentTermTypes" },
-            { name: "PNotifications" },
-            { name: "CNotifications" },
+            { name: "Notifications" },
             { name: "NotificationTypes" },
             { name: "Appointments" },
-            { name: "ALogs" },
-            { name: "CLogs" },
-            { name: "PLogs" },
+            { name: "Logs" },
             { name: "Actions" },
             { name: "Tables" },
-            { name: "AAnnouncements" },
-            { name: "CAnnouncements" },
-            { name: "PAnnouncements" },
+            { name: "Events" },
+            { name: "Announcements" },
             { name: "Teams" },
-            { name: "CTeamsMemebers" },
-            { name: "PTeamsMemebers" },
+            { name: "TeamsMemebers" },
+            
+
+
         ];
 
         for (const table of tablesData) {
@@ -200,43 +186,22 @@ async function main() {
         }
 
 
-    // ADMIN INSTITUTIONS
+    // INSTITUTIONS
         for (let i = 1; i <= 25; i++) {
-            await prisma.aInstitutions.create({
+            await prisma.institutions.create({
             data: {
-                name: `AIName${i}`,
+                name: `IName${i}`,
                 address: `Address${i}`,
             },
             });
         }
-
-    // Customer INSTITUTIONS
-         for (let i = 1; i <= 25; i++) {
-            await prisma.cInstitutions.create({
-            data: {
-                name: `CIName${i}`,
-                address: `Address${i}`,
-            },
-            });
-        }
-
-
-    // Provider INSTITUTIONS
-        for (let i = 1; i <= 25; i++) {
-            await prisma.pInstitutions.create({
-            data: {
-                name: `PIName${i}`,
-                address: `Address${i}`,
-            },
-            });
-        }    
 
 
     // USERS
         for (let i = 1; i <= 50; i++) {
             await prisma.users.create({
             data: {
-                userName: `user${i}`,
+                userName: `userId${i}`,
                 password: `userId${i}`,
                 firstName: `UName ${i}`,
                 lastName: `USurname ${i}`,
@@ -252,74 +217,13 @@ async function main() {
                 phone: `123-456-789${i}`,
                 registrationDate: new Date(new Date().setFullYear(new Date().getFullYear() - 10)),
                 institutionId: (i % 25) + 1,
-                roleId: 1,
+                roleId: (i % 5) + 1,
             },
             });
         }
 
 
-       // Customers
-       for (let i = 1; i <= 50; i++) {
-            await prisma.customers.create({
-            data: {
-                userName: `customer${i}`,
-                password: `userId${i}`,
-                firstName: `CName ${i}`,
-                lastName: `CSurname ${i}`,
-                bloodType: 
-                UserBloodType[
-                    Object.keys(UserBloodType)[
-                    Math.floor(Math.random() * Object.keys(UserBloodType).length)
-                    ] as keyof typeof UserBloodType
-                ],
-                birthday: new Date(new Date().setFullYear(new Date().getFullYear() - 10)),
-                sex: i % 2 === 0 ? UserSex.Erkek : UserSex.Kadin,
-                email: `customer${i}@example.com`,
-                phone: `123-456-789${i}`,
-                registrationDate: new Date(new Date().setFullYear(new Date().getFullYear() - 10)),
-                institutionId: (i % 25) + 1,
-                roleId: (i % 2) + 4
-            },
-            });
-        }
-
-        // Providers
-       for (let i = 1; i <= 50; i++) {
-            await prisma.providers.create({
-            data: {
-                userName: `provider${i}`,
-                password: `userId${i}`,
-                firstName: `PName ${i}`,
-                lastName: `PSurname ${i}`,
-                bloodType: 
-                UserBloodType[
-                    Object.keys(UserBloodType)[
-                    Math.floor(Math.random() * Object.keys(UserBloodType).length)
-                    ] as keyof typeof UserBloodType
-                ],
-                birthday: new Date(new Date().setFullYear(new Date().getFullYear() - 10)),
-                sex: i % 2 === 0 ? UserSex.Erkek : UserSex.Kadin,
-                email: `provider${i}@example.com`,
-                phone: `123-456-789${i}`,
-                registrationDate: new Date(new Date().setFullYear(new Date().getFullYear() - 10)),
-                institutionId: (i % 25) + 1,
-                roleId: (i % 2) + 2,
-            },
-            });
-        }
-
-        // ISG Members
-        for (let i = 1; i <= 25; i++) {
-            await prisma.isgMembers.create({
-            data: {
-                isgNumber: (i % 25) + 1,
-                name: `ISGMember${i}`,
-                contractDate: new Date(new Date().setHours(new Date().getHours() + 1)),
-                institutionId: (i % 25) + 1,
-
-            },
-            });
-        }
+   
 
 
     // DEVICES
@@ -338,16 +242,11 @@ async function main() {
                 featureId: (i % 9) + 1,
                 ownerId: (i % 50) + 1,
                 institutionId: (i % 25) + 1,
-                providerId: (i % 50) + 1,
-                pinstitutionId: (i % 25) + 1,
-                isgMemberId: (i % 25) + 1,
                 details: `Güvenlik Önlemi Detayı ${i}`,
             },
             });
         }
 
-
-         
 
     // MAINTENENCECARDS
         for (let i = 1; i <= 50; i++) {
@@ -357,10 +256,8 @@ async function main() {
                 nextMaintenanceDate: new Date(new Date().setHours(new Date().getHours() + 10)),
                 typeId: (i % 5) + 1, 
                 deviceId: (i % 50) + 1, 
+                institutionId: (i % 25) + 1, 
                 providerId: (i % 50) + 1,
-                providerInstId: (i % 25) + 1, 
-                customerId: (i % 50) + 1,
-                customerInstId: (i % 25) + 1,
                 details: `Bakım Detayı ${i}`,
             },
             });
@@ -381,9 +278,7 @@ async function main() {
                 servicesId: (i % 5) + 1, 
                 status: i % 2 === 0 ? OfferStatus.Onaylandi : OfferStatus.Beklemede,
                 creatorId: (i % 50) + 1,
-                creatorInstId: (i % 25) + 1,
-                recipientId: (i % 50) + 1,
-                recipientInstId: (i % 25) + 1,
+                recipientId: (i % 25) + 1,
                 details: `Teklif Detayı ${i}`,
             },
             });
@@ -391,31 +286,13 @@ async function main() {
 
 
 
-    // PNOTIFICATIONS
+    // NOTIFICATIONS
         for (let i = 1; i <= 100; i++) {
-            await prisma.pNotifications.create({
+            await prisma.notifications.create({
             data: {
                 content: `Bildirim İçeriği ${i}`,
                 creatorId: (i % 50) + 1,
                 recipientId: (i % 50) + 1,
-                recipientInstId: (i % 25) + 1,
-                notificationDate: new Date(new Date().setHours(new Date().getHours() + 1)),
-                isRead: i % 2 === 0 ? NotificationStatus.Okundu : NotificationStatus.Okunmadi,
-                typeId: (i % 3) + 1,
-            },
-            });
-        }
-
-
-
-     // PNOTIFICATIONS
-        for (let i = 1; i <= 100; i++) {
-            await prisma.cNotifications.create({
-            data: {
-                content: `Bildirim İçeriği ${i}`,
-                creatorId: (i % 50) + 1,
-                recipientId: (i % 50) + 1,
-                recipientInstId: (i % 25) + 1,
                 notificationDate: new Date(new Date().setHours(new Date().getHours() + 1)),
                 isRead: i % 2 === 0 ? NotificationStatus.Okundu : NotificationStatus.Okunmadi,
                 typeId: (i % 3) + 1,
@@ -434,22 +311,19 @@ async function main() {
                 end: new Date(new Date().setHours(new Date().getHours() + 10)),
                 create: new Date(new Date().setHours(new Date().getHours() + 1)),
                 creatorId: (i % 50) + 1,
-                creatorInstId: (i % 25) + 1,
                 recipientId: (i % 50) + 1,
-                recipientInstId: (i % 25) + 1,
-
             },
             });
         }
 
-    // ALOGS
+    // LOGS
         for (let i = 1; i <= 100; i++) {
-            await prisma.aLogs.create({
+            await prisma.logs.create({
             data: {
                 date: new Date(new Date().setHours(new Date().getHours() + 5)),
                 userId: (i % 50) + 1,
                 actionId: (i % 5) + 1,
-                tableId: (i % 30) + 1,
+                tableId: (i % 21) + 1,
                 IP: `192.168.1.12${i}`,
             
             },
@@ -457,82 +331,37 @@ async function main() {
         }
 
 
-        // CLOGS
-          for (let i = 1; i <= 100; i++) {
-                await prisma.cLogs.create({
-                data: {
-                    date: new Date(new Date().setHours(new Date().getHours() + 5)),
-                    userId: (i % 50) + 1,
-                    actionId: (i % 5) + 1,
-                    tableId: (i % 30) + 1,
-                    IP: `192.168.1.12${i}`,
-                
-                },
-                });
-            }
-
-        // PLOGS
-          for (let i = 1; i <= 100; i++) {
-                await prisma.pLogs.create({
-                data: {
-                    date: new Date(new Date().setHours(new Date().getHours() + 5)),
-                    userId: (i % 50) + 1,
-                    actionId: (i % 5) + 1,
-                    tableId: (i % 30) + 1,
-                    IP: `192.168.1.12${i}`,
-                
-                },
-                });
-            }
-
-
-   
-
-
-    // AANNOUNCEMENTS
+    // EVENTS
         for (let i = 1; i <= 50; i++) {
-            await prisma.aAnnouncements.create({
+            await prisma.events.create({
             data: {
-                title: `Duyuru Başlığı ${i}`,
-                description: `Duyuru İçeriği ${i}`,
-                date: new Date(new Date().setHours(new Date().getHours() + 5)),
-                creatorInstId: (i % 25) + 1,    
+                title: `Etkinlik Başlığı ${i}`,
+                description: `Etkinlik İçeriği ${i}`,
+                startTime: new Date(new Date().setHours(new Date().getHours() + 5)),
+                endTime: new Date(new Date().setHours(new Date().getHours() + 10)),            
                 institutionId: (i % 25) + 1,         
             },
             });
         }
 
-        // CANNOUNCEMENTS
-            for (let i = 1; i <= 50; i++) {
-                await prisma.cAnnouncements.create({
-                data: {
-                    title: `Duyuru Başlığı ${i}`,
-                    description: `Duyuru İçeriği ${i}`,
-                    date: new Date(new Date().setHours(new Date().getHours() + 5)),
-                    creatorInstId: (i % 25) + 1,    
-                    institutionId: (i % 25) + 1,         
-                },
-                });
-            }
 
-        // PANNOUNCEMENTS
-            for (let i = 1; i <= 50; i++) {
-                await prisma.pAnnouncements.create({
-                data: {
-                    title: `Duyuru Başlığı ${i}`,
-                    description: `Duyuru İçeriği ${i}`,
-                    date: new Date(new Date().setHours(new Date().getHours() + 5)),
-                    creatorInstId: (i % 25) + 1,    
-                    institutionId: (i % 25) + 1,         
-                },
-                });
-            }
-
-
-
-    // CTEAMSMEMBERS
+    // ANNOUNCEMENTS
         for (let i = 1; i <= 50; i++) {
-            await prisma.cTeamsMemebers.create({
+            await prisma.announcements.create({
+            data: {
+                title: `Duyuru Başlığı ${i}`,
+                description: `Duyuru İçeriği ${i}`,
+                date: new Date(new Date().setHours(new Date().getHours() + 5)),
+                institutionId: (i % 25) + 1,         
+            },
+            });
+        }
+
+
+
+    // TEAMSMEMBERS
+        for (let i = 1; i <= 50; i++) {
+            await prisma.teamsMemebers.create({
             data: {
                 firstName: `Ekip Üyesi Adı ${i}`,
                 lastName: `USurname ${i}`,
@@ -552,30 +381,6 @@ async function main() {
             });
 
         }
-
-
-     // PTEAMSMEMBERS
-     for (let i = 1; i <= 50; i++) {
-        await prisma.pTeamsMemebers.create({
-        data: {
-            firstName: `Ekip Üyesi Adı ${i}`,
-            lastName: `USurname ${i}`,
-            bloodType: 
-            UserBloodType[
-                Object.keys(UserBloodType)[
-                  Math.floor(Math.random() * Object.keys(UserBloodType).length)
-                ] as keyof typeof UserBloodType
-              ],
-            birthday: new Date(new Date().setFullYear(new Date().getFullYear() - 10)),
-            sex: i % 2 === 0 ? UserSex.Erkek : UserSex.Kadin,
-            email: `user${i}@example.com`,
-            phone: `123-456-789${i}`,
-            registrationDate: new Date(new Date().setFullYear(new Date().getFullYear() - 10)),
-            institutionId: (i % 25) + 1,
-        },
-        });
-
-    }
 
         console.log("Seeding completed successfully.");
 }
