@@ -117,8 +117,7 @@ const renderRow = (item: DeviceList) => (
       <div className="flex flex-col">
         <h3 className="font-semibold">{item.type.name}</h3>
         <p className="text-xs text-gray-500">{item.institution.name}</p>
-        <p className="text-xs text-gray-500">{item.owner.firstName}</p>
-        <p className="text-xs text-gray-500">{item.owner.lastName}</p>
+        <p className="text-xs text-gray-500">{item.owner.firstName + " " + item.owner.lastName}</p>
         {/* <td className="hidden md:table-cell">{item.address}</td> */}
 
       </div>
@@ -130,8 +129,7 @@ const renderRow = (item: DeviceList) => (
 
     <div className="flex flex-col">
       <td className="hidden md:table-cell">{item.pinstitution.name}</td>
-      <td className="hidden md:table-cell">{item.provider.firstName}</td>
-      <td className="hidden md:table-cell">{item.provider.lastName}</td>
+      <td className="hidden md:table-cell">{item.provider.firstName + " " + item.provider.lastName}</td>
 
     </div>
     
@@ -176,13 +174,37 @@ const DeviceListPage = async ({
       for (const [key, value] of Object.entries(queryParams)) {
         if (value !== undefined) {
           switch (key) {
-            case "typeId":
-              const typeId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
-              if (!isNaN(typeId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+            case "ownerId":
+              const ownerId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+              if (!isNaN(ownerId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
                 // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
-                query.typeId = typeId; 
+                query.ownerId = ownerId; 
               }
               break;
+
+              case "providerId":
+                const providerId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+                if (!isNaN(providerId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                  // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                  query.providerId = providerId; 
+                }
+                break;
+
+              case "institutionId":
+                const institutionId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+                if (!isNaN(institutionId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                  // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                  query.institutionId = institutionId; 
+                }
+                break;
+
+              case "pinstitutionId":
+                const pinstitutionId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+                if (!isNaN(pinstitutionId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                  // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                  query.pinstitutionId = pinstitutionId; 
+                }
+                break;
             // Diğer case'ler eklenebilir. Örneğin, daha fazla filtrasyon yapılmak istenirse.
             case "search":
               query.serialNumber = {contains:value, mode: "insensitive"}
@@ -212,7 +234,7 @@ const DeviceListPage = async ({
       take:ITEM_PER_PAGE,
       skip: ITEM_PER_PAGE * (p-1),
     }),
-    prisma.users.count()
+    prisma.devices.count()
   ]);
 
     

@@ -34,7 +34,7 @@ const SingleDevicePage = () => {
             </div>
             <div className="w-2/3 flex flex-col justify-between gap-4">
               <div className="flex items-center gap-4">
-                <h1 className="text-xl font-semibold">Cihaz Kartı</h1>
+                <h1 className="text-xl font-semibold">Yangın Güvenlik Önlemi Kartı</h1>
                 {role === "admin" && <FormModal
                   table="device"
                   type="update"
@@ -60,7 +60,7 @@ const SingleDevicePage = () => {
                 />}
               </div>
               <p className="text-sm text-gray-500">
-                2mt hortum, üstten basmalı vs....
+                2mt hortum, üstten basmalı vs.... (Details)
               </p>
               <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
@@ -70,27 +70,42 @@ const SingleDevicePage = () => {
 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/black-fire-extinguisher.png" alt="" width={14} height={14} />
-                  <span>Yangın Tüpü</span>
+                  <span>Türü: Yangın Tüpü</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/feature.png" alt="" width={14} height={14} />
-                  <span> CO<sub>2</sub></span>
+                  <span> Özelliği: CO<sub>2</sub></span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/insititution.png" alt="" width={14} height={14} />
-                  <span>XXXX Hospital</span>
+                  <span>Sahibi: XXXX Hospital</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/address.png" alt="" width={14} height={14} />
-                  <span> Bornova İzmir</span>
+                  <span> Adresi: Bornova İzmir</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/person.png" alt="" width={14} height={14} />
-                  <span>Ahmet Aydemir</span>
+                  <span>Sorumlu Personel: Ahmet Aydemir</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/location.png" alt="" width={14} height={14} />
-                  <span>1. Kat 8. Nolu Nokta</span>
+                  <span>Konumu: 1. Kat 8. Nolu Nokta</span>
+                </div>
+
+                <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
+                  {/* <Image src="/location.png" alt="" width={14} height={14} /> */}
+                  <span>İSG Sorumlusu: Ayşe XXX</span>
+                </div>
+
+                <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
+                  {/* <Image src="/location.png" alt="" width={14} height={14} /> */}
+                  <span>Sorumlu Kurum: UUU Ltd.</span>
+                </div>
+
+                <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
+                  {/* <Image src="/location.png" alt="" width={14} height={14} /> */}
+                  <span>Bakım Sorumlusu: Talip CCC</span>
                 </div>
               </div>
             </div>
@@ -208,7 +223,7 @@ const SingleDevicePage = () => {
         <div className="bg-white p-4 rounded-md">
           <h1 className="text-xl font-semibold">Kısayollar</h1>
           <div className="mt-4 flex gap-4 flex-wrap text-xs text-black-500">
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href="/list/maintenances">
+            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/maintenances?deviceId=${'2'}`}>
             Cihaz&apos;ın Bakım Geçmişi
             </Link>
             <Link className="p-3 rounded-md bg-lamaPurple" href="/list/notifications">

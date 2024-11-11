@@ -52,7 +52,7 @@ const SingleUserPage = () => {
                 />}
               </div>
               <p className="text-sm text-gray-500">
-                Buraya bişeyler yazılabilir....
+                User Name
               </p>
               <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
@@ -87,7 +87,7 @@ const SingleUserPage = () => {
               />
               <div className="">
                 <h1 className="text-md font-semibold">Rolü</h1>
-                <span className="text-sm text-gray-400">Admin</span>
+                <span className="text-sm text-gray-400">I. Seviye Müşteri</span>
               </div>
             </div>
             {/* CARD */}
@@ -145,20 +145,24 @@ const SingleUserPage = () => {
         <div className="bg-white p-4 rounded-md">
           <h1 className="text-xl font-semibold">Kısayollar</h1>
           <div className="mt-4 flex gap-4 flex-wrap text-xs text-black-500">
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href="/list/offers">
-            Kullanıcı&apos;nın Teklifleri
+            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/offers?recipientId=${'2'}`}>
+                {/* Kullanıcı&apos;nın  */}
+                Tekliflerim
             </Link>
-            <Link className="p-3 rounded-md bg-lamaPurple" href="/list/maintenances">
-              Kullanıcı&apos;nın Bakımları
+            <Link className="p-3 rounded-md bg-lamaPurple" href={`/list/maintenances?customerId=${'2'}`}>
+                {/* Kullanıcı&apos;nın  */}
+                Bakımlarım
             </Link>
-            <Link className="p-3 rounded-md bg-lamaPurpleLight" href="/list/devices">
-            Kullanıcı&apos;nın Cihazları
+            <Link className="p-3 rounded-md bg-lamaPurpleLight" href={`/list/devices?ownerId=${'2'}`}>
+                {/* Kullanıcı&apos;nın  */}
+                Cihazlarım
             </Link>
-            <Link className="p-3 rounded-md bg-lamaYellowLight" href="/list/notifications">
-            Kullanıcı&apos;nın Bildirimleri
+            <Link className="p-3 rounded-md bg-lamaYellowLight" href={`/list/notifications?recipientId=${'2'}`}>
+                {/* Kullanıcı&apos;nın  */}
+                Bildirimlerim
             </Link>
             <Link className="p-3 rounded-md bg-lamaSkyLight" href="/list/users">
-              Hizmet Sağlayıcılarım / Müşterilerim
+                Hizmet Sağlayıcılarım
             </Link>
           </div>
         </div>

@@ -7,10 +7,10 @@ import InputField from "../InputField";
 import Image from "next/image";
 
 const schema = z.object({
-  id: z
-    .string()
-    .min(3, { message: "KUllanıcı ID min 3 karakter uzunluğunda olmalı!" })
-    .max(20, { message: "KUllanıcı ID maks 20 karakter uzunluğunda olmalı!" }),
+  // id: z
+  //   .string()
+  //   .min(3, { message: "KUllanıcı ID min 3 karakter uzunluğunda olmalı!" })
+  //   .max(20, { message: "KUllanıcı ID maks 20 karakter uzunluğunda olmalı!" }),
   userName: z
     .string()
     .min(3, { message: "Kullanıcı Adı min 3 karakter uzunluğunda olmalı!" })
@@ -72,13 +72,13 @@ const UserForm = ({
         Kimlik Doğrulama Bilgileri
       </span>
       <div className="flex justify-between flex-wrap gap-4">
-        <InputField
+        {/* <InputField
           label="Kullaıcı ID"
-          name="userId"
+          name="id"
           defaultValue={data?.id}
           register={register}
           error={errors?.id}
-        />
+        /> */}
         <InputField
           label="Kullaıcı Adı"
           name="userName"
@@ -147,6 +147,7 @@ const UserForm = ({
           register={register}
           error={errors.birthday}
           type="date"
+
         />
         <div className="flex flex-col gap-2 w-full md:w-1/4">
           <label className="text-xs text-gray-500">Cinsiyet</label>

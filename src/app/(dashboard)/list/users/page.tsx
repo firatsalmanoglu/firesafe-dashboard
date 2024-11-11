@@ -69,8 +69,7 @@ const renderRow = (item: UserList) => (
         className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
       />
       <div className="flex flex-col">
-        <h3 className="font-semibold">{item.firstName}</h3>
-        <h3 className="font-semibold">{item.lastName}</h3>
+        <h3 className="font-semibold">{item.firstName + " " + item.lastName}</h3>
         <p className="text-xs text-gray-500">{item.institution.name}</p>
       </div>
     </td>

@@ -49,7 +49,7 @@ const SingleMaintenancePage = () => {
                 />}
               </div>
               <p className="text-sm text-gray-500">
-                Basınç kontrol edildiı vs....
+                Basınç kontrol edildiı vs....(Details)
               </p>
               <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
               
@@ -64,21 +64,24 @@ const SingleMaintenancePage = () => {
                   <span>Cihaz Seri No: 965684878</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
-                  <Image src="/person.png" alt="" width={14} height={14} />
-                  <span>Mehmet Söylemez</span>
+                  {/* <Image src="/person.png" alt="" width={14} height={14} /> */}
+                  <span>Cihaz Sorumlusu: Mehmet Söylemez</span>
+                </div>
+
+                <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
+                  {/* <Image src="/person.png" alt="" width={14} height={14} /> */}
+                  <span> Cihaz Sahibi: CCC Ltd. </span>
+                </div>
+
+                <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
+                  {/* <Image src="/fire-extinguisher.png" alt="" width={14} height={14} /> */}
+                  <span> Türü: Yangın Tüpü</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
-                  <Image src="/fire-extinguisher.png" alt="" width={14} height={14} />
-                  <span>Yangın Tüpü</span>
+                  {/* <Image src="/feature.png" alt="" width={14} height={14} /> */}
+                  <span> Özelliği: CO<sub>2</sub></span>
                 </div>
-                <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
-                  <Image src="/feature.png" alt="" width={14} height={14} />
-                  <span> CO<sub>2</sub></span>
-                </div>
-                <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
-                  <Image src="/insititution.png" alt="" width={14} height={14} />
-                  <span>XXXX Hospital</span>
-                </div>
+                
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/address.png" alt="" width={14} height={14} />
                   <span> Bornova İzmir</span>

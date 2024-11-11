@@ -74,8 +74,7 @@ const renderRow = (item: CustomerList) => (
         className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
       />
       <div className="flex flex-col">
-        <h3 className="font-semibold">{item.firstName}</h3>
-        <h3 className="font-semibold">{item.lastName}</h3>
+        <h3 className="font-semibold">{item.firstName + " " + item.lastName}</h3>
         <p className="text-xs text-gray-500">{item.institution.name}</p>
       </div>
     </td>
@@ -134,6 +133,14 @@ const CustomerListPage = async ({
                 query.roleId = roleId; 
               }
               break;
+
+              case "institutionId":
+                const institutionId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+                if (!isNaN(institutionId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                  // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                  query.institutionId = institutionId; 
+                }
+                break;
             // Diğer case'ler eklenebilir. Örneğin, daha fazla filtrasyon yapılmak istenirse.
             case "search":
               query.firstName = {contains:value, mode: "insensitive"}

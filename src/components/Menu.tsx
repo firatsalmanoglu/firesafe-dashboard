@@ -22,15 +22,29 @@ const menuItems = [
 
       {
         icon: "/user.png",
-        label: "Müşteriler",
+        label: "Müşteri Kullanıcılar",
         href: "/list/customers",
         visible: ["admin","provider", "customer", "parent", "lowcustomer", "lowprovider"],
       },
 
       {
         icon: "/user.png",
-        label: "Hizmet Sağlayıcılar",
+        label: "Müşteri Şirketler",
+        href: "/list/cinstitutions",
+        visible: ["admin","provider", "customer", "parent", "lowcustomer", "lowprovider"],
+      },
+
+      {
+        icon: "/user.png",
+        label: "Hizmet Sağlayıcı Kullanıcılar",
         href: "/list/providers",
+        visible: ["admin","provider", "customer", "parent", "lowcustomer", "lowprovider"],
+      },
+
+      {
+        icon: "/user.png",
+        label: "Hizmet Sağlayıcı Şirketler",
+        href: "/list/pinstitutions",
         visible: ["admin","provider", "customer", "parent", "lowcustomer", "lowprovider"],
       },
 

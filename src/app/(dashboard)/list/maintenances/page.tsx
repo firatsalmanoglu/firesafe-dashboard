@@ -80,8 +80,7 @@ const renderRow = (item: ManintenanceList) => (
       /> */}
       <div className="flex flex-col">
         <h3 className="font-semibold">{item.providerInst.name}</h3>
-        <p className="text-xs text-gray-500">{item.provider.firstName}</p> 
-        <p className="text-xs text-gray-500">{item.provider.lastName}</p> 
+        <p className="text-xs text-gray-500">{item.provider.firstName+ " " + item.provider.lastName}</p> 
       </div>
     </td>
     <td className="hidden md:table-cell">{item.maintenanceDate.toLocaleDateString()}</td>
@@ -96,8 +95,7 @@ const renderRow = (item: ManintenanceList) => (
       /> */}
       <div className="flex flex-col">
         <h3 className="font-semibold">{item.customerInst.name}</h3>
-        <p className="text-xs text-gray-500">{item.customer.firstName}</p> 
-        <p className="text-xs text-gray-500">{item.customer.lastName}</p>
+        <p className="text-xs text-gray-500">{item.customer.firstName + " " + item.customer.lastName}</p> 
       </div>
     </td>
 
@@ -140,13 +138,47 @@ const MaintenanceListPage = async ({
         for (const [key, value] of Object.entries(queryParams)) {
           if (value !== undefined) {
             switch (key) {
-              case "typeId":
-                const typeId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
-                if (!isNaN(typeId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+              case "customerId":
+                const customerId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+                if (!isNaN(customerId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
                   // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
-                  query.typeId = typeId; 
+                  query.customerId = customerId; 
                 }
                 break;
+
+                case "providerId":
+                  const providerId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+                  if (!isNaN(providerId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                    // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                    query.providerId = providerId; 
+                  }
+                  break;
+
+                case "customerInstId":
+                  const customerInstId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+                  if (!isNaN(customerInstId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                    // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                    query.customerInstId = customerInstId; 
+                  }
+                  break;
+
+                case "providerInstId":
+                  const providerInstId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+                  if (!isNaN(providerInstId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                    // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                    query.providerInstId = providerInstId; 
+                  }
+                  break;
+
+                case "deviceId":
+                  const deviceId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+                  if (!isNaN(deviceId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                    // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                    query.deviceId = deviceId; 
+                  }
+                  break;
+
+              
               // Diğer case'ler eklenebilir. Örneğin, daha fazla filtrasyon yapılmak istenirse.
               case "search":
                 query.details = {contains:value, mode: "insensitive"}
@@ -174,7 +206,7 @@ const MaintenanceListPage = async ({
         take:ITEM_PER_PAGE,
         skip: ITEM_PER_PAGE * (p-1),
       }),
-      prisma.users.count()
+      prisma.maintenanceCards.count()
     ]);
   
 

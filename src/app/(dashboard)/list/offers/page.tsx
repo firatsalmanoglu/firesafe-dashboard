@@ -93,8 +93,7 @@ const renderRow = (item: OfferList) => (
       /> */}
       <div className="flex flex-col">
         <h3 className="font-semibold">{item.creatorInst.name}</h3>
-        <p className="text-xs text-gray-500">{item.creator.firstName}</p>
-        <p className="text-xs text-gray-500">{item.creator.lastName}</p>
+        <p className="text-xs text-gray-500">{item.creator.firstName + " " + item.creator.lastName}</p>
       </div>
     </td>
 
@@ -109,8 +108,7 @@ const renderRow = (item: OfferList) => (
       /> */}
       <div className="flex flex-col">
         <h3 className="font-semibold">{item.recipientInst.name}</h3>
-        <p className="text-xs text-gray-500">{item.recipient.firstName}</p>
-        <p className="text-xs text-gray-500">{item.recipient.lastName}</p>
+        <p className="text-xs text-gray-500">{item.recipient.firstName+ " " + item.recipient.lastName}</p>
 
       </div>
     </td>
@@ -155,13 +153,36 @@ const OfferListPage = async ({
       for (const [key, value] of Object.entries(queryParams)) {
         if (value !== undefined) {
           switch (key) {
-            case "paymentTermId":
-              const paymentTermId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
-              if (!isNaN(paymentTermId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+            case "recipientId":
+              const recipientId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+              if (!isNaN(recipientId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
                 // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
-                query.paymentTermId = paymentTermId; 
+                query.recipientId = recipientId; 
               }
               break;
+              case "creatorId":
+                const creatorId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+                if (!isNaN(creatorId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                  // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                  query.creatorId = creatorId; 
+                }
+                break;
+
+              case "recipientInstId":
+                const recipientInstId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+                if (!isNaN(recipientInstId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                  // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                  query.recipientInstId = recipientInstId; 
+                }
+                break;
+
+              case "creatorInstId":
+                const creatorInstId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+                if (!isNaN(creatorInstId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                  // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                  query.creatorInstId = creatorInstId; 
+                }
+                break;
             // Diğer case'ler eklenebilir. Örneğin, daha fazla filtrasyon yapılmak istenirse.
             case "search":
               query.details = {contains:value, mode: "insensitive"}
@@ -188,7 +209,7 @@ const OfferListPage = async ({
       take:ITEM_PER_PAGE,
       skip: ITEM_PER_PAGE * (p-1),
     }),
-    prisma.users.count()
+    prisma.offerCards.count()
   ]);
 
 

@@ -7,70 +7,46 @@ import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import {  PInstitutions, 
           PNotifications, 
-          Providers, 
-          NotificationTypes, 
+          PTeamsMemebers,
+          MaintenanceCards,
+          Appointments,
+          OfferCards,
+          Devices,
           Prisma,
-          Users } from "@prisma/client";
+          Providers} from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
 
-type PNotificationList = PNotifications & 
-                        {creator: Users} & 
-                        {recipient: Providers} & 
-                        {recipientInst: PInstitutions} & 
-                        {type: NotificationTypes}  ;
+type PInstitutionList = PInstitutions & 
+                        {users: Providers[]} & 
+                        {devices: Devices[]} & 
+                        {offercards: OfferCards[]} & 
+                        {teamsMemebers: PTeamsMemebers[]} &
+                        {maintenanceCards: MaintenanceCards[]} &
+                        {appointments: Appointments[]} &
+                        {cNotifications: PNotifications[]} ;
 
 const columns =[
     {
-        header:"Bildirim ID", 
+        header:"Kurum ID", 
         accessor:"id",
         className: "hidden md:table-cell"
     },
     
 
     {
-        header:"Oluşturan Kullanıcı", 
-        accessor:"info",
-    },
-
-    {
-        header:"Bildirim Tarihi", 
-        accessor:"notificationDate",
+        header:"Kurum Adı", 
+        accessor:"instname",
         className: "hidden md:table-cell",
     },
 
     {
-        header:"İlgili Kullanıcı", 
-        accessor:"info1",
-    },
-    // {
-    //     header:"Cihaz Seri No", 
-    //     accessor:"deviceSerialNumber",
-    //     className: "hidden md:table-cell"
-    // },
-    // {
-    //     header:"Cihaz Sahibi", 
-    //     accessor:"deviceOwner",
-    //     className: "hidden md:table-cell"
-    // },
-    
-    // {
-    //     header:"Bildirim", 
-    //     accessor:"message",
-    //     className: "hidden md:table-cell",
-    // },
-    
-    {
-        header:"Durumu", 
-        accessor:"isRead",
+        header:"Kurum Adresi", 
+        accessor:"instaddress",
         className: "hidden md:table-cell",
     },
-    // {
-    //     header:"Bildirim Türü", 
-    //     accessor:"notificationType",
-    //     className: "hidden md:table-cell",
-    // },
+  
     {
       header:"Eylemler", 
       accessor:"action",
@@ -79,7 +55,7 @@ const columns =[
     
 ];
 
-const renderRow = (item: PNotificationList) => (
+const renderRow = (item: PInstitutionList) => (
   <tr
     key={item.id}
     className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
@@ -87,35 +63,15 @@ const renderRow = (item: PNotificationList) => (
     <td className="hidden md:table-cell">{item.id}</td>
     <td className="flex items-center gap-4 p-4">
       <div className="flex flex-col">
-        <h3 className="font-semibold">{item.creator.firstName + " " + item.creator.lastName}</h3>
-        <p className="text-xs text-gray-500">{item.creator.id}</p>
+        <h3 className="font-semibold">{item.name }</h3>
       </div>
     </td>
 
-    <td className="hidden md:table-cell">{item.notificationDate.toLocaleDateString()}</td>
-
-
-    <td className="flex items-center gap-4 p-4">
-      {/* <Image
-        src={item.photo}
-        alt=""
-        width={40}
-        height={40}
-        className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
-      /> */}
-      <div className="flex flex-col">
-        <h3 className="font-semibold">{item.recipient.firstName + " " + item.recipient.lastName}</h3>
-        <p className="text-xs text-gray-500">{item.recipientInst.name}</p>
-      </div>
-    </td>
-    {/* <td className="hidden md:table-cell">{item.deviceSerialNumber}</td>  */}
-    {/* <td className="hidden md:table-cell">{item.deviceOwner}</td> */}
-    {/* <td className="hidden md:table-cell">{item.message}</td> */}
-    <td className="hidden md:table-cell">{item.isRead}</td>
+    <td className="hidden md:table-cell">{item.address}</td>
     {/* <td className="hidden md:table-cell">{item.notificationType}</td> */}
     <td>
       <div className="flex items-center gap-2">
-        <Link href={`/list/notifications/${item.id}`}>
+        <Link href={`/list/pinstitutions/${item.id}`}>
           <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
             <Image src="/view.png" alt="" width={24} height={24}/>
           </button>
@@ -124,14 +80,14 @@ const renderRow = (item: PNotificationList) => (
           // <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
           //   <Image src="/delete.png" alt="" width={16} height={16} />
           // </button>
-          <FormModal table="notification" type="delete" id={item.id}/>
+          <FormModal table="pinstitution" type="delete" id={item.id}/>
         )}
       </div>
     </td>
   </tr>
 );
 
-const PNotificationListPage = async ({
+const PInstitutionListPage = async ({
   searchParams,
 }: {
   searchParams: { [key:string] : string | undefined };
@@ -142,30 +98,22 @@ const PNotificationListPage = async ({
 
   //URL PARAMS CONDITION
  
-  const query: Prisma.PNotificationsWhereInput = {}; // Prisma için boş bir query nesnesi oluşturuluyor.
+  const query: Prisma.PInstitutionsWhereInput = {}; // Prisma için boş bir query nesnesi oluşturuluyor.
 
     if (queryParams) {
       for (const [key, value] of Object.entries(queryParams)) {
         if (value !== undefined) {
           switch (key) {
-            case "recipientId":
-              const recipientId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
-              if (!isNaN(recipientId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+            case "id":
+              const id = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+              if (!isNaN(id)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
                 // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
-                query.recipientId = recipientId; 
-              }
-              break;
-
-            case "recipientInstId":
-              const recipientInstId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
-              if (!isNaN(recipientInstId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
-                // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
-                query.recipientInstId = recipientInstId; 
+                query.id = id; 
               }
               break;
             // Diğer case'ler eklenebilir. Örneğin, daha fazla filtrasyon yapılmak istenirse.
             case "search":
-              query.content = {contains:value, mode: "insensitive"}
+              query.name = {contains:value, mode: "insensitive"}
               break;
           }
         }
@@ -174,21 +122,26 @@ const PNotificationListPage = async ({
 
   const [data,count] = await prisma.$transaction([
 
-    prisma.pNotifications.findMany ({
+    prisma.pInstitutions.findMany ({
       where:query,
 
       include: {
-        creator:true,
-        recipient: true,
-        recipientInst: true,
-        type: true
+        PNotifications:true,
+        //CTeamsMemebers: true,
+        MaintenanceCards: true,
+        Appointments: true,
+        OfferCards: true,
+        Devices: true
+        //Customers: true
+
+
         
       },
 
       take:ITEM_PER_PAGE,
       skip: ITEM_PER_PAGE * (p-1),
     }),
-    prisma.pNotifications.count()
+    prisma.pInstitutions.count()
   ]);
 
     
@@ -197,7 +150,7 @@ const PNotificationListPage = async ({
         <div className='bg-white p-4 rounded-md flex-1 m-4 mt-0'>
             {/* TOP */}
             <div className='flex item-center justify-between'>
-                <h1 className="hidden md:block text-lg font-semibold">Tüm Hizmet Sağlayıcı Bildirimleri</h1>
+                <h1 className="hidden md:block text-lg font-semibold">Tüm Hizmet Sağlayıcı Şirketleri</h1>
                 <div className='flex flex-col md:flex-row items-center gap-4 w-full md:w-auto'>
                     <TableSearch />
                     <div className="flex items-center gap-4 self-end">
@@ -212,7 +165,7 @@ const PNotificationListPage = async ({
                         // <button className="w-8 h-8 flex items-center justify-center rounded-full bg-firelightorange">
                         //     <Image src="/plus.png" alt="" width={14} height={14}/>
                         // </button>
-                        <FormModal table="notification" type="create" />
+                        <FormModal table="pinstitution" type="create" />
                         )}
                     </div>
                 </div>
@@ -229,4 +182,4 @@ const PNotificationListPage = async ({
     )
 }
 
-export default PNotificationListPage
+export default PInstitutionListPage

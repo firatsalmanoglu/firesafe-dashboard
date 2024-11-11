@@ -90,8 +90,7 @@ const renderRow = (item: EventList) => (
         className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
       /> */}
       <div className="flex flex-col">
-        <h3 className="font-semibold">{item.creator.firstName}</h3>
-        <h3 className="font-semibold">{item.creator.lastName}</h3>
+        <h3 className="font-semibold">{item.creator.firstName + " " + item.creator.lastName}</h3>
         <p className="text-xs text-gray-500">{item.creatorInst.name}</p>
         {/* <p className="text-xs text-gray-500">{item.creatorOrganization}</p> creatorId ile ilişkili creatorOrganization gelecek */}
       </div>
@@ -109,8 +108,7 @@ const renderRow = (item: EventList) => (
         className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
       /> */}
       <div className="flex flex-col">
-        <h3 className="font-semibold">{item.recipient.firstName}</h3>
-        <h3 className="font-semibold">{item.recipient.lastName}</h3>
+        <h3 className="font-semibold">{item.recipient.firstName + " " + item.recipient.lastName}</h3>
         <p className="text-xs text-gray-500">{item.recipientInst.name}</p>
       </div>
     </td>
@@ -154,11 +152,19 @@ const EventListPage =async ({
       for (const [key, value] of Object.entries(queryParams)) {
         if (value !== undefined) {
           switch (key) {
-            case "id":
-              const id = parseInt(value); // value'yu tam sayıya çeviriyoruz.
-              if (!isNaN(id)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+            case "recipientInstId":
+              const recipientInstId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+              if (!isNaN(recipientInstId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
                 // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
-                query.id = id; 
+                query.recipientInstId = recipientInstId; 
+              }
+              break;
+
+            case "creatorInstId":
+              const creatorInstId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+              if (!isNaN(creatorInstId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                query.creatorInstId = creatorInstId; 
               }
               break;
             // Diğer case'ler eklenebilir. Örneğin, daha fazla filtrasyon yapılmak istenirse.
@@ -186,7 +192,7 @@ const EventListPage =async ({
       take:ITEM_PER_PAGE,
       skip: ITEM_PER_PAGE * (p-1),
     }),
-    prisma.users.count()
+    prisma.appointments.count()
   ]);
 
 

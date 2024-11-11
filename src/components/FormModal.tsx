@@ -34,6 +34,16 @@ const OfferForm = dynamic(() => import("./forms/OfferForm"), {
   loading: () => <h1>Loading...</h1>,
 });
 
+const CInstitutionForm = dynamic(() => import("./forms/CInstitutionForm"), {
+  loading: () => <h1>Loading...</h1>,
+});
+
+const PInstitutionForm = dynamic(() => import("./forms/PInstitutionForm"), {
+  loading: () => <h1>Loading...</h1>,
+});
+
+
+
 
 const forms: {
   [key: string]: (type: "create" | "update", data?: any) => JSX.Element;
@@ -46,7 +56,9 @@ const forms: {
   maintenance: (type, data) => <MaintenanceForm type={type} data={data} />,
   notification: (type, data) => <NotificationForm type={type} data={data} />,
   event: (type, data) => <EventForm type={type} data={data} />,
-  offer: (type, data) => <OfferForm type={type} data={data} />
+  offer: (type, data) => <OfferForm type={type} data={data} />,
+  cinstitution: (type, data) => <CInstitutionForm type={type} data={data} />,
+  pinstitution: (type, data) => <PInstitutionForm type={type} data={data} />
 
 
 };
@@ -66,6 +78,8 @@ const FormModal = ({
     | "event"
     | "customer"
     | "provider"
+    | "cinstitution"
+    | "pinstitution"
     
     | "result"
     | "attendance"

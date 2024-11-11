@@ -52,7 +52,7 @@ const SingleEventPage = () => {
                 />}
               </div>
               <p className="text-sm text-gray-500">
-                xxxx nolu cihazın bakım tarihi yaklaşıyor...
+                xxxx nolu cihazın bakım tarihi yaklaşıyor...(Content)
               </p>
               <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
@@ -97,7 +97,7 @@ const SingleEventPage = () => {
                 className="w-10 h-12"
               />
               <div className="">
-                <h1 className="text-md font-semibold">İlgili Personel</h1>
+                <h1 className="text-md font-semibold">Oluşturan Personel</h1>
                 <span className="text-sm text-gray-400">998</span><br></br>
                 <span className="text-sm text-gray-400">Ahmet Uysal</span><br></br>
                 <span className="text-sm text-gray-400">FFF Yangın A.Ş.</span>
