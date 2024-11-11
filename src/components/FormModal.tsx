@@ -42,6 +42,10 @@ const PInstitutionForm = dynamic(() => import("./forms/PInstitutionForm"), {
   loading: () => <h1>Loading...</h1>,
 });
 
+const IsgMemberForm = dynamic(() => import("./forms/IsgMemberForm"), {
+  loading: () => <h1>Loading...</h1>,
+});
+
 
 
 
@@ -58,7 +62,9 @@ const forms: {
   event: (type, data) => <EventForm type={type} data={data} />,
   offer: (type, data) => <OfferForm type={type} data={data} />,
   cinstitution: (type, data) => <CInstitutionForm type={type} data={data} />,
-  pinstitution: (type, data) => <PInstitutionForm type={type} data={data} />
+  pinstitution: (type, data) => <PInstitutionForm type={type} data={data} />,
+  isgmember: (type, data) => <IsgMemberForm type={type} data={data} />
+
 
 
 };
@@ -80,6 +86,7 @@ const FormModal = ({
     | "provider"
     | "cinstitution"
     | "pinstitution"
+     | "isgmember"
     
     | "result"
     | "attendance"

@@ -156,10 +156,10 @@ const SingleCInstitutionPage = () => {
                 Personellerim
             </Link>
 
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/customers?institutionId=${'2'}`}>
+            {/* <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/customers?institutionId=${'2'}`}> */}
                 {/* Kullanıcı&apos;nın  */}
-                İSG Personellerim
-            </Link>
+                {/* İSG Personellerim */}
+            {/* </Link> */}
 
             <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/offers?recipientInstId=${'2'}`}>
                 {/* Kullanıcı&apos;nın  */}

@@ -6,7 +6,7 @@ import { role } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 
-const SingleUserPage = () => {
+const SingleProviderPage = () => {
   return (
     <div className="flex-1 p-4 flex flex-col gap-4 xl:flex-row">
       {/* LEFT */}
@@ -173,4 +173,4 @@ const SingleUserPage = () => {
   );
 };
 
-export default SingleUserPage;
+export default SingleProviderPage;

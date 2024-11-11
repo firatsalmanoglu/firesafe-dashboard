@@ -6,7 +6,7 @@ import { role } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 
-const SingleNotificationPage = () => {
+const SinglePNotificationPage = () => {
   return (
     <div className="flex-1 p-4 flex flex-col gap-4 xl:flex-row">
       {/* LEFT */}
@@ -199,4 +199,4 @@ const SingleNotificationPage = () => {
   );
 };
 
-export default SingleNotificationPage;
+export default SinglePNotificationPage;
