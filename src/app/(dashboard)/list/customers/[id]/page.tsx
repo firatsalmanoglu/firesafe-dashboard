@@ -5,8 +5,18 @@ import FormModal from "@/components/FormModal";
 import { role } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
+import { Customers } from "@prisma/client";
+import prisma from "@/lib/prisma";
+import { notFound } from "next/navigation";
 
-const SingleCustomerPage = () => {
+const SingleCustomerPage = async ({
+  params: { id },
+}: {
+  params: { id: string };
+}) => {
+
+  
+
   return (
     <div className="flex-1 p-4 flex flex-col gap-4 xl:flex-row">
       {/* LEFT */}
