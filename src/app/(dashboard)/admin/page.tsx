@@ -4,6 +4,8 @@ import OfferChart from "@/components/OfferChart";
 import LogChart from "@/components/LogChart";
 import EventCalendar from "@/components/EventCalendar";
 import Announcements from "@/components/Announcements";
+import CountChartContainer from "@/components/CountChartContainer";
+import OfferChartContainer from "@/components/OfferChartContainer";
 
 
 const AdminPage = () => {
@@ -22,11 +24,11 @@ const AdminPage = () => {
             <div className='flex gap-4 flex-col lg:flex-row'>
                     {/* COUNT CHART */}
                 <div className='w-full lg:w-1/3 h-[450px]'>
-                <CountChart />
+                <CountChartContainer />
                 </div>
                     {/* OFFER CHART */}
                 <div className='w-full lg:w-2/3 h-[450px]'>
-                <OfferChart />
+                <OfferChartContainer />
                 </div>
 
             </div>

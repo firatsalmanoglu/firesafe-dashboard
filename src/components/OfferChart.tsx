@@ -12,51 +12,15 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
-  {
-    name: "Pzt.",
-    teklif: 60,
-    kabul: 40,
-  },
-  {
-    name: "Salı",
-    teklif: 90,
-    kabul: 75,
-  },
-  {
-    name: "Çarş.",
-    teklif: 90,
-    kabul: 75,
-  },
-  {
-    name: "Perş.",
-    teklif: 65,
-    kabul: 55,
-  },
-  {
-    name: "Cuma.",
-    teklif: 65,
-    kabul: 55,
-  },
-  {
-    name: "C.Tesi",
-    teklif: 65,
-    kabul: 55,
-  },
-  {
-    name: "Paz.",
-    teklif: 65,
-    kabul: 55,
-  },
-];
 
-const OfferChart = () => {
+
+const OfferChart = ({
+  data,
+}:{
+  data: {name:string, kabul: number, red:number, beklemede:number} [];
+}) => {
   return (
-    <div className="bg-white rounded-lg p-4 h-full">
-      <div className="flex justify-between items-center">
-        <h1 className="text-lg font-semibold">Teklifler/Kabul Edilenler</h1>
-        <Image src="/moreDark.png" alt="" width={20} height={20} />
-      </div>
+    
       <ResponsiveContainer width="100%" height="90%">
         <BarChart width={500} height={300} data={data} barSize={20}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#ddd" />
@@ -76,20 +40,29 @@ const OfferChart = () => {
             wrapperStyle={{ paddingTop: "20px", paddingBottom: "40px" }}
           />
           <Bar
-            dataKey="teklif"
+            dataKey="kabul"
             fill="#EA4C4C"
             legendType="circle"
             radius={[10, 10, 0, 0]}
           />
+
+          
           <Bar
-            dataKey="kabul"
+            dataKey="red"
             fill="#FAE27C"
+            legendType="circle"
+            radius={[10, 10, 0, 0]}
+          />
+
+          <Bar
+            dataKey="beklemede"
+            fill="#ea723e"
             legendType="circle"
             radius={[10, 10, 0, 0]}
           />
         </BarChart>
       </ResponsiveContainer>
-    </div>
+    
   );
 };
 
