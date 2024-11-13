@@ -5,7 +5,7 @@ import FormModal from "@/components/FormModal";
 import { role } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
-import { Customers } from "@prisma/client";
+import { Customers, Prisma } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 
@@ -14,6 +14,15 @@ const SingleCustomerPage = async ({
 }: {
   params: { id: string };
 }) => {
+  
+  // const customer: Customers | null = await prisma.customers.findUnique ({
+  //   where: { id },
+
+  // });
+
+  // if (!customer) {
+  //   return notFound();
+  // }
 
   
 
@@ -27,7 +36,8 @@ const SingleCustomerPage = async ({
           <div className="bg-lamaPurpleLight py-6 px-4 rounded-md flex-1 flex gap-4">
             <div className="w-1/3">
               <Image
-                src="/firat.jpg"
+                // src={customer.photo || "/noAvatar.png"}
+                src={"/noAvatar.png"}
                 alt=""
                 width={144}
                 height={144}

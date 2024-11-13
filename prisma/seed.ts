@@ -399,6 +399,7 @@ async function main() {
                 creatorId: (i % 50) + 1,
                 recipientId: (i % 50) + 1,
                 recipientInstId: (i % 25) + 1,
+                
                 notificationDate: new Date(new Date().setHours(new Date().getHours() + 1)),
                 isRead: i % 2 === 0 ? NotificationStatus.Okundu : NotificationStatus.Okunmadi,
                 typeId: (i % 3) + 1,
@@ -408,7 +409,7 @@ async function main() {
 
 
 
-     // PNOTIFICATIONS
+     // CNOTIFICATIONS
         for (let i = 1; i <= 100; i++) {
             await prisma.cNotifications.create({
             data: {
@@ -416,6 +417,7 @@ async function main() {
                 creatorId: (i % 50) + 1,
                 recipientId: (i % 50) + 1,
                 recipientInstId: (i % 25) + 1,
+                
                 notificationDate: new Date(new Date().setHours(new Date().getHours() + 1)),
                 isRead: i % 2 === 0 ? NotificationStatus.Okundu : NotificationStatus.Okunmadi,
                 typeId: (i % 3) + 1,
