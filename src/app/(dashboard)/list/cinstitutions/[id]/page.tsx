@@ -3,10 +3,28 @@ import BigCalendar from "@/components/BigCalendar";
 import FormModal from "@/components/FormModal";
 //import Performance from "@/components/Performance";
 import { role } from "@/lib/data";
+import prisma from "@/lib/prisma";
+import { CInstitutions } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
-const SingleCInstitutionPage = () => {
+const SingleCInstitutionPage = async ({
+  params: { id },
+}: {
+  params: { id: string };
+}) => {
+  const cInstId = parseInt(id); // veya Number(id);
+  const cInst: CInstitutions  | null = await prisma.cInstitutions.findUnique({
+    where: { id: cInstId },
+    
+  });
+
+  if (!cInst) {
+    return notFound();
+  }
+
+
   return (
     <div className="flex-1 p-4 flex flex-col gap-4 xl:flex-row">
       {/* LEFT */}
@@ -15,7 +33,7 @@ const SingleCInstitutionPage = () => {
         <div className="flex flex-col lg:flex-row gap-4">
           {/* USER INFO CARD */}
           <div className="bg-lamaPurpleLight py-6 px-4 rounded-md flex-1 flex gap-4">
-            <div className="w-1/3">
+            {/* <div className="w-1/3">
               <Image
                 src="/firat.jpg"
                 alt=""
@@ -23,7 +41,7 @@ const SingleCInstitutionPage = () => {
                 height={144}
                 className="w-36 h-36 rounded-full object-cover"
               />
-            </div>
+            </div> */}
             <div className="w-2/3 flex flex-col justify-between gap-4">
               <div className="flex items-center gap-4">
                 <h1 className="text-xl font-semibold">Müşteri Kurum Kartı</h1>
@@ -52,10 +70,10 @@ const SingleCInstitutionPage = () => {
                 />}
               </div>
               <p className="text-sm text-gray-500">
-                Kurum Adı.....
+                {cInst.name}
               </p>
               <p className="text-sm text-gray-500">
-                Adresi.....
+                {cInst.address}
               </p>
               <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
                 {/* <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">

@@ -3,10 +3,29 @@ import BigCalendar from "@/components/BigCalendar";
 import FormModal from "@/components/FormModal";
 //import Performance from "@/components/Performance";
 import { role } from "@/lib/data";
+import prisma from "@/lib/prisma";
+import { PInstitutions, Providers, Roles } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
-const SingleProviderPage = () => {
+const SingleProviderPage = async ({
+  params: { id },
+}: {
+  params: { id: string };
+}) => {
+  const providerId = parseInt(id); // veya Number(id);
+  const provider: Providers & { role: Roles; institution: PInstitutions } | null = await prisma.providers.findUnique({
+    where: { id: providerId },
+    include: {
+      role: true, // Bu kısmı ekleyerek `role` ilişkisini dahil ediyoruz
+      institution: true,
+    },
+  });
+
+  if (!provider) {
+    return notFound();
+  }
   return (
     <div className="flex-1 p-4 flex flex-col gap-4 xl:flex-row">
       {/* LEFT */}
@@ -17,7 +36,7 @@ const SingleProviderPage = () => {
           <div className="bg-lamaPurpleLight py-6 px-4 rounded-md flex-1 flex gap-4">
             <div className="w-1/3">
               <Image
-                src="/firat.jpg"
+                src={provider.photo || "/noAvatar.png"}
                 alt=""
                 width={144}
                 height={144}
@@ -26,7 +45,7 @@ const SingleProviderPage = () => {
             </div>
             <div className="w-2/3 flex flex-col justify-between gap-4">
               <div className="flex items-center gap-4">
-                <h1 className="text-xl font-semibold">Fırat Salmanoğlu</h1>
+                <h1 className="text-xl font-semibold">{provider.firstName + " " + provider.lastName}</h1>
                 {role === "admin" && <FormModal
                   table="user"
                   type="update"
@@ -52,24 +71,24 @@ const SingleProviderPage = () => {
                 />}
               </div>
               <p className="text-sm text-gray-500">
-                User Name
+                {provider.userName}
               </p>
               <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/blood.png" alt="" width={14} height={14} />
-                  <span>ARh+</span>
+                  <span>{provider.bloodType}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/date.png" alt="" width={14} height={14} />
-                  <span>Ekim 2024</span>
+                  <span>{provider.birthday.toLocaleDateString()}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/mail.png" alt="" width={14} height={14} />
-                  <span>firatsalmanoglu@gmail.com</span>
+                  <span>{provider.email}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/phone.png" alt="" width={14} height={14} />
-                  <span>+90 532 738 86 36</span>
+                  <span>{provider.phone}</span>
                 </div>
               </div>
             </div>
@@ -87,7 +106,7 @@ const SingleProviderPage = () => {
               />
               <div className="">
                 <h1 className="text-md font-semibold">Rolü</h1>
-                <span className="text-sm text-gray-400">I. Seviye Hizmet Sağlayıcı</span>
+                <span className="text-sm text-gray-400">{provider.role.name}</span>
               </div>
             </div>
             {/* CARD */}
@@ -101,7 +120,7 @@ const SingleProviderPage = () => {
               />
               <div className="">
                 <h1 className="text-md font-semibold">Cinsiyet</h1>
-                <span className="text-sm text-gray-400">Erkek</span>
+                <span className="text-sm text-gray-400">{provider.sex}</span>
               </div>
             </div>
             {/* CARD */}
@@ -115,7 +134,7 @@ const SingleProviderPage = () => {
               />
               <div className="">
                 <h1 className="text-md font-semibold">Kurumu</h1>
-                <span className="text-sm text-gray-400">Ege Üniversitesi</span>
+                <span className="text-sm text-gray-400">{provider.institution.name}</span>
               </div>
             </div>
             {/* CARD */}
@@ -129,7 +148,7 @@ const SingleProviderPage = () => {
               />
               <div className="">
                 <h1 className="text-md font-semibold">Üyelik Tarihi</h1>
-                <span className="text-sm text-gray-400">10/06/2024</span>
+                <span className="text-sm text-gray-400">{provider.registrationDate.toLocaleDateString()}</span>
               </div>
             </div>
           </div>
