@@ -78,6 +78,9 @@ CREATE TABLE "AInstitutions" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "address" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "phone" TEXT NOT NULL,
+    "registrationDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "AInstitutions_pkey" PRIMARY KEY ("id")
 );
@@ -87,6 +90,9 @@ CREATE TABLE "CInstitutions" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "address" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "phone" TEXT NOT NULL,
+    "registrationDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "CInstitutions_pkey" PRIMARY KEY ("id")
 );
@@ -96,6 +102,9 @@ CREATE TABLE "PInstitutions" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "address" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "phone" TEXT NOT NULL,
+    "registrationDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "PInstitutions_pkey" PRIMARY KEY ("id")
 );

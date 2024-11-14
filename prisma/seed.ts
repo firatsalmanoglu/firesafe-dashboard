@@ -206,6 +206,9 @@ for (let i = 1; i <= 25; i++) {
     data: {
         name: `AIName${i}`,
         address: `Address${i}`,
+        email: `instadmin${i}@example.com`,
+        phone: `123-456-789${i}`,
+        registrationDate: new Date(new Date().setFullYear(new Date().getFullYear() - 10)),
     },
     });
 }
@@ -216,6 +219,9 @@ for (let i = 1; i <= 25; i++) {
     data: {
         name: `CIName${i}`,
         address: `Address${i}`,
+        email: `inscustomer${i}@example.com`,
+        phone: `123-456-789${i}`,
+        registrationDate: new Date(new Date().setFullYear(new Date().getFullYear() - 10)),
     },
     });
 }
@@ -227,6 +233,9 @@ for (let i = 1; i <= 25; i++) {
     data: {
         name: `PIName${i}`,
         address: `Address${i}`,
+        email: `insprovider${i}@example.com`,
+        phone: `123-456-789${i}`,
+        registrationDate: new Date(new Date().setFullYear(new Date().getFullYear() - 10)),
     },
     });
 }    

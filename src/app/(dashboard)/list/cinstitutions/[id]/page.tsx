@@ -17,8 +17,11 @@ const SingleCInstitutionPage = async ({
   const cInstId = parseInt(id); // veya Number(id);
   const cInst: CInstitutions  | null = await prisma.cInstitutions.findUnique({
     where: { id: cInstId },
+     
     
   });
+
+ 
 
   if (!cInst) {
     return notFound();
@@ -76,23 +79,21 @@ const SingleCInstitutionPage = async ({
                 {cInst.address}
               </p>
               <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
-                {/* <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
-                  <Image src="/blood.png" alt="" width={14} height={14} />
-                  <span>ARh+</span>
-                </div> */}
+                
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/date.png" alt="" width={14} height={14} />
-                  <span>Ekim 2024</span>
+                  <span>{cInst.registrationDate.toLocaleDateString()}</span>
                 </div>
+
                 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/phone.png" alt="" width={14} height={14} />
-                  <span>+90 532 738 86 36</span>
+                  <span>{cInst.phone}</span>
                 </div>
 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/mail.png" alt="" width={14} height={14} />
-                  <span>firatsalmanoglu@gmail.com</span>
+                  <span>{cInst.email}</span>
                 </div>
                 
               </div>
