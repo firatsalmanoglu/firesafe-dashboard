@@ -340,6 +340,7 @@ for (let i = 1; i <= 50; i++) {
         productionDate: new Date(new Date().setHours(new Date().getHours() + 1)),
         lastControlDate: new Date(new Date().setHours(new Date().getHours() + 3)),
         expirationDate: new Date(new Date().setHours(new Date().getHours() + 5)),
+        nextControlDate: new Date(new Date().setHours(new Date().getHours() + 3)),
         location: `Kat ${i}`, 
         //photo: "photo.png",
         currentStatus: i % 2 === 0 ? DeviceStatus.Aktif : DeviceStatus.Pasif,
@@ -366,6 +367,8 @@ for (let i = 1; i <= 50; i++) {
         nextMaintenanceDate: new Date(new Date().setHours(new Date().getHours() + 10)),
         typeId: (i % 5) + 1, 
         deviceId: (i % 50) + 1, 
+        deviceTypeId: (i % 9) + 1, 
+        deviceFeatureId:(i % 9) + 1, 
         providerId: (i % 50) + 1,
         providerInstId: (i % 25) + 1, 
         customerId: (i % 50) + 1,
@@ -412,6 +415,10 @@ for (let i = 1; i <= 100; i++) {
         notificationDate: new Date(new Date().setHours(new Date().getHours() + 1)),
         isRead: i % 2 === 0 ? NotificationStatus.Okundu : NotificationStatus.Okunmadi,
         typeId: (i % 3) + 1,
+
+        deviceId: (i % 50) + 1, 
+        deviceTypeId: (i % 9) + 1, 
+        deviceFeatureId:(i % 9) + 1,
     },
     });
 }
@@ -430,6 +437,10 @@ for (let i = 1; i <= 100; i++) {
         notificationDate: new Date(new Date().setHours(new Date().getHours() + 1)),
         isRead: i % 2 === 0 ? NotificationStatus.Okundu : NotificationStatus.Okunmadi,
         typeId: (i % 3) + 1,
+
+        deviceId: (i % 50) + 1, 
+        deviceTypeId: (i % 9) + 1, 
+        deviceFeatureId:(i % 9) + 1,
     },
     });
 }

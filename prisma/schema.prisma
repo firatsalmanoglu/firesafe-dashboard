@@ -177,6 +177,7 @@ model Devices {
   productionDate      DateTime
   lastControlDate     DateTime
   expirationDate      DateTime
+  nextControlDate     DateTime
   location            String
   photo               String?
   currentStatus       DeviceStatus
@@ -207,6 +208,10 @@ model Devices {
   MaintenanceCards    MaintenanceCards[]
 
 
+
+  PNotifications PNotifications[]
+
+  CNotifications CNotifications[]
 }
 
 
@@ -229,6 +234,12 @@ model DeviceTypes {
   name                String
 
   Devices             Devices[]
+
+  MaintenanceCards MaintenanceCards[]
+
+  PNotifications PNotifications[]
+
+  CNotifications CNotifications[]
 }
 
 //Güvenlik Önlemi Özellikleri CO2 - KKT - Otomatik Kapı
@@ -237,6 +248,12 @@ model DeviceFeatures {
   name                String
 
   Devices             Devices[]
+
+  MaintenanceCards MaintenanceCards[]
+
+  PNotifications PNotifications[]
+
+  CNotifications CNotifications[]
 }
 
 //Bakım Kartı her bir cihaz için ve kimin kime yaptığını tutacak
@@ -251,6 +268,12 @@ model MaintenanceCards {
   deviceId            Int
   device              Devices @relation(fields: [deviceId], references: [id])
 
+  deviceTypeId        Int
+  deviceType          DeviceTypes @relation(fields: [deviceTypeId], references: [id]) 
+
+  deviceFeatureId     Int
+  deviceFeature       DeviceFeatures @relation(fields: [deviceFeatureId], references: [id])
+  
   providerId          Int 
   provider            Providers @relation(fields: [providerId], references: [id])
 
@@ -348,6 +371,16 @@ model PNotifications {
 
   typeId              Int
   type                NotificationTypes @relation(fields: [typeId], references: [id])
+
+  deviceId            Int
+  device              Devices @relation(fields: [deviceId], references: [id])
+
+  deviceTypeId        Int
+  deviceType          DeviceTypes @relation(fields: [deviceTypeId], references: [id]) 
+
+  deviceFeatureId     Int
+  deviceFeature       DeviceFeatures @relation(fields: [deviceFeatureId], references: [id])
+  
 }
 
 //Müşteriye giden Bildirimler
@@ -369,6 +402,16 @@ model CNotifications {
 
   typeId              Int
   type                NotificationTypes @relation(fields: [typeId], references: [id])
+
+  deviceId            Int
+  device              Devices @relation(fields: [deviceId], references: [id])
+
+  deviceTypeId        Int
+  deviceType          DeviceTypes @relation(fields: [deviceTypeId], references: [id]) 
+
+  deviceFeatureId     Int
+  deviceFeature       DeviceFeatures @relation(fields: [deviceFeatureId], references: [id])
+  
 }
 
 //Bildirim Türleri Hatırlatma Uyarı vs

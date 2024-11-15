@@ -4,7 +4,7 @@ import FormModal from "@/components/FormModal";
 //import Performance from "@/components/Performance";
 import { role } from "@/lib/data";
 import prisma from "@/lib/prisma";
-import { CInstitutions, Customers, Devices, MaintenanceCards, PInstitutions, Providers, Services } from "@prisma/client";
+import { CInstitutions, Customers, DeviceFeatures, Devices, DeviceTypes, MaintenanceCards, PInstitutions, Providers, Services } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -15,15 +15,18 @@ const SingleMaintenancePage = async ({
   params: { id: string };
 }) => {
   const maintenanceId = parseInt(id); // veya Number(id);
-  const maintenance: MaintenanceCards & { type: Services; device: Devices; provider: Providers; providerInst:PInstitutions; customer: Customers; customerInst: CInstitutions } | null = await prisma.maintenanceCards.findUnique({
+  const maintenance: MaintenanceCards & { type: Services; deviceType:DeviceTypes; deviceFeature: DeviceFeatures; device: Devices; provider: Providers; providerInst:PInstitutions; customer: Customers; customerInst: CInstitutions } | null = await prisma.maintenanceCards.findUnique({
     where: { id: maintenanceId },
     include: {
       type: true, // Bu kısmı ekleyerek `role` ilişkisini dahil ediyoruz
+      deviceType: true,
+      deviceFeature: true,
       device: true,
       provider: true,
       providerInst: true,
       customer: true,
       customerInst: true,
+
 
     },
   });
@@ -91,11 +94,11 @@ const SingleMaintenancePage = async ({
 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   {/* <Image src="/fire-extinguisher.png" alt="" width={14} height={14} /> */}
-                  <span> Türü: {maintenance.type.name}</span>
+                  <span> Türü: {maintenance.deviceType.name}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   {/* <Image src="/feature.png" alt="" width={14} height={14} /> */}
-                  <span> Özelliği: {maintenance.device.featureId}</span>
+                  <span> Özelliği: {maintenance.deviceFeature.name}</span>
                 </div>
 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">

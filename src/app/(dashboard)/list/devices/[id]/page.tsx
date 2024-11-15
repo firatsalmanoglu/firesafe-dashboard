@@ -204,24 +204,24 @@ const SingleDevicePage = async ({
             </div>
 
              {/* CARD */}
-             {/* <div className="bg-lamaSkyLight p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]"> */}
-             {/* <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4">
+             <div className="bg-lamaYellow  p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[100%]">
+            {/* <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4"> */}
 
               <Image
-                src="/singleAttendance.png"
+                src="/smc-calendar.png"
                 alt=""
-                width={24}
-                height={24}
-                className="w-6 h-6"
+                width={96}
+                height={96}
+                className="w-10 h-10"
               />
               <div className="">
-                <h1 className="text-md font-semibold">Konumu</h1>
-                <span className="text-sm text-gray-400">1. Kat 8. Nolu Nokta</span>
+                <h1 className="text-md font-semibold">Sonraki Bakım Tarihi</h1>
+                <span className="text-sm text-gray-400">{device.nextControlDate.toLocaleDateString()}</span>
               </div>
-            </div> */}
+            </div>
 
              {/* CARD */}
-             <div className="bg-lamaYellow p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[100%]">
+             <div className="bg-lamaSky p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[100%]">
              {/* <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4"> */}
 
               <Image

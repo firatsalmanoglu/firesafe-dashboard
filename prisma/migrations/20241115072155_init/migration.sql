@@ -125,6 +125,7 @@ CREATE TABLE "Devices" (
     "productionDate" TIMESTAMP(3) NOT NULL,
     "lastControlDate" TIMESTAMP(3) NOT NULL,
     "expirationDate" TIMESTAMP(3) NOT NULL,
+    "nextControlDate" TIMESTAMP(3) NOT NULL,
     "location" TEXT NOT NULL,
     "photo" TEXT,
     "currentStatus" "DeviceStatus" NOT NULL,
@@ -174,6 +175,8 @@ CREATE TABLE "MaintenanceCards" (
     "nextMaintenanceDate" TIMESTAMP(3) NOT NULL,
     "typeId" INTEGER NOT NULL,
     "deviceId" INTEGER NOT NULL,
+    "deviceTypeId" INTEGER NOT NULL,
+    "deviceFeatureId" INTEGER NOT NULL,
     "providerId" INTEGER NOT NULL,
     "providerInstId" INTEGER NOT NULL,
     "customerId" INTEGER NOT NULL,
@@ -237,6 +240,9 @@ CREATE TABLE "PNotifications" (
     "notificationDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "isRead" "NotificationStatus" NOT NULL,
     "typeId" INTEGER NOT NULL,
+    "deviceId" INTEGER NOT NULL,
+    "deviceTypeId" INTEGER NOT NULL,
+    "deviceFeatureId" INTEGER NOT NULL,
 
     CONSTRAINT "PNotifications_pkey" PRIMARY KEY ("id")
 );
@@ -251,6 +257,9 @@ CREATE TABLE "CNotifications" (
     "notificationDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "isRead" "NotificationStatus" NOT NULL,
     "typeId" INTEGER NOT NULL,
+    "deviceId" INTEGER NOT NULL,
+    "deviceTypeId" INTEGER NOT NULL,
+    "deviceFeatureId" INTEGER NOT NULL,
 
     CONSTRAINT "CNotifications_pkey" PRIMARY KEY ("id")
 );
@@ -509,6 +518,12 @@ ALTER TABLE "MaintenanceCards" ADD CONSTRAINT "MaintenanceCards_typeId_fkey" FOR
 ALTER TABLE "MaintenanceCards" ADD CONSTRAINT "MaintenanceCards_deviceId_fkey" FOREIGN KEY ("deviceId") REFERENCES "Devices"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "MaintenanceCards" ADD CONSTRAINT "MaintenanceCards_deviceTypeId_fkey" FOREIGN KEY ("deviceTypeId") REFERENCES "DeviceTypes"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MaintenanceCards" ADD CONSTRAINT "MaintenanceCards_deviceFeatureId_fkey" FOREIGN KEY ("deviceFeatureId") REFERENCES "DeviceFeatures"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "MaintenanceCards" ADD CONSTRAINT "MaintenanceCards_providerId_fkey" FOREIGN KEY ("providerId") REFERENCES "Providers"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -551,6 +566,15 @@ ALTER TABLE "PNotifications" ADD CONSTRAINT "PNotifications_recipientInstId_fkey
 ALTER TABLE "PNotifications" ADD CONSTRAINT "PNotifications_typeId_fkey" FOREIGN KEY ("typeId") REFERENCES "NotificationTypes"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "PNotifications" ADD CONSTRAINT "PNotifications_deviceId_fkey" FOREIGN KEY ("deviceId") REFERENCES "Devices"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "PNotifications" ADD CONSTRAINT "PNotifications_deviceTypeId_fkey" FOREIGN KEY ("deviceTypeId") REFERENCES "DeviceTypes"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "PNotifications" ADD CONSTRAINT "PNotifications_deviceFeatureId_fkey" FOREIGN KEY ("deviceFeatureId") REFERENCES "DeviceFeatures"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "CNotifications" ADD CONSTRAINT "CNotifications_creatorId_fkey" FOREIGN KEY ("creatorId") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -561,6 +585,15 @@ ALTER TABLE "CNotifications" ADD CONSTRAINT "CNotifications_recipientInstId_fkey
 
 -- AddForeignKey
 ALTER TABLE "CNotifications" ADD CONSTRAINT "CNotifications_typeId_fkey" FOREIGN KEY ("typeId") REFERENCES "NotificationTypes"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "CNotifications" ADD CONSTRAINT "CNotifications_deviceId_fkey" FOREIGN KEY ("deviceId") REFERENCES "Devices"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "CNotifications" ADD CONSTRAINT "CNotifications_deviceTypeId_fkey" FOREIGN KEY ("deviceTypeId") REFERENCES "DeviceTypes"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "CNotifications" ADD CONSTRAINT "CNotifications_deviceFeatureId_fkey" FOREIGN KEY ("deviceFeatureId") REFERENCES "DeviceFeatures"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Appointments" ADD CONSTRAINT "Appointments_creatorId_fkey" FOREIGN KEY ("creatorId") REFERENCES "Providers"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

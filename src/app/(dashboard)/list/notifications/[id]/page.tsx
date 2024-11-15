@@ -4,7 +4,7 @@ import FormModal from "@/components/FormModal";
 //import Performance from "@/components/Performance";
 import { role } from "@/lib/data";
 import prisma from "@/lib/prisma";
-import { CInstitutions, CNotifications, Customers, NotificationTypes, Users } from "@prisma/client";
+import { CInstitutions, CNotifications, Customers, DeviceFeatures, Devices, DeviceTypes, NotificationTypes, Users } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -15,13 +15,18 @@ const SingleNotificationPage = async ({
   params: { id: string };
 }) => {
   const cnotificationId = parseInt(id); // veya Number(id);
-  const cnotification: CNotifications & { creator: Users; recipient: Customers; recipientInst: CInstitutions; type: NotificationTypes } | null = await prisma.cNotifications.findUnique({
+  const cnotification: CNotifications & { creator: Users; recipient: Customers; recipientInst: CInstitutions; type: NotificationTypes; device:Devices; deviceType:DeviceTypes; deviceFeature: DeviceFeatures } | null = await prisma.cNotifications.findUnique({
     where: { id: cnotificationId },
     include: {
       creator: true, // Bu kısmı ekleyerek `role` ilişkisini dahil ediyoruz
       recipient: true,
       recipientInst: true,
       type: true,
+      device: true,
+      deviceType: true,
+      deviceFeature: true,
+
+
     },
   });
 
@@ -114,7 +119,7 @@ const SingleNotificationPage = async ({
               />
               <div className="">
                 <h1 className="text-md font-semibold">İlgili Cihaz Seri No</h1>
-                <span className="text-sm text-gray-400">İlgili Cihaz Seri No gelmeli</span>
+                <span className="text-sm text-gray-400">{cnotification.device.serialNumber}</span>
               </div>
             </div>
             {/* CARD */}
@@ -130,7 +135,9 @@ const SingleNotificationPage = async ({
               />
               <div className="">
                 <h1 className="text-md font-semibold">Cihaz Türü</h1>
-                <span className="text-sm text-gray-400">Cihaz Türü Gelmeli</span>
+                <span className="text-sm text-gray-400">{cnotification.deviceType.name}</span><br></br>
+                <span className="text-sm text-gray-400">{cnotification.deviceFeature.name}</span>
+
               </div>
             </div>
             {/* CARD */}
@@ -146,7 +153,7 @@ const SingleNotificationPage = async ({
               />
               <div className="">
                 <h1 className="text-md font-semibold">Bildirim Tarihi</h1>
-                <span className="text-sm text-gray-400">tarih eklenmeli</span>
+                <span className="text-sm text-gray-400">{cnotification.notificationDate.toLocaleDateString()}</span>
               </div>
             </div>
 
