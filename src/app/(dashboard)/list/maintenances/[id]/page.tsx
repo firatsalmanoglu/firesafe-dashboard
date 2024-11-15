@@ -3,10 +3,34 @@ import BigCalendar from "@/components/BigCalendar";
 import FormModal from "@/components/FormModal";
 //import Performance from "@/components/Performance";
 import { role } from "@/lib/data";
+import prisma from "@/lib/prisma";
+import { CInstitutions, Customers, Devices, MaintenanceCards, PInstitutions, Providers, Services } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
-const SingleMaintenancePage = () => {
+const SingleMaintenancePage = async ({
+  params: { id },
+}: {
+  params: { id: string };
+}) => {
+  const maintenanceId = parseInt(id); // veya Number(id);
+  const maintenance: MaintenanceCards & { type: Services; device: Devices; provider: Providers; providerInst:PInstitutions; customer: Customers; customerInst: CInstitutions } | null = await prisma.maintenanceCards.findUnique({
+    where: { id: maintenanceId },
+    include: {
+      type: true, // Bu kısmı ekleyerek `role` ilişkisini dahil ediyoruz
+      device: true,
+      provider: true,
+      providerInst: true,
+      customer: true,
+      customerInst: true,
+
+    },
+  });
+
+  if (!maintenance) {
+    return notFound();
+  }
   return (
     <div className="flex-1 p-4 flex flex-col gap-4 xl:flex-row">
       {/* LEFT */}
@@ -15,15 +39,7 @@ const SingleMaintenancePage = () => {
         <div className="flex flex-col lg:flex-row gap-4">
           {/* USER INFO CARD */}
           <div className="bg-lamaPurpleLight py-6 px-4 rounded-md flex-1 flex gap-4">
-            <div className="w-1/3">
-              <Image
-                src="/fireExt.png"
-                alt=""
-                width={144}
-                height={144}
-                className="w-36 h-36 rounded-full object-cover"
-              />
-            </div>
+
             <div className="w-2/3 flex flex-col justify-between gap-4">
               <div className="flex items-center gap-4">
                 <h1 className="text-xl font-semibold">Bakım Kartı</h1>
@@ -49,42 +65,42 @@ const SingleMaintenancePage = () => {
                 />}
               </div>
               <p className="text-sm text-gray-500">
-                Basınç kontrol edildiı vs....(Details)
+                {maintenance.details}
               </p>
               <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
-              
+
 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   {/* <Image src="/blood.png" alt="" width={14} height={14} /> */}
-                  <span>Bakım No: 0078</span>
+                  <span>Bakım No: {maintenance.id}</span>
                 </div>
-                
+
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   {/* <Image src="/blood.png" alt="" width={14} height={14} /> */}
-                  <span>Cihaz Seri No: 965684878</span>
+                  <span>Cihaz Seri No: {maintenance.device.serialNumber}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   {/* <Image src="/person.png" alt="" width={14} height={14} /> */}
-                  <span>Cihaz Sorumlusu: Mehmet Söylemez</span>
+                  <span>Cihaz Sorumlusu: {maintenance.customer.firstName + " " + maintenance.customer.lastName}</span>
                 </div>
 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   {/* <Image src="/person.png" alt="" width={14} height={14} /> */}
-                  <span> Cihaz Sahibi: CCC Ltd. </span>
+                  <span> Cihaz Sahibi: {maintenance.customerInst.name} </span>
                 </div>
 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   {/* <Image src="/fire-extinguisher.png" alt="" width={14} height={14} /> */}
-                  <span> Türü: Yangın Tüpü</span>
+                  <span> Türü: {maintenance.type.name}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   {/* <Image src="/feature.png" alt="" width={14} height={14} /> */}
-                  <span> Özelliği: CO<sub>2</sub></span>
+                  <span> Özelliği: {maintenance.device.featureId}</span>
                 </div>
-                
+
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/address.png" alt="" width={14} height={14} />
-                  <span> Bornova İzmir</span>
+                  <span> {maintenance.customerInst.address}</span>
                 </div>
               </div>
             </div>
@@ -104,8 +120,8 @@ const SingleMaintenancePage = () => {
               />
               <div className="">
                 <h1 className="text-md font-semibold">Hizmet Veren Firma</h1>
-                <span className="text-sm text-gray-400">Ahmet Aydemir</span><br></br>
-                <span className="text-sm text-gray-400">ABC Yangın Dan. Hiz.</span>
+                <span className="text-sm text-gray-400">{maintenance.provider.firstName + " " + maintenance.provider.lastName}</span><br></br>
+                <span className="text-sm text-gray-400">{maintenance.providerInst.name}</span>
 
               </div>
             </div>
@@ -138,7 +154,7 @@ const SingleMaintenancePage = () => {
               />
               <div className="">
                 <h1 className="text-md font-semibold">Bakım Tarihi</h1>
-                <span className="text-sm text-gray-400">10/12/2024</span>
+                <span className="text-sm text-gray-400">{maintenance.maintenanceDate.toLocaleDateString()}</span>
               </div>
             </div>
             {/* CARD */}
@@ -154,7 +170,7 @@ const SingleMaintenancePage = () => {
               />
               <div className="">
                 <h1 className="text-md font-semibold">Sonraki Bakım Tarihi</h1>
-                <span className="text-sm text-gray-400">10/06/2024</span>
+                <span className="text-sm text-gray-400">{maintenance.nextMaintenanceDate.toLocaleDateString()}</span>
               </div>
             </div>
 
@@ -171,26 +187,26 @@ const SingleMaintenancePage = () => {
               />
               <div className="">
                 <h1 className="text-md font-semibold">Bakım Türü</h1>
-                <span className="text-sm text-gray-400">Rutin Bakım</span>
+                <span className="text-sm text-gray-400">{maintenance.type.name}</span>
               </div>
             </div>
 
              {/* CARD */}
-             <div className="bg-lamaSky p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[100%]">
+             {/* <div className="bg-lamaSky p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[100%]"> */}
              {/* <div className="bg-lamaPurpleLight p-4 rounded-md w-full xl:w-2/5 flex flex-col gap-4"> */}
 
-              <Image
+              {/* <Image
                 src="/smc-status.png"
                 alt=""
                 width={96}
                 height={96}
                 className="w-10 h-10"
-              />
-              <div className="">
+              /> */}
+              {/* <div className="">
                 <h1 className="text-md font-semibold">Durumu</h1>
-                <span className="text-sm text-gray-400">Aktif</span>
-              </div>
-            </div>
+                <span className="text-sm text-gray-400">Gerek Var mı?</span>
+              </div> */}
+            {/* </div> */}
           </div>
         </div>
         {/* BOTTOM */}

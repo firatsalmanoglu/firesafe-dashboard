@@ -3,10 +3,36 @@ import BigCalendar from "@/components/BigCalendar";
 import FormModal from "@/components/FormModal";
 //import Performance from "@/components/Performance";
 import { role } from "@/lib/data";
+import prisma from "@/lib/prisma";
+import { CInstitutions, Customers, DeviceFeatures, Devices, DeviceTypes, IsgMembers, PInstitutions, Providers } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
-const SingleDevicePage = () => {
+const SingleDevicePage = async ({
+  params: { id },
+}: {
+  params: { id: string };
+}) => {
+  const deviceId = parseInt(id); // veya Number(id);
+  const device: Devices & { type: DeviceTypes; feature: DeviceFeatures; owner:Customers; institution:CInstitutions; provider:Providers; pinstitution:PInstitutions ; isgMember:IsgMembers} | null = await prisma.devices.findUnique({
+    where: { id: deviceId },
+    include: {
+      type: true, // Bu kısmı ekleyerek `role` ilişkisini dahil ediyoruz
+      feature: true,
+      owner: true,
+      institution: true,
+      provider: true,
+      pinstitution: true,
+      isgMember: true,
+
+
+    },
+  });
+
+  if (!device) {
+    return notFound();
+  }
   return (
     <div className="flex-1 p-4 flex flex-col gap-4 xl:flex-row">
       {/* LEFT */}
@@ -17,7 +43,7 @@ const SingleDevicePage = () => {
           <div className="bg-lamaPurpleLight py-6 px-4 rounded-md flex-1 flex gap-4">
             <div className="w-1/3">
               <Image
-                src="/fireExt.png"
+                src={device.photo || "/noAvatar.png"}
                 alt=""
                 width={144}
                 height={144}
@@ -60,52 +86,52 @@ const SingleDevicePage = () => {
                 />}
               </div>
               <p className="text-sm text-gray-500">
-                2mt hortum, üstten basmalı vs.... (Details)
+                {device.details}
               </p>
               <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   {/* <Image src="/blood.png" alt="" width={14} height={14} /> */}
-                  <span>Seri No: 78584878</span>
+                  <span>{device.serialNumber}</span>
                 </div>
 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/black-fire-extinguisher.png" alt="" width={14} height={14} />
-                  <span>Türü: Yangın Tüpü</span>
+                  <span>Türü: {device.type.name}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/feature.png" alt="" width={14} height={14} />
-                  <span> Özelliği: CO<sub>2</sub></span>
+                  <span> Özelliği: {device.feature.name}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/insititution.png" alt="" width={14} height={14} />
-                  <span>Sahibi: XXXX Hospital</span>
+                  <span>Sahibi: {device.institution.name}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/address.png" alt="" width={14} height={14} />
-                  <span> Adresi: Bornova İzmir</span>
+                  <span> Adresi: {device.institution.address}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/person.png" alt="" width={14} height={14} />
-                  <span>Sorumlu Personel: Ahmet Aydemir</span>
+                  <span>Sorumlu Personel: {device.owner.firstName + " " + device.owner.lastName}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/location.png" alt="" width={14} height={14} />
-                  <span>Konumu: 1. Kat 8. Nolu Nokta</span>
+                  <span>Konumu: {device.location}</span>
                 </div>
 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   {/* <Image src="/location.png" alt="" width={14} height={14} /> */}
-                  <span>İSG Sorumlusu: Ayşe XXX</span>
+                  <span>İSG Sorumlusu: {device.isgMember.name}</span>
                 </div>
 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   {/* <Image src="/location.png" alt="" width={14} height={14} /> */}
-                  <span>Sorumlu Kurum: UUU Ltd.</span>
+                  <span>Sorumlu Kurum: {device.pinstitution.name}</span>
                 </div>
 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   {/* <Image src="/location.png" alt="" width={14} height={14} /> */}
-                  <span>Bakım Sorumlusu: Talip CCC</span>
+                  <span>Bakım Sorumlusu: {device.provider.firstName + " " + device.provider.lastName} </span>
                 </div>
               </div>
             </div>
@@ -141,7 +167,7 @@ const SingleDevicePage = () => {
               />
               <div className="">
                 <h1 className="text-md font-semibold">Üretim Tarihi</h1>
-                <span className="text-sm text-gray-400">10/12/2023</span>
+                <span className="text-sm text-gray-400">{device.productionDate.toLocaleDateString()}</span>
               </div>
             </div>
             {/* CARD */}
@@ -157,7 +183,7 @@ const SingleDevicePage = () => {
               />
               <div className="">
                 <h1 className="text-md font-semibold">Son Kullanma Tarihi</h1>
-                <span className="text-sm text-gray-400">10/12/2024</span>
+                <span className="text-sm text-gray-400">{device.expirationDate.toLocaleDateString()}</span>
               </div>
             </div>
             {/* CARD */}
@@ -173,7 +199,7 @@ const SingleDevicePage = () => {
               />
               <div className="">
                 <h1 className="text-md font-semibold">Son Bakım Tarihi</h1>
-                <span className="text-sm text-gray-400">10/06/2024</span>
+                <span className="text-sm text-gray-400">{device.lastControlDate.toLocaleDateString()}</span>
               </div>
             </div>
 
@@ -207,7 +233,7 @@ const SingleDevicePage = () => {
               />
               <div className="">
                 <h1 className="text-md font-semibold">Durumu</h1>
-                <span className="text-sm text-gray-400">Aktif</span>
+                <span className="text-sm text-gray-400">{device.currentStatus}</span>
               </div>
             </div>
           </div>

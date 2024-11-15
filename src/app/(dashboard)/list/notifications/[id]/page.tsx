@@ -3,10 +3,31 @@ import BigCalendar from "@/components/BigCalendar";
 import FormModal from "@/components/FormModal";
 //import Performance from "@/components/Performance";
 import { role } from "@/lib/data";
+import prisma from "@/lib/prisma";
+import { CInstitutions, CNotifications, Customers, NotificationTypes, Users } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
-const SingleNotificationPage = () => {
+const SingleNotificationPage = async ({
+  params: { id },
+}: {
+  params: { id: string };
+}) => {
+  const cnotificationId = parseInt(id); // veya Number(id);
+  const cnotification: CNotifications & { creator: Users; recipient: Customers; recipientInst: CInstitutions; type: NotificationTypes } | null = await prisma.cNotifications.findUnique({
+    where: { id: cnotificationId },
+    include: {
+      creator: true, // Bu kısmı ekleyerek `role` ilişkisini dahil ediyoruz
+      recipient: true,
+      recipientInst: true,
+      type: true,
+    },
+  });
+
+  if (!cnotification) {
+    return notFound();
+  }
   return (
     <div className="flex-1 p-4 flex flex-col gap-4 xl:flex-row">
       {/* LEFT */}
@@ -47,33 +68,33 @@ const SingleNotificationPage = () => {
                 />}
               </div>
               <p className="text-sm text-gray-500">
-                xxxx nolu cihazın bakım tarihi yaklaşıyor...
+                {cnotification.content}
               </p>
               <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
               
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   {/* <Image src="/blood.png" alt="" width={14} height={14} /> */}
-                  <span>Bildirim No: 0078</span>
+                  <span>Bildirim No: {cnotification.id}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/person.png" alt="" width={14} height={14} />
-                  <span>Süleyman Çokbilir</span>
+                  <span>{cnotification.recipient.firstName + " " + cnotification.recipient.lastName}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/insititution.png" alt="" width={14} height={14} />
-                  <span>BİM Marketler A.Ş.</span>
+                  <span>{cnotification.recipientInst.name}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/phone.png" alt="" width={14} height={14} />
-                  <span> +90 222 3655 89 47</span>
+                  <span> {cnotification.recipientInst.phone}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/mail.png" alt="" width={14} height={14} />
-                  <span>xxxx@gmail.com</span>
+                  <span>{cnotification.recipientInst.email}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/address.png" alt="" width={14} height={14} />
-                  <span> Bornova İzmir</span>
+                  <span>{cnotification.recipientInst.address}</span>
                 </div>
               </div>
             </div>
@@ -93,7 +114,7 @@ const SingleNotificationPage = () => {
               />
               <div className="">
                 <h1 className="text-md font-semibold">İlgili Cihaz Seri No</h1>
-                <span className="text-sm text-gray-400">898974547</span>
+                <span className="text-sm text-gray-400">İlgili Cihaz Seri No gelmeli</span>
               </div>
             </div>
             {/* CARD */}
@@ -109,7 +130,7 @@ const SingleNotificationPage = () => {
               />
               <div className="">
                 <h1 className="text-md font-semibold">Cihaz Türü</h1>
-                <span className="text-sm text-gray-400">Sprinkler</span>
+                <span className="text-sm text-gray-400">Cihaz Türü Gelmeli</span>
               </div>
             </div>
             {/* CARD */}
@@ -125,7 +146,7 @@ const SingleNotificationPage = () => {
               />
               <div className="">
                 <h1 className="text-md font-semibold">Bildirim Tarihi</h1>
-                <span className="text-sm text-gray-400">10/12/2024</span>
+                <span className="text-sm text-gray-400">tarih eklenmeli</span>
               </div>
             </div>
 
@@ -142,7 +163,7 @@ const SingleNotificationPage = () => {
               />
               <div className="">
                 <h1 className="text-md font-semibold">Bildirim Türü</h1>
-                <span className="text-sm text-gray-400">Hatırlatma- Uyarı</span>
+                <span className="text-sm text-gray-400">{cnotification.type.name}</span>
               </div>
             </div>
 
@@ -159,7 +180,7 @@ const SingleNotificationPage = () => {
               />
               <div className="">
                 <h1 className="text-md font-semibold">Durumu</h1>
-                <span className="text-sm text-gray-400">Aktif</span>
+                <span className="text-sm text-gray-400">{cnotification.isRead}</span>
               </div>
             </div>
           </div>
