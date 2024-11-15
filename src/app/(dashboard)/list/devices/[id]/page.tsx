@@ -249,11 +249,15 @@ const SingleDevicePage = async ({
         <div className="bg-white p-4 rounded-md">
           <h1 className="text-xl font-semibold">Kısayollar</h1>
           <div className="mt-4 flex gap-4 flex-wrap text-xs text-black-500">
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/maintenances?deviceId=${'2'}`}>
+            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/maintenances?deviceId=${device.id}`}>
             Cihaz&apos;ın Bakım Geçmişi
             </Link>
-            <Link className="p-3 rounded-md bg-lamaPurple" href="/list/notifications">
-              Cihazla İlgili Bildirimler
+            <Link className="p-3 rounded-md bg-lamaPurple" href={`/list/notifications?deviceId=${device.id}`}>
+              Cihazla İlgili Müşteri Bildirimleri
+            </Link>
+
+            <Link className="p-3 rounded-md bg-lamaPurple" href={`/list/pnotifications?deviceId=${device.id}`}>
+              Cihazla İlgili Servis Sağlayıcı Bildirimleri
             </Link>
             {/* <Link className="p-3 rounded-md bg-lamaYellowLight" href="/">
             Kullanıcı&apos;nın Cihazları

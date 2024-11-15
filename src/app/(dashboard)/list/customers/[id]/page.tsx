@@ -16,11 +16,12 @@ const SingleCustomerPage = async ({
   params: { id: string };
 }) => {
   const customerId = parseInt(id); // veya Number(id);
-  const customer: Customers & { role: Roles; institution: CInstitutions } | null = await prisma.customers.findUnique({
+  const customer: Customers & { role: Roles; institution: CInstitutions} | null = await prisma.customers.findUnique({
     where: { id: customerId },
     include: {
       role: true, // Bu kısmı ekleyerek `role` ilişkisini dahil ediyoruz
       institution: true,
+      
     },
   });
 
@@ -168,25 +169,25 @@ const SingleCustomerPage = async ({
         <div className="bg-white p-4 rounded-md">
           <h1 className="text-xl font-semibold">Kısayollar</h1>
           <div className="mt-4 flex gap-4 flex-wrap text-xs text-black-500">
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/offers?recipientId=${'2'}`}>
+            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/offers?recipientId=${customer.id}`}>
                 {/* Kullanıcı&apos;nın  */}
                 Tekliflerim
             </Link>
-            <Link className="p-3 rounded-md bg-lamaPurple" href={`/list/maintenances?customerId=${'2'}`}>
+            <Link className="p-3 rounded-md bg-lamaPurple" href={`/list/maintenances?customerId=${customer.id}`}>
                 {/* Kullanıcı&apos;nın  */}
                 Bakımlarım
             </Link>
-            <Link className="p-3 rounded-md bg-lamaPurpleLight" href={`/list/devices?ownerId=${'2'}`}>
+            <Link className="p-3 rounded-md bg-lamaPurpleLight" href={`/list/devices?ownerId=${customer.id}`}>
                 {/* Kullanıcı&apos;nın  */}
                 Cihazlarım
             </Link>
-            <Link className="p-3 rounded-md bg-lamaYellowLight" href={`/list/notifications?recipientId=${'2'}`}>
+            <Link className="p-3 rounded-md bg-lamaYellowLight" href={`/list/notifications?recipientId=${customer.id}`}>
                 {/* Kullanıcı&apos;nın  */}
                 Bildirimlerim
             </Link>
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href="/list/users">
+            {/* <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/pinstitutions?deviceId=${customer.}`}>
                 Hizmet Sağlayıcılarım
-            </Link>
+            </Link> */}
           </div>
         </div>
         {/* <Performance /> */}

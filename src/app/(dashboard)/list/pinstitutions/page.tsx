@@ -111,6 +111,22 @@ const PInstitutionListPage = async ({
                 query.id = id; 
               }
               break;
+
+              // case "deviceId":
+              //   const deviceId = parseInt(value);
+              //   if (!isNaN(deviceId)) {
+              //     // devices.id alanına göre filtreleme
+              //     query.Devices = {
+              //       some: {
+              //         id: deviceId
+              //       }
+              //     };
+              //   }
+                
+              // break;
+      
+
+              
             // Diğer case'ler eklenebilir. Örneğin, daha fazla filtrasyon yapılmak istenirse.
             case "search":
               query.name = {contains:value, mode: "insensitive"}

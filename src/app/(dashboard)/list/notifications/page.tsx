@@ -163,6 +163,14 @@ const CNotificationListPage = async ({
                 query.recipientInstId = recipientInstId; 
               }
               break;
+
+              case "deviceId":
+                const deviceId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+                if (!isNaN(deviceId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                  // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                  query.deviceId = deviceId; 
+                }
+                break;
             // Diğer case'ler eklenebilir. Örneğin, daha fazla filtrasyon yapılmak istenirse.
             case "search":
               query.content = {contains:value, mode: "insensitive"}

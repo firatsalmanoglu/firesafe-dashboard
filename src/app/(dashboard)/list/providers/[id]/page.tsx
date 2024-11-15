@@ -164,25 +164,25 @@ const SingleProviderPage = async ({
         <div className="bg-white p-4 rounded-md">
           <h1 className="text-xl font-semibold">Kısayollar</h1>
           <div className="mt-4 flex gap-4 flex-wrap text-xs text-black-500">
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/offers?creatorId=${'2'}`}>
+            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/offers?creatorId=${provider.id}`}>
                 {/* Kullanıcı&apos;nın  */}
                 Tekliflerim
             </Link>
-            <Link className="p-3 rounded-md bg-lamaPurple" href={`/list/maintenances?providerId=${'2'}`}>
+            <Link className="p-3 rounded-md bg-lamaPurple" href={`/list/maintenances?providerId=${provider.id}`}>
                 {/* Kullanıcı&apos;nın  */}
                 Bakımlarım
             </Link>
-            <Link className="p-3 rounded-md bg-lamaPurpleLight" href={`/list/devices?providerId=${'2'}`}>
+            <Link className="p-3 rounded-md bg-lamaPurpleLight" href={`/list/devices?providerId=${provider.id}`}>
                 {/* Kullanıcı&apos;nın  */}
                 Cihazlarım
             </Link>
-            <Link className="p-3 rounded-md bg-lamaYellowLight" href={`/list/pnotifications?recipientId=${'2'}`}>
+            <Link className="p-3 rounded-md bg-lamaYellowLight" href={`/list/pnotifications?recipientId=${provider.id}`}>
                 {/* Kullanıcı&apos;nın  */}
                 Bildirimlerim
             </Link>
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href="/list/users">
+            {/* <Link className="p-3 rounded-md bg-lamaSkyLight" href="/list/users">
                 Müşterilerim
-            </Link>
+            </Link> */}
           </div>
         </div>
         {/* <Performance /> */}

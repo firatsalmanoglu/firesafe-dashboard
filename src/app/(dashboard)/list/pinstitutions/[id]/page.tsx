@@ -157,31 +157,31 @@ const SinglePInstitutionPage = async ({
         <div className="bg-white p-4 rounded-md">
           <h1 className="text-xl font-semibold">Kısayollar</h1>
           <div className="mt-4 flex gap-4 flex-wrap text-xs text-black-500">
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/providers?institutionId=${'2'}`}>
+            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/providers?institutionId=${pInst.id}`}>
                 {/* Kullanıcı&apos;nın  */}
                 Personellerim
             </Link>
 
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/offers?creatorInstId=${'2'}`}>
+            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/offers?creatorInstId=${pInst.id}`}>
                 {/* Kullanıcı&apos;nın  */}
                 Tekliflerim
             </Link>
 
-            <Link className="p-3 rounded-md bg-lamaPurpleLight" href={`/list/devices?pinstitutionId=${'2'}`}>
+            <Link className="p-3 rounded-md bg-lamaPurpleLight" href={`/list/devices?pinstitutionId=${pInst.id}`}>
                 {/* Kullanıcı&apos;nın  */}
                 Cihazlarım
             </Link>
 
-            <Link className="p-3 rounded-md bg-lamaPurple" href={`/list/maintenances?providerInstId=${'2'}`}>
+            <Link className="p-3 rounded-md bg-lamaPurple" href={`/list/maintenances?providerInstId=${pInst.id}`}>
                 {/* Kullanıcı&apos;nın  */}
                 Bakımlarım
             </Link>
             
-            <Link className="p-3 rounded-md bg-lamaYellowLight" href={`/list/pnotifications?recipientInstId=${'2'}`}>
+            <Link className="p-3 rounded-md bg-lamaYellowLight" href={`/list/pnotifications?recipientInstId=${pInst.id}`}>
                 {/* Kullanıcı&apos;nın  */}
                 Bildirimlerim
             </Link>
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/events?creatorInstId=${'2'}`}>
+            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/events?creatorInstId=${pInst.id}`}>
                 Randevularım
             </Link>
           </div>
