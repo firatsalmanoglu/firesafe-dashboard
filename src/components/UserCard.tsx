@@ -9,6 +9,8 @@ const UserCard = async ({
 type: "teklifler" | "bakimlar" | "cihazlar" | "randevular" | "cihazlarim" | "bakimiyaklasan" | "tekliflerim" | "bakimlarim" |
        "tekliflerimm" | "bekleyen" | "yaklasanrandevularim" | "bakimlarimm"; // Yeni türleri ekledik
 }) => {
+
+  
   const modelMap: Record<typeof type, any> = {
     teklifler: prisma.offerCards,
     bakimlar: prisma.maintenanceCards,

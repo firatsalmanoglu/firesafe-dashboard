@@ -11,141 +11,91 @@ const menuItems = [
         icon: "/home.png",
         label: "Anasayfa",
         href: "/",
-        visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
+        visible: ["admin", "provider", "customer", "lowcustomer", "lowprovider"],
       },
       {
         icon: "/user.png",
         label: "Yöneticiler",
         href: "/list/users",
-        visible: ["admin","provider", "customer", "parent", "lowcustomer", "lowprovider"],
+        visible: ["admin","provider", "customer", "lowcustomer", "lowprovider"],
       },
 
       {
         icon: "/user.png",
         label: "Müşteri Kullanıcılar",
         href: "/list/customers",
-        visible: ["admin","provider", "customer", "parent", "lowcustomer", "lowprovider"],
+        visible: ["admin","provider", "customer", "lowcustomer", "lowprovider"],
       },
 
       {
         icon: "/user.png",
         label: "Müşteri Şirketler",
         href: "/list/cinstitutions",
-        visible: ["admin","provider", "customer", "parent", "lowcustomer", "lowprovider"],
+        visible: ["admin","provider", "customer", "lowcustomer", "lowprovider"],
       },
 
       {
         icon: "/user.png",
         label: "Hizmet Sağlayıcı Kullanıcılar",
         href: "/list/providers",
-        visible: ["admin","provider", "customer", "parent", "lowcustomer", "lowprovider"],
+        visible: ["admin","provider", "customer", "lowcustomer", "lowprovider"],
       },
 
       {
         icon: "/user.png",
         label: "Hizmet Sağlayıcı Şirketler",
         href: "/list/pinstitutions",
-        visible: ["admin","provider", "customer", "parent", "lowcustomer", "lowprovider"],
+        visible: ["admin","provider", "customer", "lowcustomer", "lowprovider"],
       },
 
-      // {
-      //   icon: "/user.png",
-      //   label: "Müşteriler",
-      //   href: "/list/users",
-      //   visible: ["admin","provider", "lowprovider"],
-      // },
-      // {
-      //   icon: "/user.png",
-      //   label: "Servis Sağlayıcılar",
-      //   href: "/list/users",
-      //   visible: ["admin","customer", "lowcustomer", "parent"],
-      // },
       
       {
         icon: "/fire-extinguisher.png",
         label: "Cihazlar",
         href: "/list/devices",
-        visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
+        visible: ["admin", "provider", "customer", "lowcustomer", "lowprovider"],
       },
       {
         icon: "/offer.png",
         label: "Teklifler",
         href: "/list/offers",
-        visible: ["admin", "provider", "parent","customer"],
+        visible: ["admin", "provider", "customer"],
       },
       {
         icon: "/maintenance.png",
         label: "Bakımlar",
         href: "/list/maintenances",
-        visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
+        visible: ["admin", "provider", "customer", "lowcustomer", "lowprovider"],
       },
       {
         icon: "/calendar.png",
         label: "Randevular",
         href: "/list/events",
-        visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
+        visible: ["admin", "provider", "customer", "lowcustomer", "lowprovider"],
       },
       {
         icon: "/announcement.png",
         label: "Müşteri Bildirimleri",
         href: "/list/notifications",
-        visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
+        visible: ["admin", "provider", "customer", "lowcustomer", "lowprovider"],
       },
 
       {
         icon: "/announcement.png",
         label: "Hizmet Sağlayıcı Bildirimleri",
         href: "/list/pnotifications",
-        visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
+        visible: ["admin", "provider", "customer", "lowcustomer", "lowprovider"],
       },
 
       {
         icon: "/report.png",
         label: "Raporlama",
         href: "/list/classes",
-        visible: ["admin", "provider", "customer", "parent", "lowcustomer", "lowprovider"],
+        visible: ["admin", "provider", "customer", "lowcustomer", "lowprovider"],
       },
       
 
       
-      
-      {
-        icon: "/assignment.png",
-        label: "Randevu ve Planlama",
-        href: "/list/assignments",
-        visible: ["provider"],
-      },
-      
-      // {
-      //   icon: "/result.png",
-      //   label: "Results",
-      //   href: "/list/results",
-      //   visible: ["admin", "teacher", "student", "parent"],
-      // },
-      // {
-      //   icon: "/attendance.png",
-      //   label: "Attendance",
-      //   href: "/list/attendance",
-      //   visible: ["admin", "teacher", "student", "parent"],
-      // },
-      // {
-      //   icon: "/calendar.png",
-      //   label: "Events",
-      //   href: "/list/events",
-      //   visible: ["admin", "teacher", "student", "parent"],
-      // },
-      // {
-      //   icon: "/message.png",
-      //   label: "Messages",
-      //   href: "/list/messages",
-      //   visible: ["admin", "teacher", "student", "parent"],
-      // },
-      // {
-      //   icon: "/announcement.png",
-      //   label: "Announcements",
-      //   href: "/list/announcements",
-      //   visible: ["admin", "teacher", "student", "parent"],
-      // },
     ],
   },
   {
@@ -155,19 +105,19 @@ const menuItems = [
         icon: "/profile.png",
         label: "Profil",
         href: "/profile",
-        visible: ["admin", "provider", "customer", "provider", "lowcustomer", "lowprovider"],
+        visible: ["admin", "provider", "customer", "lowcustomer", "lowprovider"],
       },
       {
         icon: "/setting.png",
         label: "Ayarlar",
         href: "/settings",
-        visible: ["admin", "provider", "customer", "provider", "lowcustomer", "lowprovider"],
+        visible: ["admin", "provider", "customer", "lowcustomer", "lowprovider"],
       },
       {
         icon: "/support.png",
         label: "Geri Bildirim ve Destek",
         href: "/settings",
-        visible: ["admin", "provider", "customer", "provider", "lowcustomer", "lowprovider"],
+        visible: ["admin", "provider", "customer", "lowcustomer", "lowprovider"],
       },
       {
         icon: "/log.png",
@@ -179,7 +129,7 @@ const menuItems = [
         icon: "/logout.png",
         label: "Çıkış",
         href: "/logout",
-        visible: ["admin", "provider", "customer", "provider", "lowcustomer", "lowprovider"],
+        visible: ["admin", "provider", "customer", "lowcustomer", "lowprovider"],
       },
     ],
   },
