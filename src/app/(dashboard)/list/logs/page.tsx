@@ -5,26 +5,17 @@ import TableSearch from "@/components/TableSearch";
 import { role, logsData } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
+import {ITEM_PER_PAGE} from "@/lib/settings"
+import { Actions, Logs, Prisma, Tables, Users } from "@prisma/client";
+import prisma from "@/lib/prisma";
 
 
-type Log = {
-    id: number;
-    //logId: string;
-    date: string;
-    userId: string;
-    actionId: string;
-    tableId: string;
-    IP: string;
-  };
 
+type Log = Logs & 
+        { user: Users} &
+        { action: Actions} &
+        { table: Tables} ;
 
-    // id: 1,
-    // //logId: "001",
-    // date: "01/11/2024",
-    // userId: "001",
-    // actionId: "ekle",
-    // tableId: "users",
-    // IP: "123.155.24.78",
 
 const columns =[
     {
@@ -65,24 +56,76 @@ const columns =[
     
 ];
 
-const LogListPage = () => {
 
-    const renderRow = (item: Log) => (
-        <tr
-          key={item.id}
-          className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight">
-          <td className="hidden md:table-cell">{item.id}</td>
-          
-          <td className="hidden md:table-cell">{item.date}</td>
-          {/* <td className="hidden md:table-cell">{item.deviceOwner}</td> */}
-          {/* <td className="hidden md:table-cell">{item.message}</td> */}
-          <td className="hidden md:table-cell">{item.userId}</td>
-          <td className="hidden md:table-cell">{item.actionId}</td>
-          <td className="hidden md:table-cell">{item.tableId}</td>
-          <td className="hidden md:table-cell">{item.IP}</td>
-          
-        </tr>
-      );
+const renderRow = (item: Log) => (
+    
+    <tr
+      key={item.id}
+      className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight">
+      <td className="hidden md:table-cell">{item.id}</td>
+      
+      <td className="hidden md:table-cell">{item.date.toLocaleDateString()}</td>
+      {/* <td className="hidden md:table-cell">{item.deviceOwner}</td> */}
+      {/* <td className="hidden md:table-cell">{item.message}</td> */}
+      <td className="hidden md:table-cell">{item.user.firstName + " " + item.user.lastName}</td>
+      <td className="hidden md:table-cell">{item.action.name}</td>
+      <td className="hidden md:table-cell">{item.table.name}</td>
+      <td className="hidden md:table-cell">{item.IP}</td>
+      
+    </tr>
+  );
+
+const LogListPage = async ({
+    searchParams,
+  }: {
+    searchParams: { [key:string] : string | undefined };
+  }) => {
+    const {page, ...queryParams} = searchParams;
+  
+    const p = page ? parseInt(page) : 1;
+  
+    //URL PARAMS CONDITION
+   
+    const query: Prisma.LogsWhereInput = {}; // Prisma için boş bir query nesnesi oluşturuluyor.
+  
+      if (queryParams) {
+        for (const [key, value] of Object.entries(queryParams)) {
+          if (value !== undefined) {
+            switch (key) {
+              case "id":
+                const id = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+                if (!isNaN(id)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                  // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                  query.id = id; 
+                }
+                break;
+              // Diğer case'ler eklenebilir. Örneğin, daha fazla filtrasyon yapılmak istenirse.
+              
+            }
+          }
+        }
+      }
+  
+    const [data,count] = await prisma.$transaction([
+  
+      prisma.logs.findMany ({
+        where:query,
+  
+        include: {
+          user:true,
+          action: true,
+          table: true,
+
+  
+        },
+  
+        take:ITEM_PER_PAGE,
+        skip: ITEM_PER_PAGE * (p-1),
+      }),
+      prisma.logs.count()
+    ]);
+
+    
 
     return (
         <div className='bg-white p-4 rounded-md flex-1 m-4 mt-0'>
@@ -99,12 +142,12 @@ const LogListPage = () => {
                         <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow">
                             <Image src="/sort.png" alt="" width={14} height={14}/>
                         </button>
-                        {/* {role === "admin" && (
+                        {role === "admin" && (
                         // <button className="w-8 h-8 flex items-center justify-center rounded-full bg-firelightorange">
                         //     <Image src="/plus.png" alt="" width={14} height={14}/>
                         // </button>
                         <FormModal table="log" type="create" />
-                        )} */}
+                        )}
                     </div>
                 </div>
             </div>
@@ -115,7 +158,7 @@ const LogListPage = () => {
             </div>
 
             {/* PAGINATION */}
-                <Pagination />
+            <Pagination page={p} count={count} />
         </div>
     )
 }

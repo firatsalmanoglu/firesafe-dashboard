@@ -4,7 +4,7 @@ import FormModal from "@/components/FormModal";
 //import Performance from "@/components/Performance";
 import { role } from "@/lib/data";
 import prisma from "@/lib/prisma";
-import { CInstitutions, Customers, DeviceFeatures, Devices, DeviceTypes, IsgMembers, PInstitutions, Providers } from "@prisma/client";
+import { Institutions, Users, DeviceFeatures, Devices, DeviceTypes, IsgMembers } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -15,15 +15,22 @@ const SingleDevicePage = async ({
   params: { id: string };
 }) => {
   const deviceId = parseInt(id); // veya Number(id);
-  const device: Devices & { type: DeviceTypes; feature: DeviceFeatures; owner:Customers; institution:CInstitutions; provider:Providers; pinstitution:PInstitutions ; isgMember:IsgMembers} | null = await prisma.devices.findUnique({
+  const device: Devices & 
+                { type: DeviceTypes; 
+                  feature: DeviceFeatures; 
+                  owner:Users; 
+                  ownerIns:Institutions; 
+                  provider:Users; 
+                  providerIns:Institutions ; 
+                  isgMember:IsgMembers} | null = await prisma.devices.findUnique({
     where: { id: deviceId },
     include: {
       type: true, // Bu kısmı ekleyerek `role` ilişkisini dahil ediyoruz
       feature: true,
       owner: true,
-      institution: true,
+      ownerIns: true,
       provider: true,
-      pinstitution: true,
+      providerIns: true,
       isgMember: true,
 
 
@@ -104,11 +111,11 @@ const SingleDevicePage = async ({
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/insititution.png" alt="" width={14} height={14} />
-                  <span>Sahibi: {device.institution.name}</span>
+                  <span>Sahibi: {device.ownerIns.name}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/address.png" alt="" width={14} height={14} />
-                  <span> Adresi: {device.institution.address}</span>
+                  <span> Adresi: {device.ownerIns.address}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/person.png" alt="" width={14} height={14} />
@@ -126,7 +133,7 @@ const SingleDevicePage = async ({
 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   {/* <Image src="/location.png" alt="" width={14} height={14} /> */}
-                  <span>Sorumlu Kurum: {device.pinstitution.name}</span>
+                  <span>Sorumlu Kurum: {device.providerIns.name}</span>
                 </div>
 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">

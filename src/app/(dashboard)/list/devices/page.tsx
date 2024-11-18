@@ -7,13 +7,10 @@ import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import {  DeviceTypes,
           DeviceFeatures, 
-          Customers,
-          CInstitutions,
-          Providers,
-          PInstitutions,
+          Users,
+          Institutions,
           IsgMembers,
           Devices,          
-          MaintenanceCards, 
           Prisma           
         } from "@prisma/client";
 import Image from "next/image";
@@ -23,12 +20,9 @@ import Link from "next/link";
 type DeviceList = Devices & 
                   {type: DeviceTypes} & 
                   {feature: DeviceFeatures} & 
-                  {owner: Customers} & 
-                  {institution: CInstitutions} & 
-                  {provider: Providers} & 
-                  {pinstitution: PInstitutions} & 
-                  {isgMember: IsgMembers} & 
-                  {MaintenanceCards: MaintenanceCards []};
+                  {owner: Users} & 
+                  {ownerIns: Institutions} & 
+                  {isgMember: IsgMembers};
 
 
 const columns =[
@@ -41,57 +35,31 @@ const columns =[
         header:"Bilgi", 
         accessor:"info",
     },
-    // {
-    //     header:"Cihaz ID", 
-    //     accessor:"deviceId",
-    //     className: "hidden md:table-cell"
-    // },
-    // {
-    //     header:"Adres", 
-    //     accessor:"address",
-    //     className: "hidden md:table-cell"
-    // },
+    
     
     {
         header:"Özelliği", 
         accessor:"features",
         className: "hidden md:table-cell",
     },
-    {
-        header:"Sorumlu Bilgileri", 
-        accessor:"ownerId",
-        className: "hidden md:table-cell",
-    },
     // {
-    //   header:"Üret.Tar.", 
-    //   accessor:"manufactureDate",
-    //   className: "hidden md:table-cell",
-    // },
-    // {
-    //     header:"Son Kul.Tar.", 
-    //     accessor:"expiryDate",
+    //     header:"Sorumlu Bilgileri", 
+    //     accessor:"ownerId",
     //     className: "hidden md:table-cell",
     // },
+   
     {
         header:"Son Kont.Tar.", 
         accessor:"lastControlDate",
         className: "hidden md:table-cell",
     },
-    // {
-    //     header:"Konum", 
-    //     accessor:"location",
-    //     className: "hidden md:table-cell",
-    // },
+   
     {
         header:"Durumu", 
         accessor:"currentStatus",
         className: "hidden md:table-cell",
     },
-    // {
-    //   header:"Detaylar", 
-    //   accessor:"details",
-    //   className: "hidden md:table-cell",
-    // },
+  
     {
       header:"Eylemler", 
       accessor:"action",
@@ -116,7 +84,7 @@ const renderRow = (item: DeviceList) => (
       />
       <div className="flex flex-col">
         <h3 className="font-semibold">{item.type.name}</h3>
-        <p className="text-xs text-gray-500">{item.institution.name}</p>
+        <p className="text-xs text-gray-500">{item.ownerIns.name}</p>
         <p className="text-xs text-gray-500">{item.owner.firstName + " " + item.owner.lastName}</p>
         {/* <td className="hidden md:table-cell">{item.address}</td> */}
 
@@ -127,11 +95,11 @@ const renderRow = (item: DeviceList) => (
         {item.feature.name}
     </td>
 
-    <div className="flex flex-col">
-      <td className="hidden md:table-cell">{item.pinstitution.name}</td>
+    {/* <div className="flex flex-col">
+      <td className="hidden md:table-cell">{item.institution.name}</td>
       <td className="hidden md:table-cell">{item.provider.firstName + " " + item.provider.lastName}</td>
 
-    </div>
+    </div> */}
     
     {/* <td className="hidden md:table-cell">{item.manufactureDate}</td> */}
     {/* <td className="hidden md:table-cell">{item.expiryDate}</td> */}
@@ -190,21 +158,21 @@ const DeviceListPage = async ({
                 }
                 break;
 
-              case "institutionId":
-                const institutionId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
-                if (!isNaN(institutionId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+              case "ownerInstId":
+                const ownerInstId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+                if (!isNaN(ownerInstId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
                   // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
-                  query.institutionId = institutionId; 
+                  query.ownerInstId = ownerInstId; 
                 }
                 break;
 
-              case "pinstitutionId":
-                const pinstitutionId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
-                if (!isNaN(pinstitutionId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
-                  // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
-                  query.pinstitutionId = pinstitutionId; 
-                }
-                break;
+              // case "pinstitutionId":
+              //   const pinstitutionId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+              //   if (!isNaN(pinstitutionId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+              //     // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+              //     query.pinstitutionId = pinstitutionId; 
+              //   }
+              //   break;
             // Diğer case'ler eklenebilir. Örneğin, daha fazla filtrasyon yapılmak istenirse.
             case "search":
               query.serialNumber = {contains:value, mode: "insensitive"}
@@ -223,11 +191,8 @@ const DeviceListPage = async ({
         type:true,
         feature: true,
         owner: true,
-        institution: true,
-        provider: true,
-        pinstitution: true,
+        ownerIns: true,
         isgMember: true,
-        MaintenanceCards: true
 
       },
 

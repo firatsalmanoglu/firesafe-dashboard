@@ -6,14 +6,14 @@ import { role, usersData } from "@/lib/data";
 import prisma from "@/lib/prisma";
 import {  IsgMembers, 
           Prisma, 
-          CInstitutions, 
+          Institutions, 
           Devices } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import {ITEM_PER_PAGE} from "@/lib/settings"
 
 type IsgMemberList = IsgMembers & 
-                  { institution: CInstitutions } & 
+                  { institution: Institutions } & 
                   { device: Devices[] };
 
 
@@ -123,7 +123,6 @@ const IsgMemberListPage = async ({
 
       include: {
         institution:true,
-        // CInstitutions: true,
         Devices: true,
 
       },

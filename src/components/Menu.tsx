@@ -15,38 +15,19 @@ const menuItems = [
       },
       {
         icon: "/user.png",
-        label: "Yöneticiler",
+        label: "Kullanıcılar",
         href: "/list/users",
         visible: ["admin","provider", "customer", "lowcustomer", "lowprovider"],
       },
 
       {
         icon: "/user.png",
-        label: "Müşteri Kullanıcılar",
-        href: "/list/customers",
+        label: "Şirketler",
+        href: "/list/institutions",
         visible: ["admin","provider", "customer", "lowcustomer", "lowprovider"],
       },
 
-      {
-        icon: "/user.png",
-        label: "Müşteri Şirketler",
-        href: "/list/cinstitutions",
-        visible: ["admin","provider", "customer", "lowcustomer", "lowprovider"],
-      },
 
-      {
-        icon: "/user.png",
-        label: "Hizmet Sağlayıcı Kullanıcılar",
-        href: "/list/providers",
-        visible: ["admin","provider", "customer", "lowcustomer", "lowprovider"],
-      },
-
-      {
-        icon: "/user.png",
-        label: "Hizmet Sağlayıcı Şirketler",
-        href: "/list/pinstitutions",
-        visible: ["admin","provider", "customer", "lowcustomer", "lowprovider"],
-      },
 
       
       {
@@ -75,15 +56,8 @@ const menuItems = [
       },
       {
         icon: "/announcement.png",
-        label: "Müşteri Bildirimleri",
+        label: "Bildirimler",
         href: "/list/notifications",
-        visible: ["admin", "provider", "customer", "lowcustomer", "lowprovider"],
-      },
-
-      {
-        icon: "/announcement.png",
-        label: "Hizmet Sağlayıcı Bildirimleri",
-        href: "/list/pnotifications",
         visible: ["admin", "provider", "customer", "lowcustomer", "lowprovider"],
       },
 

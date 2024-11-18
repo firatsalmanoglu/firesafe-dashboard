@@ -4,7 +4,7 @@ import FormModal from "@/components/FormModal";
 //import Performance from "@/components/Performance";
 import { role } from "@/lib/data";
 import prisma from "@/lib/prisma";
-import { CInstitutions, Customers, DeviceFeatures, Devices, DeviceTypes, MaintenanceCards, PInstitutions, Providers, Services } from "@prisma/client";
+import { Institutions, Users, DeviceFeatures, Devices, DeviceTypes, MaintenanceCards, Services } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -15,17 +15,25 @@ const SingleMaintenancePage = async ({
   params: { id: string };
 }) => {
   const maintenanceId = parseInt(id); // veya Number(id);
-  const maintenance: MaintenanceCards & { type: Services; deviceType:DeviceTypes; deviceFeature: DeviceFeatures; device: Devices; provider: Providers; providerInst:PInstitutions; customer: Customers; customerInst: CInstitutions } | null = await prisma.maintenanceCards.findUnique({
+  const maintenance: MaintenanceCards & 
+  { type: Services; 
+    device: Devices; 
+    deviceType:DeviceTypes; 
+    deviceFeature: DeviceFeatures; 
+    provider: Users; 
+    providerIns:Institutions; 
+    customer: Users; 
+    customerIns: Institutions } | null = await prisma.maintenanceCards.findUnique({
     where: { id: maintenanceId },
     include: {
       type: true, // Bu kısmı ekleyerek `role` ilişkisini dahil ediyoruz
-      deviceType: true,
-      deviceFeature: true,
       device: true,
+      deviceFeature: true,
+      deviceType: true,
       provider: true,
-      providerInst: true,
+      providerIns: true,
       customer: true,
-      customerInst: true,
+      customerIns: true,
 
 
     },
@@ -89,7 +97,7 @@ const SingleMaintenancePage = async ({
 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   {/* <Image src="/person.png" alt="" width={14} height={14} /> */}
-                  <span> Cihaz Sahibi: {maintenance.customerInst.name} </span>
+                  <span> Cihaz Sahibi: {maintenance.customerIns.name} </span>
                 </div>
 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
@@ -103,7 +111,7 @@ const SingleMaintenancePage = async ({
 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/address.png" alt="" width={14} height={14} />
-                  <span> {maintenance.customerInst.address}</span>
+                  <span> {maintenance.customerIns.address}</span>
                 </div>
               </div>
             </div>
@@ -124,7 +132,7 @@ const SingleMaintenancePage = async ({
               <div className="">
                 <h1 className="text-md font-semibold">Hizmet Veren Firma</h1>
                 <span className="text-sm text-gray-400">{maintenance.provider.firstName + " " + maintenance.provider.lastName}</span><br></br>
-                <span className="text-sm text-gray-400">{maintenance.providerInst.name}</span>
+                <span className="text-sm text-gray-400">{maintenance.providerIns.name}</span>
 
               </div>
             </div>

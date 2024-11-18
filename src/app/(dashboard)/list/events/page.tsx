@@ -2,24 +2,22 @@ import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
-import { role, ccalendarEvents } from "@/lib/data";
+import { role } from "@/lib/data";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import {  Appointments, 
-          CInstitutions, 
-          Customers, 
-          PInstitutions, 
-          Prisma, 
-          Providers } from "@prisma/client";
+          Institutions, 
+          Users, 
+          Prisma, } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
 
 type EventList = Appointments & 
-                  {creator: Providers} & 
-                  {creatorInst: PInstitutions} & 
-                  {recipient: Customers} & 
-                  {recipientInst: CInstitutions}  ;
+                  {creator: Users} & 
+                  {creatorIns: Institutions} & 
+                  {recipient: Users} & 
+                  {recipientIns: Institutions}  ;
 
 const columns =[
     {
@@ -36,21 +34,13 @@ const columns =[
       accessor:"create",
       className: "hidden md:table-cell",
     },
-    // {
-    //     header:"Etkinlik Başlığı", 
-    //     accessor:"title",
-    //     className: "hidden md:table-cell"
-    // },
+    
     {
         header:"İlgili Kullanıcı", 
         accessor:"info",
     },
     
-    // {
-    //     header:"Açıklama", 
-    //     accessor:"message",
-    //     className: "hidden md:table-cell",
-    // },
+    
     {
         header:"Başlangıç Tarihi", 
         accessor:"start",
@@ -62,11 +52,7 @@ const columns =[
         className: "hidden md:table-cell",
     },
     
-    // {
-    //     header:"Tüm GÜn mü?", 
-    //     accessor:"allDay",
-    //     className: "hidden md:table-cell",
-    // },
+   
     {
       header:"Eylemler", 
       accessor:"action",
@@ -91,7 +77,7 @@ const renderRow = (item: EventList) => (
       /> */}
       <div className="flex flex-col">
         <h3 className="font-semibold">{item.creator.firstName + " " + item.creator.lastName}</h3>
-        <p className="text-xs text-gray-500">{item.creatorInst.name}</p>
+        <p className="text-xs text-gray-500">{item.creatorIns.name}</p>
         {/* <p className="text-xs text-gray-500">{item.creatorOrganization}</p> creatorId ile ilişkili creatorOrganization gelecek */}
       </div>
     </td>
@@ -109,7 +95,7 @@ const renderRow = (item: EventList) => (
       /> */}
       <div className="flex flex-col">
         <h3 className="font-semibold">{item.recipient.firstName + " " + item.recipient.lastName}</h3>
-        <p className="text-xs text-gray-500">{item.recipientInst.name}</p>
+        <p className="text-xs text-gray-500">{item.recipientIns.name}</p>
       </div>
     </td>
     {/* <td className="hidden md:table-cell">{item.message}</td> */}
@@ -156,7 +142,7 @@ const EventListPage =async ({
               const recipientInstId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
               if (!isNaN(recipientInstId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
                 // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
-                query.recipientInstId = recipientInstId; 
+                query.recipientInsId = recipientInstId; 
               }
               break;
 
@@ -164,7 +150,7 @@ const EventListPage =async ({
               const creatorInstId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
               if (!isNaN(creatorInstId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
                 // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
-                query.creatorInstId = creatorInstId; 
+                query.creatorInsId = creatorInstId; 
               }
               break;
             // Diğer case'ler eklenebilir. Örneğin, daha fazla filtrasyon yapılmak istenirse.
@@ -183,9 +169,9 @@ const EventListPage =async ({
 
       include: {
         creator:true,
-        creatorInst: true,
+        creatorIns: true,
         recipient: true,
-        recipientInst: true
+        recipientIns: true
         
       },
 

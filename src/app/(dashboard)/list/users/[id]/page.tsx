@@ -4,7 +4,7 @@ import FormModal from "@/components/FormModal";
 //import Performance from "@/components/Performance";
 import { role } from "@/lib/data";
 import prisma from "@/lib/prisma";
-import { AInstitutions, Roles, Users } from "@prisma/client";
+import { Institutions, Roles, Users } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -15,7 +15,7 @@ const SingleUserPage = async ({
   params: { id: string };
 }) => {
   const userId = parseInt(id); // veya Number(id);
-  const user: Users & { role: Roles; institution: AInstitutions } | null = await prisma.users.findUnique({
+  const user: Users & { role: Roles; institution: Institutions } | null = await prisma.users.findUnique({
     where: { id: userId },
     include: {
       role: true, // Bu kısmı ekleyerek `role` ilişkisini dahil ediyoruz

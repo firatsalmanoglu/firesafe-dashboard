@@ -7,10 +7,8 @@ import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import {  PaymentTermTypes,
           Services,
-          Providers,
-          PInstitutions,
-          Customers,
-          CInstitutions,
+          Users,
+          Institutions,
           OfferCards, 
           Prisma 
         } from "@prisma/client";
@@ -21,10 +19,10 @@ import Link from "next/link";
 type OfferList = OfferCards & 
                 { paymentTerm: PaymentTermTypes } & 
                 { service: Services } & 
-                { creator: Providers } & 
-                { creatorInst: PInstitutions } & 
-                { recipient: Customers } &
-                { recipientInst: CInstitutions }
+                { creator: Users } & 
+                { creatorIns: Institutions } & 
+                { recipient: Users } &
+                { recipientIns: Institutions }
 
 const columns =[
     {
@@ -92,7 +90,7 @@ const renderRow = (item: OfferList) => (
         className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
       /> */}
       <div className="flex flex-col">
-        <h3 className="font-semibold">{item.creatorInst.name}</h3>
+        <h3 className="font-semibold">{item.creatorIns.name}</h3>
         <p className="text-xs text-gray-500">{item.creator.firstName + " " + item.creator.lastName}</p>
       </div>
     </td>
@@ -107,7 +105,7 @@ const renderRow = (item: OfferList) => (
         className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
       /> */}
       <div className="flex flex-col">
-        <h3 className="font-semibold">{item.recipientInst.name}</h3>
+        <h3 className="font-semibold">{item.recipientIns.name}</h3>
         <p className="text-xs text-gray-500">{item.recipient.firstName+ " " + item.recipient.lastName}</p>
 
       </div>
@@ -172,7 +170,7 @@ const OfferListPage = async ({
                 const recipientInstId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
                 if (!isNaN(recipientInstId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
                   // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
-                  query.recipientInstId = recipientInstId; 
+                  query.recipientInsId = recipientInstId; 
                 }
                 break;
 
@@ -180,7 +178,7 @@ const OfferListPage = async ({
                 const creatorInstId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
                 if (!isNaN(creatorInstId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
                   // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
-                  query.creatorInstId = creatorInstId; 
+                  query.creatorInsId = creatorInstId; 
                 }
                 break;
             // Diğer case'ler eklenebilir. Örneğin, daha fazla filtrasyon yapılmak istenirse.
@@ -201,9 +199,9 @@ const OfferListPage = async ({
         paymentTerm:true,
         service: true,
         creator: true,
-        creatorInst: true,
+        creatorIns: true,
         recipient: true,
-        recipientInst: true,
+        recipientIns: true,
       },
 
       take:ITEM_PER_PAGE,

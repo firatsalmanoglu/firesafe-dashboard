@@ -4,7 +4,7 @@ import FormModal from "@/components/FormModal";
 //import Performance from "@/components/Performance";
 import { role } from "@/lib/data";
 import prisma from "@/lib/prisma";
-import { CInstitutions, CNotifications, Customers, DeviceFeatures, Devices, DeviceTypes, NotificationTypes, Users } from "@prisma/client";
+import { Institutions, Notifications, Users, DeviceFeatures, Devices, DeviceTypes, NotificationTypes } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -14,23 +14,32 @@ const SingleNotificationPage = async ({
 }: {
   params: { id: string };
 }) => {
-  const cnotificationId = parseInt(id); // veya Number(id);
-  const cnotification: CNotifications & { creator: Users; recipient: Customers; recipientInst: CInstitutions; type: NotificationTypes; device:Devices; deviceType:DeviceTypes; deviceFeature: DeviceFeatures } | null = await prisma.cNotifications.findUnique({
-    where: { id: cnotificationId },
+  const notificationId = parseInt(id); // veya Number(id);
+  const notification: Notifications & 
+  { creator: Users; 
+    creatorIns: Institutions; 
+    recipient: Users; 
+    recipientIns: Institutions; 
+    type: NotificationTypes; 
+    device:Devices; 
+    deviceType:DeviceTypes; 
+     } | null = await prisma.notifications.findUnique({
+    where: { id: notificationId },
     include: {
       creator: true, // Bu kısmı ekleyerek `role` ilişkisini dahil ediyoruz
+      creatorIns: true,
       recipient: true,
-      recipientInst: true,
+      recipientIns: true,
       type: true,
       device: true,
       deviceType: true,
-      deviceFeature: true,
+      
 
 
     },
   });
 
-  if (!cnotification) {
+  if (!notification) {
     return notFound();
   }
   return (
@@ -73,33 +82,33 @@ const SingleNotificationPage = async ({
                 />}
               </div>
               <p className="text-sm text-gray-500">
-                {cnotification.content}
+                {notification.content}
               </p>
               <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
               
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   {/* <Image src="/blood.png" alt="" width={14} height={14} /> */}
-                  <span>Bildirim No: {cnotification.id}</span>
+                  <span>Bildirim No: {notification.id}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/person.png" alt="" width={14} height={14} />
-                  <span>{cnotification.recipient.firstName + " " + cnotification.recipient.lastName}</span>
+                  <span>{notification.recipient.firstName + " " + notification.recipient.lastName}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/insititution.png" alt="" width={14} height={14} />
-                  <span>{cnotification.recipientInst.name}</span>
+                  <span>{notification.recipientIns.name}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/phone.png" alt="" width={14} height={14} />
-                  <span> {cnotification.recipientInst.phone}</span>
+                  <span> {notification.recipientIns.phone}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/mail.png" alt="" width={14} height={14} />
-                  <span>{cnotification.recipientInst.email}</span>
+                  <span>{notification.recipientIns.email}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/address.png" alt="" width={14} height={14} />
-                  <span>{cnotification.recipientInst.address}</span>
+                  <span>{notification.recipientIns.address}</span>
                 </div>
               </div>
             </div>
@@ -119,7 +128,7 @@ const SingleNotificationPage = async ({
               />
               <div className="">
                 <h1 className="text-md font-semibold">İlgili Cihaz Seri No</h1>
-                <span className="text-sm text-gray-400">{cnotification.device.serialNumber}</span>
+                <span className="text-sm text-gray-400">{notification.device.serialNumber}</span>
               </div>
             </div>
             {/* CARD */}
@@ -135,8 +144,8 @@ const SingleNotificationPage = async ({
               />
               <div className="">
                 <h1 className="text-md font-semibold">Cihaz Türü</h1>
-                <span className="text-sm text-gray-400">{cnotification.deviceType.name}</span><br></br>
-                <span className="text-sm text-gray-400">{cnotification.deviceFeature.name}</span>
+                <span className="text-sm text-gray-400">{notification.deviceType.name}</span><br></br>
+                {/* <span className="text-sm text-gray-400">{notification.deviceFeature.name}</span> */}
 
               </div>
             </div>
@@ -153,7 +162,7 @@ const SingleNotificationPage = async ({
               />
               <div className="">
                 <h1 className="text-md font-semibold">Bildirim Tarihi</h1>
-                <span className="text-sm text-gray-400">{cnotification.notificationDate.toLocaleDateString()}</span>
+                <span className="text-sm text-gray-400">{notification.notificationDate.toLocaleDateString()}</span>
               </div>
             </div>
 
@@ -170,7 +179,7 @@ const SingleNotificationPage = async ({
               />
               <div className="">
                 <h1 className="text-md font-semibold">Bildirim Türü</h1>
-                <span className="text-sm text-gray-400">{cnotification.type.name}</span>
+                <span className="text-sm text-gray-400">{notification.type.name}</span>
               </div>
             </div>
 
@@ -187,7 +196,7 @@ const SingleNotificationPage = async ({
               />
               <div className="">
                 <h1 className="text-md font-semibold">Durumu</h1>
-                <span className="text-sm text-gray-400">{cnotification.isRead}</span>
+                <span className="text-sm text-gray-400">{notification.isRead}</span>
               </div>
             </div>
           </div>

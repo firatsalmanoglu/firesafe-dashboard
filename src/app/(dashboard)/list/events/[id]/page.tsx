@@ -4,7 +4,7 @@ import FormModal from "@/components/FormModal";
 //import Performance from "@/components/Performance";
 import { role } from "@/lib/data";
 import prisma from "@/lib/prisma";
-import { Appointments, CInstitutions, Customers, PInstitutions, Providers } from "@prisma/client";
+import { Appointments, Institutions, Users } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -15,13 +15,17 @@ const SingleEventPage = async ({
   params: { id: string };
 }) => {
   const eventId = parseInt(id); // veya Number(id);
-  const event: Appointments & { creator: Providers; creatorInst: PInstitutions; recipient: Customers; recipientInst: CInstitutions  } | null = await prisma.appointments.findUnique({
+  const event: Appointments & 
+  { creator: Users; 
+    creatorIns: Institutions; 
+    recipient: Users; 
+    recipientIns: Institutions  } | null = await prisma.appointments.findUnique({
     where: { id: eventId },
     include: {
       creator: true, // Bu kısmı ekleyerek `role` ilişkisini dahil ediyoruz
-      creatorInst: true,
+      creatorIns: true,
       recipient: true,
-      recipientInst: true,
+      recipientIns: true,
     },
   });
 
@@ -87,19 +91,19 @@ const SingleEventPage = async ({
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/insititution.png" alt="" width={14} height={14} />
-                  <span>{event.recipientInst.name}</span>
+                  <span>{event.recipientIns.name}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/phone.png" alt="" width={14} height={14} />
-                  <span> {event.recipientInst.phone}</span>
+                  <span> {event.recipientIns.phone}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/mail.png" alt="" width={14} height={14} />
-                  <span>{event.recipientInst.email}</span>
+                  <span>{event.recipientIns.email}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/address.png" alt="" width={14} height={14} />
-                  <span> {event.recipientInst.address}</span>
+                  <span> {event.recipientIns.address}</span>
                 </div>
               </div>
             </div>
@@ -121,7 +125,7 @@ const SingleEventPage = async ({
                 <h1 className="text-md font-semibold">Oluşturan Personel</h1>
                 <span className="text-sm text-gray-400">{event.creator.id}</span><br></br>
                 <span className="text-sm text-gray-400">{event.creator.firstName + " " + event.creator.lastName}</span><br></br>
-                <span className="text-sm text-gray-400">{event.creatorInst.name}</span>
+                <span className="text-sm text-gray-400">{event.creatorIns.name}</span>
               </div>
             </div>
             {/* CARD */}

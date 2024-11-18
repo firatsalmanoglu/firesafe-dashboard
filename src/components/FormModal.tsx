@@ -34,7 +34,7 @@ const OfferForm = dynamic(() => import("./forms/OfferForm"), {
   loading: () => <h1>Loading...</h1>,
 });
 
-const CInstitutionForm = dynamic(() => import("./forms/CInstitutionForm"), {
+const InstitutionForm = dynamic(() => import("./forms/InstitutionForm"), {
   loading: () => <h1>Loading...</h1>,
 });
 
@@ -43,6 +43,10 @@ const PInstitutionForm = dynamic(() => import("./forms/PInstitutionForm"), {
 });
 
 const IsgMemberForm = dynamic(() => import("./forms/IsgMemberForm"), {
+  loading: () => <h1>Loading...</h1>,
+});
+
+const LogForm = dynamic(() => import("./forms/LogForm"), {
   loading: () => <h1>Loading...</h1>,
 });
 
@@ -61,9 +65,11 @@ const forms: {
   notification: (type, data) => <NotificationForm type={type} data={data} />,
   event: (type, data) => <EventForm type={type} data={data} />,
   offer: (type, data) => <OfferForm type={type} data={data} />,
-  cinstitution: (type, data) => <CInstitutionForm type={type} data={data} />,
+  institution: (type, data) => <InstitutionForm type={type} data={data} />,
   pinstitution: (type, data) => <PInstitutionForm type={type} data={data} />,
   isgmember: (type, data) => <IsgMemberForm type={type} data={data} />
+  //log: (type, data) => <LogForm type={type} data={data} />
+
 
 
 
@@ -84,9 +90,10 @@ const FormModal = ({
     | "event"
     | "customer"
     | "provider"
-    | "cinstitution"
+    | "institution"
     | "pinstitution"
-     | "isgmember"
+    | "isgmember"
+    | "log"
     
     | "result"
     | "attendance"

@@ -5,21 +5,25 @@ import TableSearch from "@/components/TableSearch";
 import { role, notificationsData } from "@/lib/data";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
-import {  CInstitutions, 
-          CNotifications, 
-          Customers, 
+import {  Institutions, 
+          Notifications, 
+          Users, 
           NotificationTypes, 
+          Devices,
           Prisma,
-          Users } from "@prisma/client";
+          DeviceTypes, } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
 
-type CNotificationList = CNotifications & 
+type NotificationList = Notifications & 
                         {creator: Users} & 
-                        {recipient: Customers} & 
-                        {recipientInst: CInstitutions} & 
-                        {type: NotificationTypes}  ;
+                        {creatorIns: Institutions} & 
+                        {recipient: Users} & 
+                        {recipientIns: Institutions} & 
+                        {type: NotificationTypes} &
+                        {device: Devices} &  
+                        {deviceType: DeviceTypes} ;
 
 const columns =[
     {
@@ -79,7 +83,7 @@ const columns =[
     
 ];
 
-const renderRow = (item: CNotificationList) => (
+const renderRow = (item: NotificationList) => (
   <tr
     key={item.id}
     className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
@@ -88,7 +92,7 @@ const renderRow = (item: CNotificationList) => (
     <td className="flex items-center gap-4 p-4">
       <div className="flex flex-col">
         <h3 className="font-semibold">{item.creator.firstName + " " + item.creator.lastName}</h3>
-        <p className="text-xs text-gray-500">{item.creator.id}</p>
+        <p className="text-xs text-gray-500">{item.creatorIns.name}</p>
       </div>
     </td>
 
@@ -105,7 +109,7 @@ const renderRow = (item: CNotificationList) => (
       /> */}
       <div className="flex flex-col">
         <h3 className="font-semibold">{item.recipient.firstName + " " + item.recipient.lastName}</h3>
-        <p className="text-xs text-gray-500">{item.recipientInst.name}</p>
+        <p className="text-xs text-gray-500">{item.recipientIns.name}</p>
       </div>
     </td>
     {/* <td className="hidden md:table-cell">{item.deviceSerialNumber}</td>  */}
@@ -131,7 +135,7 @@ const renderRow = (item: CNotificationList) => (
   </tr>
 );
 
-const CNotificationListPage = async ({
+const NotificationListPage = async ({
   searchParams,
 }: {
   searchParams: { [key:string] : string | undefined };
@@ -142,7 +146,7 @@ const CNotificationListPage = async ({
 
   //URL PARAMS CONDITION
  
-  const query: Prisma.CNotificationsWhereInput = {}; // Prisma için boş bir query nesnesi oluşturuluyor.
+  const query: Prisma.NotificationsWhereInput = {}; // Prisma için boş bir query nesnesi oluşturuluyor.
 
     if (queryParams) {
       for (const [key, value] of Object.entries(queryParams)) {
@@ -156,13 +160,13 @@ const CNotificationListPage = async ({
               }
               break;
 
-            case "recipientInstId":
-              const recipientInstId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
-              if (!isNaN(recipientInstId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
-                // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
-                query.recipientInstId = recipientInstId; 
-              }
-              break;
+            // case "recipientInsId":
+            //   const recipientInsId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+            //   if (!isNaN(recipientInsId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+            //     // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+            //     query.recipientId = recipientInsId; 
+            //   }
+            //   break;
 
               case "deviceId":
                 const deviceId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
@@ -182,21 +186,23 @@ const CNotificationListPage = async ({
 
   const [data,count] = await prisma.$transaction([
 
-    prisma.cNotifications.findMany ({
+    prisma.notifications.findMany ({
       where:query,
 
       include: {
         creator:true,
+        creatorIns: true,
         recipient: true,
-        recipientInst: true,
-        type: true
-        
+        recipientIns: true,
+        type: true, 
+        device: true,
+        deviceType: true,
       },
 
       take:ITEM_PER_PAGE,
       skip: ITEM_PER_PAGE * (p-1),
     }),
-    prisma.cNotifications.count()
+    prisma.notifications.count()
   ]);
 
     
@@ -237,4 +243,4 @@ const CNotificationListPage = async ({
     )
 }
 
-export default CNotificationListPage
+export default NotificationListPage

@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma";
 const Announcements = async () => {
 
 
-  const data = await prisma.aAnnouncements.findMany({
+  const data = await prisma.announcements.findMany({
 
     take: 3,
     orderBy: {date: "desc" },

@@ -7,10 +7,8 @@ import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import {  Services,
           Devices, 
-          Providers,
-          PInstitutions, 
-          Customers,
-          CInstitutions,
+          Users,
+          Institutions, 
           Operations, 
           MaintenanceCards,
           Prisma
@@ -21,10 +19,10 @@ import Link from "next/link";
 type ManintenanceList = MaintenanceCards & 
                         { type: Services } & 
                         { device: Devices } & 
-                        { provider: Providers } & 
-                        { providerInst: PInstitutions } & 
-                        { customer: Customers } & 
-                        { customerInst: CInstitutions } & 
+                        { provider: Users } & 
+                        { providerIns: Institutions } & 
+                        { customer: Users } & 
+                        { customerIns: Institutions } & 
                         { oprtaions: Operations[] };
 
 
@@ -79,7 +77,7 @@ const renderRow = (item: ManintenanceList) => (
         className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
       /> */}
       <div className="flex flex-col">
-        <h3 className="font-semibold">{item.providerInst.name}</h3>
+        <h3 className="font-semibold">{item.providerIns.name}</h3>
         <p className="text-xs text-gray-500">{item.provider.firstName+ " " + item.provider.lastName}</p> 
       </div>
     </td>
@@ -94,7 +92,7 @@ const renderRow = (item: ManintenanceList) => (
         className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
       /> */}
       <div className="flex flex-col">
-        <h3 className="font-semibold">{item.customerInst.name}</h3>
+        <h3 className="font-semibold">{item.customerIns.name}</h3>
         <p className="text-xs text-gray-500">{item.customer.firstName + " " + item.customer.lastName}</p> 
       </div>
     </td>
@@ -158,7 +156,7 @@ const MaintenanceListPage = async ({
                   const customerInstId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
                   if (!isNaN(customerInstId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
                     // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
-                    query.customerInstId = customerInstId; 
+                    query.customerInsId = customerInstId; 
                   }
                   break;
 
@@ -166,7 +164,7 @@ const MaintenanceListPage = async ({
                   const providerInstId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
                   if (!isNaN(providerInstId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
                     // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
-                    query.providerInstId = providerInstId; 
+                    query.providerInsId = providerInstId; 
                   }
                   break;
 
@@ -197,9 +195,9 @@ const MaintenanceListPage = async ({
           type: true,
           device: true,
           provider: true,
-          providerInst: true,
+          providerIns: true,
           customer: true,
-          customerInst: true,
+          customerIns: true,
           operations: true         
         },
   

@@ -17,7 +17,7 @@ const schema = z.object({
 
 type Inputs = z.infer<typeof schema>;
 
-const CInstitutionForm = ({
+const InstitutionForm = ({
   type,
   data,
 }: {
@@ -77,4 +77,4 @@ const CInstitutionForm = ({
   );
 };
 
-export default CInstitutionForm;
+export default InstitutionForm;

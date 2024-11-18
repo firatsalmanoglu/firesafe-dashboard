@@ -1,11 +1,24 @@
 import Image from "next/image"
 import CountChart from "./CountChart"
-import Prisma  from "@/lib/prisma"
+import prisma from "@/lib/prisma";
 
 const CountChartContainer = async () => {
 
-  const data1 = await Prisma.customers.count();
-  const data2 = await Prisma.providers.count();
+  const data1 = await prisma.users.count({
+    where: {
+      roleId: {
+        in: [4, 5], // roleId'si 4 veya 5 olan kullanıcıları sayısı (1-2 seviye Müşetiriler)
+      },
+    },
+  });
+  
+  const data2 = await prisma.users.count({
+    where: {
+      roleId: {
+        in: [2, 3], // roleId'si 2 veya 3 olan kullanıcıları sayısı (1-2 seviye Servis Sağlayıcılar)
+      },
+    },
+  });
 
   console.log(data1);
   console.log(data2);
