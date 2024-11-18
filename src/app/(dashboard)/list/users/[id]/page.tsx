@@ -163,30 +163,46 @@ const SingleUserPage = async ({
         </div>
       </div>
       {/* RIGHT */}
-      <div className="w-full xl:w-1/3 flex flex-col gap-4">
-        <div className="bg-white p-4 rounded-md">
-          <h1 className="text-xl font-semibold">Kısayollar</h1>
-          <div className="mt-4 flex gap-4 flex-wrap text-xs text-black-500">
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href="/list/offers">
-            Kullanıcı&apos;nın Teklifleri
-            </Link>
-            <Link className="p-3 rounded-md bg-lamaPurple" href="/list/maintenances">
-              Kullanıcı&apos;nın Bakımları
-            </Link>
-            <Link className="p-3 rounded-md bg-lamaPurpleLight" href="/list/devices">
-            Kullanıcı&apos;nın Cihazları
-            </Link>
-            <Link className="p-3 rounded-md bg-lamaYellowLight" href="/list/notifications">
-            Kullanıcı&apos;nın Bildirimleri
-            </Link>
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href="/list/users">
-              Hizmet Sağlayıcılarım / Müşterilerim
-            </Link>
-          </div>
+<div className="w-full xl:w-1/3 flex flex-col gap-4">
+    <div className="bg-white p-4 rounded-md">
+        <h1 className="text-xl font-semibold">Kısayollar</h1>
+        <div className="mt-4 flex gap-4 flex-wrap text-xs text-black-500">
+            {user.roleId === 1 ? (
+                <>
+                    <Link className="p-3 rounded-md bg-lamaSkyLight" href="/list/offers">
+                        Tüm Teklifler
+                    </Link>
+                    <Link className="p-3 rounded-md bg-lamaPurple" href="/list/maintenances">
+                        Tüm Bakımlar
+                    </Link>
+                    <Link className="p-3 rounded-md bg-lamaPurpleLight" href="/list/devices">
+                        Tüm Cihazlar
+                    </Link>
+                    <Link className="p-3 rounded-md bg-lamaYellowLight" href="/list/notifications">
+                        Tüm Bildirimler
+                    </Link>
+                </>
+            ) : (
+                <>
+                    <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/offers?recipientId=${user.id}`}>
+                        Kullanıcı&apos;nın Teklifleri
+                    </Link>
+                    <Link className="p-3 rounded-md bg-lamaPurple" href={`/list/maintenances?customerId=${user.id}`}>
+                        Kullanıcı&apos;nın Bakımları
+                    </Link>
+                    <Link className="p-3 rounded-md bg-lamaPurpleLight" href={`/list/devices?ownerId=${user.id}`}>
+                        Kullanıcı&apos;nın Cihazları
+                    </Link>
+                    <Link className="p-3 rounded-md bg-lamaYellowLight" href={`/list/notifications?recipientId=${user.id}`}>
+                        Kullanıcı&apos;nın Bildirimleri
+                    </Link>
+                </>
+            )}
         </div>
-        {/* <Performance /> */}
-        <Announcements />
-      </div>
+    </div>
+    {/* <Performance /> */}
+    <Announcements />
+</div>
     </div>
   );
 };
