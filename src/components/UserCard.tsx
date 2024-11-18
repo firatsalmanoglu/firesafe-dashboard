@@ -47,22 +47,22 @@ type: "teklifler" | "bakimlar" | "cihazlar" | "randevular" | "cihazlarim" | "bak
         whereClause = { ownerId:2 };
         break;
       case "tekliflerim":
-        whereClause = { recipientInstId: 2 };
+        whereClause = { recipientInsId: 2 };
         break;
       case "bakimlarim":
-        whereClause = { customerInstId: 2 };
+        whereClause = { customerInsId: 2 };
         break;
       case "tekliflerimm":
-        whereClause = { creatorInstId: 2 };
+        whereClause = { creatorId: 2 };
         break;
       case "bekleyen":
-        whereClause = { creatorInstId: 2, status: "Beklemede" };
+        whereClause = { creatorId: 2, status: "Beklemede" };
         break;
       case "yaklasanrandevularim":
-        whereClause = { creatorInstId: 2 };
+        whereClause = { creatorId: 2 };
         break;
       case "bakimlarimm":
-        whereClause = { providerInstId: 2 };
+        whereClause = { providerId: 2 };
         break;
       default:
         whereClause = {};
