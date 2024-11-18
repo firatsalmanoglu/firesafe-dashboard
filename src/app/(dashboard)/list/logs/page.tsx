@@ -2,13 +2,16 @@ import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
-import { role, logsData } from "@/lib/data";
+import { role } from "@/lib/data";
+import prisma from "@/lib/prisma";
+import {  Actions, 
+          Logs, 
+          Prisma, 
+          Tables, 
+          Users } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import {ITEM_PER_PAGE} from "@/lib/settings"
-import { Actions, Logs, Prisma, Tables, Users } from "@prisma/client";
-import prisma from "@/lib/prisma";
-
 
 
 type Log = Logs & 
@@ -65,13 +68,31 @@ const renderRow = (item: Log) => (
       <td className="hidden md:table-cell">{item.id}</td>
       
       <td className="hidden md:table-cell">{item.date.toLocaleDateString()}</td>
-      {/* <td className="hidden md:table-cell">{item.deviceOwner}</td> */}
-      {/* <td className="hidden md:table-cell">{item.message}</td> */}
       <td className="hidden md:table-cell">{item.user.firstName + " " + item.user.lastName}</td>
       <td className="hidden md:table-cell">{item.action.name}</td>
       <td className="hidden md:table-cell">{item.table.name}</td>
       <td className="hidden md:table-cell">{item.IP}</td>
       
+
+
+      <td>
+      <div className="flex items-center gap-2">
+        <Link href={`/list/logs/${item.id}`}>
+        {/* ISG member Detayı için sayfa yapılmadı, detay butonu inaktif yapıldı */}
+          {/* <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+            <Image src="/view.png" alt="" width={24} height={24} />
+          </button> */} 
+        </Link>
+         {role === "admin" && (
+           //<button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+             //<Image src="/delete.png" alt="" width={16} height={16} />
+          // </button>
+          <FormModal table="log" type="delete" id={item.id}/>
+        )} 
+      </div>
+    </td>
+
+
     </tr>
   );
 
@@ -100,7 +121,9 @@ const LogListPage = async ({
                 }
                 break;
               // Diğer case'ler eklenebilir. Örneğin, daha fazla filtrasyon yapılmak istenirse.
-              
+              // case "search":
+              // query.userId = {contains:value, mode: "insensitive"}
+              // break;
             }
           }
         }
@@ -154,7 +177,7 @@ const LogListPage = async ({
 
             {/* LIST */}
             <div className=''>
-                <Table columns={columns} renderRow={renderRow} data={logsData}/>
+                <Table columns={columns} renderRow={renderRow} data={data}/>
             </div>
 
             {/* PAGINATION */}

@@ -67,8 +67,8 @@ const forms: {
   offer: (type, data) => <OfferForm type={type} data={data} />,
   institution: (type, data) => <InstitutionForm type={type} data={data} />,
   pinstitution: (type, data) => <PInstitutionForm type={type} data={data} />,
-  isgmember: (type, data) => <IsgMemberForm type={type} data={data} />
-  //log: (type, data) => <LogForm type={type} data={data} />
+  isgmember: (type, data) => <IsgMemberForm type={type} data={data} />,
+  log: (type, data) => <LogForm type={type} data={data} />
 
 
 
