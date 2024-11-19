@@ -260,12 +260,12 @@ const SingleDevicePage = async ({
             Cihaz&apos;ın Bakım Geçmişi
             </Link>
             <Link className="p-3 rounded-md bg-lamaPurple" href={`/list/notifications?deviceId=${device.id}`}>
-              Cihazla İlgili Müşteri Bildirimleri
+              Cihazla İlgili Bildirimleri
             </Link>
 
-            <Link className="p-3 rounded-md bg-lamaPurple" href={`/list/pnotifications?deviceId=${device.id}`}>
+            {/* <Link className="p-3 rounded-md bg-lamaPurple" href={`/list/pnotifications?deviceId=${device.id}`}>
               Cihazla İlgili Servis Sağlayıcı Bildirimleri
-            </Link>
+            </Link> */}
             {/* <Link className="p-3 rounded-md bg-lamaYellowLight" href="/">
             Kullanıcı&apos;nın Cihazları
             </Link>

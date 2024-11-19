@@ -112,7 +112,15 @@ const UserListPage = async ({
                         if (!isNaN(roleId)) {
                             query.roleId = roleId;
                         }
-                        break;
+                    break;
+
+                    case "institutionId":
+                        const institutionId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+                        if (!isNaN(institutionId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                        // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                        query.institutionId = institutionId; 
+                        }
+                    break;
                     case "search":
                         query.firstName = { contains: value, mode: "insensitive" }
                         break;

@@ -138,7 +138,7 @@ const EventListPage =async ({
       for (const [key, value] of Object.entries(queryParams)) {
         if (value !== undefined) {
           switch (key) {
-            case "recipientInstId":
+            case "recipientInsId":
               const recipientInstId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
               if (!isNaN(recipientInstId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
                 // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.

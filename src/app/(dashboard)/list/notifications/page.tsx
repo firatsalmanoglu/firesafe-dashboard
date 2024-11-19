@@ -160,13 +160,22 @@ const NotificationListPage = async ({
               }
               break;
 
-            // case "recipientInsId":
-            //   const recipientInsId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
-            //   if (!isNaN(recipientInsId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
-            //     // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
-            //     query.recipientId = recipientInsId; 
-            //   }
-            //   break;
+
+              case "creatorId":
+              const creatorId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+              if (!isNaN(creatorId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                query.creatorId = creatorId; 
+              }
+              break;
+
+            case "recipientInsId":
+              const recipientInsId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
+              if (!isNaN(recipientInsId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
+                // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.
+                query.recipientId = recipientInsId; 
+              }
+            break;
 
               case "deviceId":
                 const deviceId = parseInt(value); // value'yu tam sayıya çeviriyoruz.

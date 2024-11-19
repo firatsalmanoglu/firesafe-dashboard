@@ -152,7 +152,7 @@ const MaintenanceListPage = async ({
                   }
                   break;
 
-                case "customerInstId":
+                case "customerInsId":
                   const customerInstId = parseInt(value); // value'yu tam sayıya çeviriyoruz.
                   if (!isNaN(customerInstId)) { // geçerli bir sayı olup olmadığını kontrol ediyoruz.
                     // Users tablosundaki roleId'ye göre filtreleme yapıyoruz.

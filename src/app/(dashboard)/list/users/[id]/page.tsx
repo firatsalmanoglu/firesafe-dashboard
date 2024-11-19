@@ -167,37 +167,52 @@ const SingleUserPage = async ({
     <div className="bg-white p-4 rounded-md">
         <h1 className="text-xl font-semibold">Kısayollar</h1>
         <div className="mt-4 flex gap-4 flex-wrap text-xs text-black-500">
-            {user.roleId === 1 ? (
-                <>
-                    <Link className="p-3 rounded-md bg-lamaSkyLight" href="/list/offers">
-                        Tüm Teklifler
-                    </Link>
-                    <Link className="p-3 rounded-md bg-lamaPurple" href="/list/maintenances">
-                        Tüm Bakımlar
-                    </Link>
-                    <Link className="p-3 rounded-md bg-lamaPurpleLight" href="/list/devices">
-                        Tüm Cihazlar
-                    </Link>
-                    <Link className="p-3 rounded-md bg-lamaYellowLight" href="/list/notifications">
-                        Tüm Bildirimler
-                    </Link>
-                </>
-            ) : (
-                <>
-                    <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/offers?recipientId=${user.id}`}>
-                        Kullanıcı&apos;nın Teklifleri
-                    </Link>
-                    <Link className="p-3 rounded-md bg-lamaPurple" href={`/list/maintenances?customerId=${user.id}`}>
-                        Kullanıcı&apos;nın Bakımları
-                    </Link>
-                    <Link className="p-3 rounded-md bg-lamaPurpleLight" href={`/list/devices?ownerId=${user.id}`}>
-                        Kullanıcı&apos;nın Cihazları
-                    </Link>
-                    <Link className="p-3 rounded-md bg-lamaYellowLight" href={`/list/notifications?recipientId=${user.id}`}>
-                        Kullanıcı&apos;nın Bildirimleri
-                    </Link>
-                </>
-            )}
+        {user.roleId === 1 ? (
+    <>
+        <Link className="p-3 rounded-md bg-lamaSkyLight" href="/list/offers">
+            Tüm Teklifler
+        </Link>
+        <Link className="p-3 rounded-md bg-lamaPurple" href="/list/maintenances">
+            Tüm Bakımlar
+        </Link>
+        <Link className="p-3 rounded-md bg-lamaPurpleLight" href="/list/devices">
+            Tüm Cihazlar
+        </Link>
+        <Link className="p-3 rounded-md bg-lamaYellowLight" href="/list/notifications">
+            Tüm Bildirimler
+        </Link>
+    </>
+) : user.roleId === 4 || user.roleId === 5 ? (
+    <>
+        <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/offers?recipientId=${user.id}`}>
+            Kullanıcı&apos;nın Teklifleri
+        </Link>
+        <Link className="p-3 rounded-md bg-lamaPurple" href={`/list/maintenances?customerId=${user.id}`}>
+            Kullanıcı&apos;nın Bakımları
+        </Link>
+        <Link className="p-3 rounded-md bg-lamaPurpleLight" href={`/list/devices?ownerId=${user.id}`}>
+            Kullanıcı&apos;nın Cihazları
+        </Link>
+        <Link className="p-3 rounded-md bg-lamaYellowLight" href={`/list/notifications?recipientId=${user.id}`}>
+            Kullanıcı&apos;nın Bildirimleri
+        </Link>
+    </>
+) : user.roleId === 2 || user.roleId === 3 ? (
+    <>
+        <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/offers?creatorId=${user.id}`}>
+            Kullanıcı&apos;nın Teklifleri
+        </Link>
+        <Link className="p-3 rounded-md bg-lamaPurple" href={`/list/maintenances?providerId=${user.id}`}>
+            Kullanıcı&apos;nın Bakımları
+        </Link>
+        <Link className="p-3 rounded-md bg-lamaPurpleLight" href={`/list/devices?providerId=${user.id}`}>
+            Kullanıcı&apos;nın Cihazları
+        </Link>
+        <Link className="p-3 rounded-md bg-lamaYellowLight" href={`/list/notifications?recipientId=${user.id}`}>
+            Kullanıcı&apos;nın Bildirimleri
+        </Link>
+    </>
+) : null}
         </div>
     </div>
     {/* <Performance /> */}

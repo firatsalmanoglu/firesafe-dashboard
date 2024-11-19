@@ -9,21 +9,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-const SingleCInstitutionPage = async ({
+
+
+const SingleInstitutionPage = async ({
   params: { id },
 }: {
   params: { id: string };
 }) => {
-  const cInstId = parseInt(id); // veya Number(id);
-  const cInst: Institutions  | null = await prisma.institutions.findUnique({
-    where: { id: cInstId },
+  const instId = parseInt(id); // veya Number(id);
+  const inst: Institutions  | null = await prisma.institutions.findUnique({
+    where: { id: instId },
      
     
   });
 
  
 
-  if (!cInst) {
+  if (!inst) {
     return notFound();
   }
 
@@ -73,27 +75,27 @@ const SingleCInstitutionPage = async ({
                 />}
               </div>
               <p className="text-sm text-gray-500">
-                {cInst.name}
+                {inst.name}
               </p>
               <p className="text-sm text-gray-500">
-                {cInst.address}
+                {inst.address}
               </p>
               <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
                 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/date.png" alt="" width={14} height={14} />
-                  <span>{cInst.registrationDate.toLocaleDateString()}</span>
+                  <span>{inst.registrationDate.toLocaleDateString()}</span>
                 </div>
 
                 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/phone.png" alt="" width={14} height={14} />
-                  <span>{cInst.phone}</span>
+                  <span>{inst.phone}</span>
                 </div>
 
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-2/3 flex items-center gap-2">
                   <Image src="/mail.png" alt="" width={14} height={14} />
-                  <span>{cInst.email}</span>
+                  <span>{inst.email}</span>
                 </div>
                 
               </div>
@@ -170,36 +172,31 @@ const SingleCInstitutionPage = async ({
         <div className="bg-white p-4 rounded-md">
           <h1 className="text-xl font-semibold">Kısayollar</h1>
           <div className="mt-4 flex gap-4 flex-wrap text-xs text-black-500">
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/customers?institutionId=${cInst.id}`}>
+            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/users?institutionId=${inst.id}`}>
                 {/* Kullanıcı&apos;nın  */}
                 Personellerim
             </Link>
 
-            {/* <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/customers?institutionId=${'2'}`}> */}
-                {/* Kullanıcı&apos;nın  */}
-                {/* İSG Personellerim */}
-            {/* </Link> */}
-
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/offers?recipientInstId=${cInst.id}`}>
+            <Link className="p-3 rounded-md bg-lamaSkyLight"  href={`/api/offers?recipientInstId=${inst.id}&creatorInstId=${inst.id}`}>
                 {/* Kullanıcı&apos;nın  */}
                 Tekliflerim
             </Link>
 
-            <Link className="p-3 rounded-md bg-lamaPurpleLight" href={`/list/devices?institutionId=${cInst.id}`}>
+            <Link className="p-3 rounded-md bg-lamaPurpleLight" href={`/list/devices?ownerInstId=${inst.id}`}>
                 {/* Kullanıcı&apos;nın  */}
                 Cihazlarım
             </Link>
 
-            <Link className="p-3 rounded-md bg-lamaPurple" href={`/list/maintenances?customerInstId=${cInst.id}`}>
+            <Link className="p-3 rounded-md bg-lamaPurple" href={`/list/maintenances?customerInsId=${inst.id}`}>
                 {/* Kullanıcı&apos;nın  */}
                 Bakımlarım
             </Link>
             
-            <Link className="p-3 rounded-md bg-lamaYellowLight" href={`/list/notifications?recipientInstId=${cInst.id}`}>
+            <Link className="p-3 rounded-md bg-lamaYellowLight" href={`/list/notifications?recipientInsId=${inst.id}`}>
                 {/* Kullanıcı&apos;nın  */}
                 Bildirimlerim
             </Link>
-            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/events?recipientInstId=${cInst.id}`}>
+            <Link className="p-3 rounded-md bg-lamaSkyLight" href={`/list/events?recipientInsId=${inst.id}`}>
                 Randevularım
             </Link>
           </div>
@@ -211,4 +208,4 @@ const SingleCInstitutionPage = async ({
   );
 };
 
-export default SingleCInstitutionPage;
+export default SingleInstitutionPage;
