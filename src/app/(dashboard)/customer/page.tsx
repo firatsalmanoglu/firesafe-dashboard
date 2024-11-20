@@ -11,10 +11,10 @@ const CustomerPage = () => {
             <div className='w-full lg:w-2/3'>
             {/* USER CARDS */}
             <div className='flex gap-4 justify-between flex-wrap'>
-                <UserCard type="cihazlarim" />
-                <UserCard type="bakimiyaklasan" />
-                <UserCard type="tekliflerim" />
-                <UserCard type="bakimlarim" />
+                <UserCard type="cihazlarim" link="/list/devices"/>
+                <UserCard type="bakimiyaklasan" link="/list/devices"/>
+                <UserCard type="tekliflerim" link="/list/offers"/>
+                <UserCard type="bakimlarim" link="/list/maintenances"/>
             </div>
 
 

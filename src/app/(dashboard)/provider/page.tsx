@@ -14,10 +14,10 @@ const ProviderPage = () => {
             <div className='w-full lg:w-2/3'>
             {/* USER CARDS */}
             <div className='flex gap-4 justify-between flex-wrap'>
-                <UserCard type="tekliflerimm" />
-                <UserCard type="bekleyen" />
-                <UserCard type="yaklasanrandevularim" />
-                <UserCard type="bakimlarimm" />
+                <UserCard type="tekliflerimm" link="/list/offers"/>
+                <UserCard type="bekleyen" link="/list/offers"/>
+                <UserCard type="yaklasanrandevularim" link="/list/events"/>
+                <UserCard type="bakimlarimm" link="/list/maintenances"/>
             </div>
             {/* MIDDLE CHARTS */}
             <div className='flex gap-4 flex-col lg:flex-row'>
