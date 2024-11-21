@@ -20,7 +20,7 @@ const CustomerPage = () => {
 
             {/* MIDDLE CHARTS */}
             <div className='flex gap-4 flex-col lg:flex-row'>
-                {/* PROVİDER OFFER CHART */}
+                {/* CUSTOMES EXTING CHART */}
                 <div className='w-full lg:w-1/3 h-[450px]'>
                     <CustomerExtingChart />
                 </div>

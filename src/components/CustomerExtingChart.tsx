@@ -48,7 +48,7 @@ const CustomerExtingChart = () => {
           </RadialBarChart>
         </ResponsiveContainer>
         <Image
-          src="/fire_extingusher.jpg"
+          src="/fire_extingusher.png"
           alt=""
           width={50}
           height={50}

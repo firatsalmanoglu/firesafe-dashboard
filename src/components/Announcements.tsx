@@ -23,7 +23,9 @@ const Announcements = async () => {
               <h2 className="font-medium">{data[0].title}</h2>
               <span className="text-xs text-gray-400 bg-white rounded-md px-1 py-1">
                 {new Intl.DateTimeFormat("tr-TR").format(data[0].date)}
+                
               </span>
+              
             </div>
             <p className="text-sm text-black-400 mt-1">
              {data[0].description}
@@ -53,7 +55,9 @@ const Announcements = async () => {
           </div>
         </div>
       </div>
+      
     );
+    
   };
   
   export default Announcements;
